@@ -2,8 +2,8 @@ import React from "react";
 
 // import { Container } from './styles';
 
-function Uti2() {
+function Uti3() {
   return <div>UTI 2</div>;
 }
 
-export default Uti2;
+export default Uti3;
