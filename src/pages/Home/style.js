@@ -1,28 +1,13 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.div`
-  width: 100%;
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const Wrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100vw;
-  align-items: center;
-
-  margin-bottom: 1.5em;
-  input {
-    width: 20%;
+  .link {
+    margin: 0.5em;
+    font-size: 1.5em;
   }
-`;
-
-export const ChatDiv = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
 `;
