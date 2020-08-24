@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import Uti1 from "./pages/Uti1";
 import Uti2 from "./pages/Uti2";
@@ -11,12 +12,12 @@ function Routes() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/uti1" component={Uti1} />
-        <Route exact path="/uti2" component={Uti2} />
-        <Route exact path="/uti3" component={Uti3} />
-        <Route exact path="/utineo" component={Utineo} />
-        <Route exact path="/utiped" component={Utiped} />
+        <RouteWrapper layout={Layout} exact path="/" component={Home} />
+        <RouteWrapper layout={Layout} exact path="/uti1" component={Uti1} />
+        <RouteWrapper layout={Layout} exact path="/uti2" component={Uti2} />
+        <RouteWrapper layout={Layout} exact path="/uti3" component={Uti3} />
+        <RouteWrapper layout={Layout} exact path="/utineo" component={Utineo} />
+        <RouteWrapper layout={Layout} exact path="/utiped" component={Utiped} />
         {/*  <Route exact path="/posto2eme" component={Posto2eme} />
         <Route exact path="/emeped" component={Emeped} />
         <Route exact path="/andar4" component={Andar4} />
@@ -29,6 +30,19 @@ function Routes() {
         <Route exact path="/andar12" component={Andar12} /> */}
       </Switch>
     </BrowserRouter>
+  );
+}
+
+function RouteWrapper({ component: Component, layout: Layout, ...rest }) {
+  return (
+    <Route
+      {...rest}
+      render={(props) => (
+        <Layout {...props}>
+          <Component {...props} />
+        </Layout>
+      )}
+    />
   );
 }
 

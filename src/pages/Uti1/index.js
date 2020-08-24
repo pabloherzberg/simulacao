@@ -3,7 +3,7 @@ import { Wrapper, Wrap, ChatDiv, Content } from "./style.js";
 import {
   BarChart,
   Bar,
-  Cell,
+  ResponsiveContainer,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -49,9 +49,8 @@ function Uti1() {
   return (
     <Wrapper>
       <Content>
-        <h3>Simulação de pendências ao longo do mês</h3>
         <ChatDiv>
-          <BarChart width={600} height={300} data={data}>
+          <BarChart responsive={true} width={600} height={300} data={data}>
             <CartesianGrid />
             <XAxis dataKey="name" />
             <YAxis />
