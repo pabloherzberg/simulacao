@@ -3,7 +3,6 @@ import { Wrapper, Wrap, ChatDiv, Content } from "./style.js";
 import {
   BarChart,
   Bar,
-  ResponsiveContainer,
   XAxis,
   YAxis,
   CartesianGrid,

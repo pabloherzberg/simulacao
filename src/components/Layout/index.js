@@ -13,6 +13,16 @@ function Layout({ children }) {
               as={Link}
               heightstyle={"3em"}
               fontcolor={"white"}
+              to="/"
+            >
+              Home
+            </DefaultButton>
+          </li>
+          <li>
+            <DefaultButton
+              as={Link}
+              heightstyle={"3em"}
+              fontcolor={"white"}
               to="/uti1"
             >
               UTI - 1

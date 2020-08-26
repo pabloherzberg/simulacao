@@ -1,13 +1,28 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  height: 100%;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  .link {
-    margin: 0.5em;
-    font-size: 1.5em;
+`;
+
+export const ChartContainer = styled.div`
+  flex: 2;
+  display: flex;
+  height: 100%;
+  justify-content: space-around;
+  align-items: center;
+`;
+
+export const FormContainer = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  .inputfield {
+    margin-bottom: 5%;
   }
 `;
