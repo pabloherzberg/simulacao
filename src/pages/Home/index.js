@@ -122,7 +122,7 @@ function Home() {
           <Bar type="monotone" stackId="a" dataKey="entradas" fill="#ff55f5" />
         </BarChart>
       </ChartContainer>
-      <FormContainer>
+      {/* <FormContainer>
         <TextField
           className="inputfield"
           defaultValue={fonos}
@@ -168,7 +168,7 @@ function Home() {
           }}
           variant="outlined"
         />
-      </FormContainer>
+      </FormContainer> */}
     </Container>
   );
 }

@@ -4,6 +4,68 @@ export const Container = styled.div`
   height: 100%;
 `;
 
+export const NavBar = styled.div`
+  height: 6em;
+  display: flex;
+  justify-content: center;
+  span {
+    display: flex;
+    font-size: 4em;
+    align-items: center;
+    justify-content: center;
+  }
+  button {
+    width: 8em;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+  }
+  #anterior {
+    &:before {
+      width: 0.5em;
+      height: 3em;
+      background: black;
+      content: " ";
+      display: block;
+      position: absolute;
+      top: 3.5em;
+      transform: translateX(2em) rotate(-45deg);
+    }
+    &:after {
+      width: 0.5em;
+      height: 3em;
+      background: black;
+      content: " ";
+      display: block;
+      position: absolute;
+      top: 1.7em;
+      transform: translateX(2em) rotate(45deg);
+    }
+  }
+  #posterior {
+    &:before {
+      width: 0.5em;
+      height: 3em;
+      background: black;
+      content: " ";
+      display: block;
+      position: absolute;
+      top: 3.5em;
+      transform: translateX(4em) rotate(45deg);
+    }
+    &:after {
+      width: 0.5em;
+      height: 3em;
+      background: black;
+      content: " ";
+      display: block;
+      position: absolute;
+      top: 1.7em;
+      transform: translateX(4em) rotate(-45deg);
+    }
+  }
+`;
+
 export const Modal = styled.div`
   width: 100%;
   height: 100%;
@@ -87,7 +149,7 @@ export const ButtonSave = styled.button`
   padding: 0;
   position: relative;
   left: 70%;
-  top: -10%;
+  z-index: 10;
   cursor: pointer;
   box-shadow: 0px 5px 1px black;
 
