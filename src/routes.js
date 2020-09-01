@@ -7,6 +7,7 @@ import Uti2 from "./pages/Uti2";
 import Uti3 from "./pages/Uti3";
 import Utineo from "./pages/Utineo";
 import Utiped from "./pages/Utiped";
+import Geral from "./pages/Geral";
 
 function Routes() {
   return (
@@ -18,6 +19,7 @@ function Routes() {
         <RouteWrapper layout={Layout} exact path="/uti3" component={Uti3} />
         <RouteWrapper layout={Layout} exact path="/utineo" component={Utineo} />
         <RouteWrapper layout={Layout} exact path="/utiped" component={Utiped} />
+        <RouteWrapper layout={Layout} exact path="/geral" component={Geral} />
         {/*  <Route exact path="/posto2eme" component={Posto2eme} />
         <Route exact path="/emeped" component={Emeped} />
         <Route exact path="/andar4" component={Andar4} />

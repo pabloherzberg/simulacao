@@ -10,6 +10,7 @@ export const Container = styled.div`
 export const NavBar = styled.div`
   background: #191b25;
   flex: 1;
+  display: none;
   ul {
     list-style: none;
     margin: 0;

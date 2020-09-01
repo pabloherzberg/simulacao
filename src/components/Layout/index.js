@@ -68,6 +68,16 @@ function Layout({ children }) {
               UTI - PEDIÁTRICA
             </DefaultButton>
           </li>
+          <li>
+            <DefaultButton
+              as={Link}
+              heightstyle={"3em"}
+              fontcolor={"white"}
+              to="/geral"
+            >
+              GERAL
+            </DefaultButton>
+          </li>
         </ul>
       </NavBar>
       <Content>{children}</Content>
