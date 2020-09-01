@@ -39,7 +39,7 @@ export default function CustomizedTables() {
   const classes = useStyles();
   const history = useHistory();
   const [tableData, setTableData] = useState(
-    JSON.parse(sessionStorage.getItem("table")).length > 11
+    sessionStorage.getItem("table")
       ? JSON.parse(sessionStorage.getItem("table"))
       : [
           {
