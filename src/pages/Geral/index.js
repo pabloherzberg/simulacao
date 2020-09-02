@@ -1424,12 +1424,11 @@ function Home() {
         ></button>
       </NavBar>
       <ChartContainer>
-        <BarChart responsive={true} width={600} height={400} data={chartData}>
+        <BarChart width={600} height={400} data={chartData}>
           <CartesianGrid />
           <XAxis dataKey="name" />
           <YAxis />
           <Tooltip />
-
           <Bar type="monotone" dataKey="atendimentos" fill={colors.verdeagua} />
           <Bar
             type="monotone"
@@ -1437,7 +1436,7 @@ function Home() {
             dataKey="pendencias"
             fill={colors.pink}
           />
-          <Legend height={410} />
+          <Legend />
         </BarChart>
         <PieChart responsive={true} width={600} height={400}>
           <Pie
