@@ -30,9 +30,19 @@ function Layout({ children }) {
                 as={Link}
                 heightstyle={"3em"}
                 fontcolor={"white"}
-                to="/"
+                to="/geral"
               >
                 GERAL
+              </DefaultButton>
+            </li>
+            <li onClick={() => history.push("/setores")}>
+              <DefaultButton
+                as={Link}
+                heightstyle={"3em"}
+                fontcolor={"white"}
+                to="/setores"
+              >
+                SETORES
               </DefaultButton>
             </li>
           </ul>

@@ -14,10 +14,9 @@ export const NavBar = styled.div`
   flex-direction: column;
   background: ${colors.verdeagua};
   width: 4em;
-  height: 100%;
+  height: auto;
   transition: ease-in-out 0.2s;
-  z-index: 20;
-  position: fixed;
+
   .menuwraper {
     background: ${colors.paragraph};
     width: 4em;

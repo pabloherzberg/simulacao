@@ -9,12 +9,19 @@ import Uti3 from "./pages/Uti3";
 import Utineo from "./pages/Utineo";
 import Utiped from "./pages/Utiped";
 import Tabela from "./pages/Tabela";
+import Setores from "./pages/Setores";
 
 function Routes() {
   return (
     <BrowserRouter>
       <Switch>
         <RouteWrapper layout={Layout} exact path="/" component={Geral} />
+        <RouteWrapper
+          layout={Layout}
+          exact
+          path="/setores"
+          component={Setores}
+        />
         <RouteWrapper layout={Layout} exact path="/uti1" component={Uti1} />
         <RouteWrapper layout={Layout} exact path="/uti2" component={Uti2} />
         <RouteWrapper layout={Layout} exact path="/uti3" component={Uti3} />
