@@ -10,6 +10,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import EditIcon from "@material-ui/icons/Edit";
 import { Modal, ButtonSave, Container, NavBar } from "./styled.js";
+import { colors } from "../../constants/colors.js";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -1926,8 +1927,20 @@ export default function CustomizedTables() {
               <StyledTableCell>{data[1].utineo}</StyledTableCell>
               <StyledTableCell>{data[2].utineo}</StyledTableCell>
               <StyledTableCell>{data[3].utineo}</StyledTableCell>
-              <StyledTableCell>{totalSetor.utineo}</StyledTableCell>
-              <StyledTableCell>
+              <StyledTableCell
+                style={{
+                  color: `${colors.mediumGreen}`,
+                  fontWeight: 600,
+                }}
+              >
+                {totalSetor.utineo}
+              </StyledTableCell>
+              <StyledTableCell
+                style={{
+                  color: `${colors.pink}`,
+                  fontWeight: 600,
+                }}
+              >
                 {pendenciasSetor &&
                   pendenciasSetor.utineo.reduce(
                     (tot, pendencia) => tot + pendencia
@@ -1949,8 +1962,20 @@ export default function CustomizedTables() {
               <StyledTableCell>{data[1].utiped}</StyledTableCell>
               <StyledTableCell>{data[2].utiped}</StyledTableCell>
               <StyledTableCell>{data[3].utiped}</StyledTableCell>
-              <StyledTableCell>{totalSetor.utiped}</StyledTableCell>
-              <StyledTableCell>
+              <StyledTableCell
+                style={{
+                  color: `${colors.mediumGreen}`,
+                  fontWeight: 600,
+                }}
+              >
+                {totalSetor.utiped}
+              </StyledTableCell>
+              <StyledTableCell
+                style={{
+                  color: `${colors.pink}`,
+                  fontWeight: 600,
+                }}
+              >
                 {pendenciasSetor.utiped.reduce(
                   (tot, pendencia) => tot + pendencia
                 )}
@@ -1971,8 +1996,20 @@ export default function CustomizedTables() {
               <StyledTableCell>{data[1].uti1}</StyledTableCell>
               <StyledTableCell>{data[2].uti1}</StyledTableCell>
               <StyledTableCell>{data[3].uti1}</StyledTableCell>
-              <StyledTableCell>{totalSetor.uti1}</StyledTableCell>
-              <StyledTableCell>
+              <StyledTableCell
+                style={{
+                  color: `${colors.mediumGreen}`,
+                  fontWeight: 600,
+                }}
+              >
+                {totalSetor.uti1}
+              </StyledTableCell>
+              <StyledTableCell
+                style={{
+                  color: `${colors.pink}`,
+                  fontWeight: 600,
+                }}
+              >
                 {pendenciasSetor.uti1.reduce(
                   (tot, pendencia) => tot + pendencia
                 )}
@@ -1993,8 +2030,20 @@ export default function CustomizedTables() {
               <StyledTableCell>{data[1].uti2}</StyledTableCell>
               <StyledTableCell>{data[2].uti2}</StyledTableCell>
               <StyledTableCell>{data[3].uti2}</StyledTableCell>
-              <StyledTableCell>{totalSetor.uti2}</StyledTableCell>
-              <StyledTableCell>
+              <StyledTableCell
+                style={{
+                  color: `${colors.mediumGreen}`,
+                  fontWeight: 600,
+                }}
+              >
+                {totalSetor.uti2}
+              </StyledTableCell>
+              <StyledTableCell
+                style={{
+                  color: `${colors.pink}`,
+                  fontWeight: 600,
+                }}
+              >
                 {pendenciasSetor.uti2.reduce(
                   (tot, pendencia) => tot + pendencia
                 )}
@@ -2015,8 +2064,20 @@ export default function CustomizedTables() {
               <StyledTableCell>{data[1].uti3}</StyledTableCell>
               <StyledTableCell>{data[2].uti3}</StyledTableCell>
               <StyledTableCell>{data[3].uti3}</StyledTableCell>
-              <StyledTableCell>{totalSetor.uti3}</StyledTableCell>
-              <StyledTableCell>
+              <StyledTableCell
+                style={{
+                  color: `${colors.mediumGreen}`,
+                  fontWeight: 600,
+                }}
+              >
+                {totalSetor.uti3}
+              </StyledTableCell>
+              <StyledTableCell
+                style={{
+                  color: `${colors.pink}`,
+                  fontWeight: 600,
+                }}
+              >
                 {pendenciasSetor.uti3.reduce(
                   (tot, pendencia) => tot + pendencia
                 )}
@@ -2032,13 +2093,59 @@ export default function CustomizedTables() {
               </StyledTableCell>
             </StyledTableRow>
             <StyledTableRow>
+              <StyledTableCell>POSTO 2</StyledTableCell>
+              <StyledTableCell>{data[0].uti11}</StyledTableCell>
+              <StyledTableCell>{data[1].uti11}</StyledTableCell>
+              <StyledTableCell>{data[2].uti11}</StyledTableCell>
+              <StyledTableCell>{data[3].uti11}</StyledTableCell>
+              <StyledTableCell
+                style={{
+                  color: `${colors.mediumGreen}`,
+                  fontWeight: 600,
+                }}
+              >
+                {totalSetor.uti11}
+              </StyledTableCell>
+              <StyledTableCell
+                style={{
+                  color: `${colors.pink}`,
+                  fontWeight: 600,
+                }}
+              >
+                {pendenciasSetor.uti11.reduce(
+                  (tot, pendencia) => tot + pendencia
+                )}
+              </StyledTableCell>
+              <StyledTableCell
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  setShowModal(true);
+                  setSetor("uti11");
+                }}
+              >
+                <EditIcon />
+              </StyledTableCell>
+            </StyledTableRow>
+            <StyledTableRow>
               <StyledTableCell>4º ANDAR</StyledTableCell>
               <StyledTableCell>{data[0].uti4}</StyledTableCell>
               <StyledTableCell>{data[1].uti4}</StyledTableCell>
               <StyledTableCell>{data[2].uti4}</StyledTableCell>
               <StyledTableCell>{data[3].uti4}</StyledTableCell>
-              <StyledTableCell>{totalSetor.uti4}</StyledTableCell>
-              <StyledTableCell>
+              <StyledTableCell
+                style={{
+                  color: `${colors.mediumGreen}`,
+                  fontWeight: 600,
+                }}
+              >
+                {totalSetor.uti4}
+              </StyledTableCell>
+              <StyledTableCell
+                style={{
+                  color: `${colors.pink}`,
+                  fontWeight: 600,
+                }}
+              >
                 {pendenciasSetor.uti4.reduce(
                   (tot, pendencia) => tot + pendencia
                 )}
@@ -2059,8 +2166,20 @@ export default function CustomizedTables() {
               <StyledTableCell>{data[1].uti5}</StyledTableCell>
               <StyledTableCell>{data[2].uti5}</StyledTableCell>
               <StyledTableCell>{data[3].uti5}</StyledTableCell>
-              <StyledTableCell>{totalSetor.uti5}</StyledTableCell>
-              <StyledTableCell>
+              <StyledTableCell
+                style={{
+                  color: `${colors.mediumGreen}`,
+                  fontWeight: 600,
+                }}
+              >
+                {totalSetor.uti5}
+              </StyledTableCell>
+              <StyledTableCell
+                style={{
+                  color: `${colors.pink}`,
+                  fontWeight: 600,
+                }}
+              >
                 {pendenciasSetor.uti5.reduce(
                   (tot, pendencia) => tot + pendencia
                 )}
@@ -2081,8 +2200,20 @@ export default function CustomizedTables() {
               <StyledTableCell>{data[1].uti6}</StyledTableCell>
               <StyledTableCell>{data[2].uti6}</StyledTableCell>
               <StyledTableCell>{data[3].uti6}</StyledTableCell>
-              <StyledTableCell>{totalSetor.uti6}</StyledTableCell>
-              <StyledTableCell>
+              <StyledTableCell
+                style={{
+                  color: `${colors.mediumGreen}`,
+                  fontWeight: 600,
+                }}
+              >
+                {totalSetor.uti6}
+              </StyledTableCell>
+              <StyledTableCell
+                style={{
+                  color: `${colors.pink}`,
+                  fontWeight: 600,
+                }}
+              >
                 {pendenciasSetor.uti6.reduce(
                   (tot, pendencia) => tot + pendencia
                 )}
@@ -2103,8 +2234,20 @@ export default function CustomizedTables() {
               <StyledTableCell>{data[1].uti7}</StyledTableCell>
               <StyledTableCell>{data[2].uti7}</StyledTableCell>
               <StyledTableCell>{data[3].uti7}</StyledTableCell>
-              <StyledTableCell>{totalSetor.uti7}</StyledTableCell>
-              <StyledTableCell>
+              <StyledTableCell
+                style={{
+                  color: `${colors.mediumGreen}`,
+                  fontWeight: 600,
+                }}
+              >
+                {totalSetor.uti7}
+              </StyledTableCell>
+              <StyledTableCell
+                style={{
+                  color: `${colors.pink}`,
+                  fontWeight: 600,
+                }}
+              >
                 {pendenciasSetor.uti7.reduce(
                   (tot, pendencia) => tot + pendencia
                 )}
@@ -2125,8 +2268,20 @@ export default function CustomizedTables() {
               <StyledTableCell>{data[1].uti8}</StyledTableCell>
               <StyledTableCell>{data[2].uti8}</StyledTableCell>
               <StyledTableCell>{data[3].uti8}</StyledTableCell>
-              <StyledTableCell>{totalSetor.uti8}</StyledTableCell>
-              <StyledTableCell>
+              <StyledTableCell
+                style={{
+                  color: `${colors.mediumGreen}`,
+                  fontWeight: 600,
+                }}
+              >
+                {totalSetor.uti8}
+              </StyledTableCell>
+              <StyledTableCell
+                style={{
+                  color: `${colors.pink}`,
+                  fontWeight: 600,
+                }}
+              >
                 {pendenciasSetor.uti8.reduce(
                   (tot, pendencia) => tot + pendencia
                 )}
@@ -2147,8 +2302,20 @@ export default function CustomizedTables() {
               <StyledTableCell>{data[1].uti9}</StyledTableCell>
               <StyledTableCell>{data[2].uti9}</StyledTableCell>
               <StyledTableCell>{data[3].uti9}</StyledTableCell>
-              <StyledTableCell>{totalSetor.uti9}</StyledTableCell>
-              <StyledTableCell>
+              <StyledTableCell
+                style={{
+                  color: `${colors.mediumGreen}`,
+                  fontWeight: 600,
+                }}
+              >
+                {totalSetor.uti9}
+              </StyledTableCell>
+              <StyledTableCell
+                style={{
+                  color: `${colors.pink}`,
+                  fontWeight: 600,
+                }}
+              >
                 {pendenciasSetor.uti9.reduce(
                   (tot, pendencia) => tot + pendencia
                 )}
@@ -2169,8 +2336,20 @@ export default function CustomizedTables() {
               <StyledTableCell>{data[1].uti10}</StyledTableCell>
               <StyledTableCell>{data[2].uti10}</StyledTableCell>
               <StyledTableCell>{data[3].uti10}</StyledTableCell>
-              <StyledTableCell>{totalSetor.uti10}</StyledTableCell>
-              <StyledTableCell>
+              <StyledTableCell
+                style={{
+                  color: `${colors.mediumGreen}`,
+                  fontWeight: 600,
+                }}
+              >
+                {totalSetor.uti10}
+              </StyledTableCell>
+              <StyledTableCell
+                style={{
+                  color: `${colors.pink}`,
+                  fontWeight: 600,
+                }}
+              >
                 {pendenciasSetor.uti10.reduce(
                   (tot, pendencia) => tot + pendencia
                 )}
@@ -2185,36 +2364,27 @@ export default function CustomizedTables() {
                 <EditIcon />
               </StyledTableCell>
             </StyledTableRow>
-            <StyledTableRow>
-              <StyledTableCell>11º ANDAR</StyledTableCell>
-              <StyledTableCell>{data[0].uti11}</StyledTableCell>
-              <StyledTableCell>{data[1].uti11}</StyledTableCell>
-              <StyledTableCell>{data[2].uti11}</StyledTableCell>
-              <StyledTableCell>{data[3].uti11}</StyledTableCell>
-              <StyledTableCell>{totalSetor.uti11}</StyledTableCell>
-              <StyledTableCell>
-                {pendenciasSetor.uti11.reduce(
-                  (tot, pendencia) => tot + pendencia
-                )}
-              </StyledTableCell>
-              <StyledTableCell
-                style={{ cursor: "pointer" }}
-                onClick={() => {
-                  setShowModal(true);
-                  setSetor("uti11");
-                }}
-              >
-                <EditIcon />
-              </StyledTableCell>
-            </StyledTableRow>
+
             <StyledTableRow>
               <StyledTableCell>12º ANDAR</StyledTableCell>
               <StyledTableCell>{data[0].uti12}</StyledTableCell>
               <StyledTableCell>{data[1].uti12}</StyledTableCell>
               <StyledTableCell>{data[2].uti12}</StyledTableCell>
               <StyledTableCell>{data[3].uti12}</StyledTableCell>
-              <StyledTableCell>{totalSetor.uti12}</StyledTableCell>
-              <StyledTableCell>
+              <StyledTableCell
+                style={{
+                  color: `${colors.mediumGreen}`,
+                  fontWeight: 600,
+                }}
+              >
+                {totalSetor.uti12}
+              </StyledTableCell>
+              <StyledTableCell
+                style={{
+                  color: `${colors.pink}`,
+                  fontWeight: 600,
+                }}
+              >
                 {pendenciasSetor.uti12.reduce(
                   (tot, pendencia) => tot + pendencia
                 )}
@@ -2231,17 +2401,49 @@ export default function CustomizedTables() {
             </StyledTableRow>
             <StyledTableRow>
               <StyledTableCell>TOTAL NA SEMANA</StyledTableCell>
-              <StyledTableCell>{totalSemana[0]}</StyledTableCell>
-              <StyledTableCell>{totalSemana[1]}</StyledTableCell>
-              <StyledTableCell>{totalSemana[2]}</StyledTableCell>
-              <StyledTableCell>{totalSemana[3]}</StyledTableCell>
+              <StyledTableCell
+                style={{ color: `${colors.mediumGreen}`, fontWeight: 600 }}
+              >
+                {totalSemana[0]}
+              </StyledTableCell>
+              <StyledTableCell
+                style={{ color: `${colors.mediumGreen}`, fontWeight: 600 }}
+              >
+                {totalSemana[1]}
+              </StyledTableCell>
+              <StyledTableCell
+                style={{ color: `${colors.mediumGreen}`, fontWeight: 600 }}
+              >
+                {totalSemana[2]}
+              </StyledTableCell>
+              <StyledTableCell
+                style={{ color: `${colors.mediumGreen}`, fontWeight: 600 }}
+              >
+                {totalSemana[3]}
+              </StyledTableCell>
             </StyledTableRow>
             <StyledTableRow>
               <StyledTableCell>PENDÊNCIAS NA SEMANA</StyledTableCell>
-              <StyledTableCell>{pendenciasSemana[0]}</StyledTableCell>
-              <StyledTableCell>{pendenciasSemana[1]}</StyledTableCell>
-              <StyledTableCell>{pendenciasSemana[2]}</StyledTableCell>
-              <StyledTableCell>{pendenciasSemana[3]}</StyledTableCell>
+              <StyledTableCell
+                style={{ color: `${colors.pink}`, fontWeight: 600 }}
+              >
+                {pendenciasSemana[0]}
+              </StyledTableCell>
+              <StyledTableCell
+                style={{ color: `${colors.pink}`, fontWeight: 600 }}
+              >
+                {pendenciasSemana[1]}
+              </StyledTableCell>
+              <StyledTableCell
+                style={{ color: `${colors.pink}`, fontWeight: 600 }}
+              >
+                {pendenciasSemana[2]}
+              </StyledTableCell>
+              <StyledTableCell
+                style={{ color: `${colors.pink}`, fontWeight: 600 }}
+              >
+                {pendenciasSemana[3]}
+              </StyledTableCell>
             </StyledTableRow>
           </TableBody>
         </Table>

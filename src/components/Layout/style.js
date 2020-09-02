@@ -64,6 +64,7 @@ export const NavBar = styled.div`
         flex-direction: column;
         li {
           display: flex;
+          z-index: 20;
           align-items: center;
           justify-content: center;
           transition: box-shadow ease-in-out 0.2s;
