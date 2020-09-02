@@ -13,29 +13,41 @@ function Layout({ children }) {
         <div className="menuwraper">
           <MenuIcon className="menu" />
         </div>
-        <ul>
-          <li onClick={() => history.push("/tabela")}>
-            <DefaultButton
-              as={Link}
-              heightstyle={"3em"}
-              fontcolor={"white"}
-              to="/tabela"
-            >
-              TABELA
-            </DefaultButton>
-          </li>
-          <li onClick={() => history.push("/")}>
-            <DefaultButton
-              as={Link}
-              heightstyle={"3em"}
-              fontcolor={"white"}
-              to="/"
-            >
-              GERAL
-            </DefaultButton>
-          </li>
-        </ul>
-        <img src={logoFono} />
+        <div className="navitems">
+          <ul>
+            <li onClick={() => history.push("/tabela")}>
+              <DefaultButton
+                as={Link}
+                heightstyle={"3em"}
+                fontcolor={"white"}
+                to="/tabela"
+              >
+                TABELA
+              </DefaultButton>
+            </li>
+            <li onClick={() => history.push("/")}>
+              <DefaultButton
+                as={Link}
+                heightstyle={"3em"}
+                fontcolor={"white"}
+                to="/geral"
+              >
+                GERAL
+              </DefaultButton>
+            </li>
+            <li onClick={() => history.push("/setores")}>
+              <DefaultButton
+                as={Link}
+                heightstyle={"3em"}
+                fontcolor={"white"}
+                to="/setores"
+              >
+                SETORES
+              </DefaultButton>
+            </li>
+          </ul>
+          <img src={logoFono} />
+        </div>
       </NavBar>
       <Content>{children}</Content>
     </Container>

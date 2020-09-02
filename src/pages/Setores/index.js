@@ -7,10 +7,6 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
-  PieChart,
-  Pie,
-  Sector,
-  Cell,
 } from "recharts";
 import { Container, ChartContainer, NavBar } from "./style.js";
 import { TextField, Button } from "@material-ui/core";
@@ -20,9 +16,39 @@ function Home() {
   const [state, setState] = useState({ activeIndex: 0 });
   const [data, setData] = useState();
   const [count, setCount] = useState(0);
-  const [totalSetor, setTotalSetor] = useState();
+  const [totalSetor, setTotalSetor] = useState({
+    utineo: 49,
+    utiped: 18,
+    uti1: 18,
+    uti2: 11,
+    uti3: 24,
+    uti4: 24,
+    uti5: 1,
+    uti6: 64,
+    uti7: 4,
+    uti8: 22,
+    uti9: 0,
+    uti10: 15,
+    uti11: 10,
+    uti12: 0,
+  });
   const [totalSemana, setTotalSemana] = useState([0, 0, 0, 0]);
-  const [pendenciasSetor, setPendenciasSetor] = useState();
+  const [pendenciasSetor, setPendenciasSetor] = useState({
+    utineo: [0, 0, 0, 0],
+    utiped: [0, 0, 0, 0],
+    uti1: [0, 0, 0, 0],
+    uti2: [0, 0, 0, 0],
+    uti3: [0, 0, 0, 0],
+    uti4: [0, 0, 0, 0],
+    uti5: [0, 0, 0, 0],
+    uti6: [0, 0, 0, 0],
+    uti7: [0, 0, 0, 0],
+    uti8: [0, 0, 0, 0],
+    uti9: [0, 0, 0, 0],
+    uti10: [0, 0, 0, 0],
+    uti11: [0, 0, 0, 0],
+    uti12: [0, 0, 0, 0],
+  });
   const [pendenciasSemana, setPendenciasSemana] = useState([0, 0, 0, 0]);
   const [dataTable, setDataTable] = useState(
     sessionStorage.getItem("table")
@@ -96,24 +122,24 @@ function Home() {
               },
             ],
             totalSetor: {
-              utineo: 0,
-              utiped: 0,
-              uti1: 0,
-              uti2: 0,
-              uti3: 0,
-              uti4: 0,
-              uti5: 0,
-              uti6: 0,
-              uti7: 0,
-              uti8: 0,
+              utineo: 49,
+              utiped: 18,
+              uti1: 18,
+              uti2: 11,
+              uti3: 24,
+              uti4: 24,
+              uti5: 1,
+              uti6: 64,
+              uti7: 4,
+              uti8: 22,
               uti9: 0,
-              uti10: 0,
-              uti11: 0,
+              uti10: 15,
+              uti11: 10,
               uti12: 0,
             },
             totalSemana: [76, 52, 40, 68],
             pendenciasSetor: {
-              utineo: [0, 0, 0, 0],
+              utineo: [5, 0, 19, 0],
               utiped: [0, 0, 0, 0],
               uti1: [0, 0, 0, 0],
               uti2: [0, 0, 0, 0],
@@ -1277,131 +1303,96 @@ function Home() {
     setPendenciasSemana(dataTable[count].pendenciasSemana);
   }, [count]);
 
+  console.log(totalSetor);
+  console.log(pendenciasSetor);
+
   const chartData = [
     {
-      name: "Semana 1",
-      atendimentos: totalSemana[0],
-      pendencias: pendenciasSemana[0],
+      name: "UTI-NEO",
+      atendimentos: totalSetor.utineo,
+      pendencias: pendenciasSetor.utineo.reduce((tot, val) => tot + val),
       amt: 2400,
     },
     {
-      name: "Semana 2",
-      atendimentos: totalSemana[1],
-      pendencias: pendenciasSemana[1],
+      name: "UTI-PED",
+      atendimentos: totalSetor.utiped,
+      pendencias: pendenciasSetor.utiped.reduce((tot, val) => tot + val),
       amt: 2400,
     },
     {
-      name: "Semana 3",
-      atendimentos: totalSemana[2],
-      pendencias: pendenciasSemana[2],
+      name: "UTI-1",
+      atendimentos: totalSetor.uti1,
+      pendencias: pendenciasSetor.uti1.reduce((tot, val) => tot + val),
       amt: 2400,
     },
     {
-      name: "Semana 4",
-      atendimentos: totalSemana[3],
-      pendencias: pendenciasSemana[3],
+      name: "UTI-2",
+      atendimentos: totalSetor.uti2,
+      pendencias: pendenciasSetor.uti2.reduce((tot, val) => tot + val),
+      amt: 2400,
+    },
+    {
+      name: "UTI-3",
+      atendimentos: totalSetor.uti3,
+      pendencias: pendenciasSetor.uti3.reduce((tot, val) => tot + val),
+      amt: 2400,
+    },
+    {
+      name: "POSTO-2",
+      atendimentos: totalSetor.uti11,
+      pendencias: pendenciasSetor.uti11.reduce((tot, val) => tot + val),
+      amt: 2400,
+    },
+    {
+      name: "4º",
+      atendimentos: totalSetor.uti4,
+      pendencias: pendenciasSetor.uti4.reduce((tot, val) => tot + val),
+      amt: 2400,
+    },
+    {
+      name: "5º",
+      atendimentos: totalSetor.uti5,
+      pendencias: pendenciasSetor.uti5.reduce((tot, val) => tot + val),
+      amt: 2400,
+    },
+    {
+      name: "6º",
+      atendimentos: totalSetor.uti6,
+      pendencias: pendenciasSetor.uti6.reduce((tot, val) => tot + val),
+      amt: 2400,
+    },
+    {
+      name: "7º",
+      atendimentos: totalSetor.uti7,
+      pendencias: pendenciasSetor.uti7.reduce((tot, val) => tot + val),
+      amt: 2400,
+    },
+    {
+      name: "8º",
+      atendimentos: totalSetor.uti8,
+      pendencias: pendenciasSetor.uti8.reduce((tot, val) => tot + val),
+      amt: 2400,
+    },
+    {
+      name: "9º",
+      atendimentos: totalSetor.uti9,
+      pendencias: pendenciasSetor.uti9.reduce((tot, val) => tot + val),
+      amt: 2400,
+    },
+    {
+      name: "10º",
+      atendimentos: totalSetor.uti10,
+      pendencias: pendenciasSetor.uti10.reduce((tot, val) => tot + val),
+      amt: 2400,
+    },
+    {
+      name: "12º",
+      atendimentos: totalSetor.uti12,
+      pendencias: pendenciasSetor.uti12.reduce((tot, val) => tot + val),
       amt: 2400,
     },
   ];
 
-  const dataPie = [
-    {
-      name: "Atendimentos",
-      value: Number(
-        totalSemana[0] + totalSemana[1] + totalSemana[2] + totalSemana[3]
-      ),
-      fill: colors.verdeagua,
-    },
-    {
-      name: "Pendências",
-      value: Number(
-        pendenciasSemana[0] +
-          pendenciasSemana[1] +
-          pendenciasSemana[2] +
-          pendenciasSemana[3]
-      ),
-      fill: colors.pink,
-    },
-  ];
-
-  const renderActiveShape = (props) => {
-    const RADIAN = Math.PI / 180;
-    const {
-      cx,
-      cy,
-      midAngle,
-      innerRadius,
-      outerRadius,
-      startAngle,
-      endAngle,
-      fill,
-      payload,
-      percent,
-      value,
-    } = props;
-    const sin = Math.sin(-RADIAN * midAngle);
-    const cos = Math.cos(-RADIAN * midAngle);
-    const sx = cx + (outerRadius + 10) * cos;
-    const sy = cy + (outerRadius + 10) * sin;
-    const mx = cx + (outerRadius + 30) * cos;
-    const my = cy + (outerRadius + 30) * sin;
-    const ex = mx + (cos >= 0 ? 1 : -1) * 22;
-    const ey = my;
-    const textAnchor = cos >= 0 ? "start" : "end";
-
-    return (
-      <g>
-        <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>
-          {payload.name}
-        </text>
-        <Sector
-          cx={cx}
-          cy={cy}
-          innerRadius={innerRadius}
-          outerRadius={outerRadius}
-          startAngle={startAngle}
-          endAngle={endAngle}
-          fill={fill}
-        />
-        <Sector
-          cx={cx}
-          cy={cy}
-          startAngle={startAngle}
-          endAngle={endAngle}
-          innerRadius={outerRadius + 6}
-          outerRadius={outerRadius + 10}
-          fill={fill}
-        />
-        <path
-          d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`}
-          stroke={fill}
-          fill="none"
-        />
-        <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
-        <text
-          x={ex + (cos >= 0 ? 1 : -1) * 12}
-          y={ey}
-          textAnchor={textAnchor}
-          fill="#333"
-        >{`Total ${value}`}</text>
-        <text
-          x={ex + (cos >= 0 ? 1 : -1) * 12}
-          y={ey}
-          dy={18}
-          textAnchor={textAnchor}
-          fill="#999"
-        >
-          {`(${(percent * 100).toFixed(2)}%)`}
-        </text>
-      </g>
-    );
-  };
-
-  const onPieEnter = (data, index) => {
-    setState({
-      activeIndex: index,
-    });
-  };
   return (
     <Container>
       <NavBar>
@@ -1424,13 +1415,17 @@ function Home() {
         ></button>
       </NavBar>
       <ChartContainer>
-        <BarChart responsive={true} width={600} height={400} data={chartData}>
+        <BarChart responsive={true} width={1200} height={400} data={chartData}>
           <CartesianGrid />
           <XAxis dataKey="name" />
           <YAxis />
           <Tooltip />
-
-          <Bar type="monotone" dataKey="atendimentos" fill={colors.verdeagua} />
+          <Bar
+            type="monotone"
+            stackId="a"
+            dataKey="atendimentos"
+            fill={colors.verdeagua}
+          />
           <Bar
             type="monotone"
             stackId="a"
@@ -1439,19 +1434,6 @@ function Home() {
           />
           <Legend height={410} />
         </BarChart>
-        <PieChart responsive={true} width={600} height={400}>
-          <Pie
-            activeIndex={state.activeIndex}
-            activeShape={renderActiveShape}
-            data={dataPie}
-            cx={250}
-            cy={200}
-            innerRadius={60}
-            outerRadius={80}
-            dataKey="value"
-            onMouseEnter={onPieEnter}
-          />
-        </PieChart>
       </ChartContainer>
     </Container>
   );
