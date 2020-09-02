@@ -14,6 +14,7 @@ import {
 } from "recharts";
 import { Container, ChartContainer, NavBar } from "./style.js";
 import { TextField, Button } from "@material-ui/core";
+import { colors } from "../../constants/colors.js";
 
 function Home() {
   const [state, setState] = useState({ activeIndex: 0 });
@@ -1309,7 +1310,7 @@ function Home() {
       value: Number(
         totalSemana[0] + totalSemana[1] + totalSemana[2] + totalSemana[3]
       ),
-      fill: "#8884d8",
+      fill: colors.verdeagua,
     },
     {
       name: "Pendências",
@@ -1319,7 +1320,7 @@ function Home() {
           pendenciasSemana[2] +
           pendenciasSemana[3]
       ),
-      fill: "#82ca9d",
+      fill: colors.pink,
     },
   ];
 
@@ -1429,15 +1430,15 @@ function Home() {
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar type="monotone" dataKey="atendimentos" fill="#8884d8" />
+          <Bar type="monotone" dataKey="atendimentos" fill={colors.verdeagua} />
           <Bar
             type="monotone"
             stackId="a"
             dataKey="pendencias"
-            fill="#82ca9d"
+            fill={colors.pink}
           />
         </BarChart>
-        <PieChart width={600} height={400}>
+        <PieChart responsive={true} width={600} height={400}>
           <Pie
             activeIndex={state.activeIndex}
             activeShape={renderActiveShape}
@@ -1446,7 +1447,6 @@ function Home() {
             cy={200}
             innerRadius={60}
             outerRadius={80}
-            fill="#8884d8"
             dataKey="value"
             onMouseEnter={onPieEnter}
           />

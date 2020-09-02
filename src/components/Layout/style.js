@@ -14,16 +14,12 @@ export const NavBar = styled.div`
   flex-direction: column;
   background: ${colors.verdeagua};
   width: 4em;
-  height: auto;
+  height: 100%;
   transition: ease-in-out 0.2s;
-  img {
-    display: none;
-    max-width: 0em;
-    align-self: center;
-    margin-top: 80%;
-  }
+  z-index: 20;
+  position: fixed;
   .menuwraper {
-    background: ${colors.tableHeader};
+    background: ${colors.paragraph};
     width: 4em;
     height: 3em;
     display: flex;
@@ -31,34 +27,55 @@ export const NavBar = styled.div`
     justify-content: center;
     transition: ease-in-out 0.2s;
   }
-  ul {
-    li {
-      display: none;
+  .navitems {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    ul {
+      width: 100%;
+      li {
+        display: none;
+      }
+    }
+    img {
+      transition: ease-in-out 0.2s;
+      opacity: 0;
+      max-width: 0em;
+      padding-bottom: 1.5em;
     }
   }
+
   &:hover {
     width: 16em;
     .menuwraper {
       width: 16em;
     }
-    img {
-      display: block;
-      max-width: 12em;
-      align-self: center;
-      margin-top: 80%;
-    }
-    ul {
-      display: flex;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      flex-direction: column;
-      li {
+    .navitems {
+      img {
+        max-width: 12em;
+        opacity: 1;
+      }
+      ul {
         display: flex;
-        transition: box-shadow ease-in-out 0.2s;
-        &:hover {
-          box-shadow: 0px 0px 10px ${colors.purplepink};
-          cursor: pointer;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        flex-direction: column;
+        li {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: box-shadow ease-in-out 0.2s;
+          &:hover {
+            box-shadow: 3px 3px 1px ${colors.purplepink};
+            background-color: ${colors.greenButtonHover};
+            cursor: pointer;
+          }
+          &:active {
+            box-shadow: 1px 1px 1px ${colors.purplepink};
+          }
         }
       }
     }
