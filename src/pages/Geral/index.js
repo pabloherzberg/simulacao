@@ -1033,18 +1033,18 @@ function Home() {
         ]
   );
   const [meses, setMeses] = useState([
-    "Janeiro",
-    "Fevereiro",
-    "Março",
-    "Abril",
-    "Maio",
-    "Junho",
-    "Julho",
-    "Agosto",
-    "Setembro",
-    "Outubro",
-    "Novembro",
-    "Dezembro",
+    "Novembro 2019",
+    "Dezembro 2019",
+    "Janeiro 2020",
+    "Fevereiro 2020",
+    "Março 2020",
+    "Abril 2020",
+    "Maio 2020",
+    "Junho 2020",
+    "Julho 2020",
+    "Agosto 2020",
+    "Setembro 2020",
+    "Outubro 2020",
   ]);
 
   useEffect(() => {

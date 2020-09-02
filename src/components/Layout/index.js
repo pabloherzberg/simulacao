@@ -3,6 +3,7 @@ import DefaultButton from "../DefaultButton";
 import { Link, useHistory } from "react-router-dom";
 import { Container, NavBar, Content } from "./style.js";
 import MenuIcon from "@material-ui/icons/Menu";
+import logoFono from "../../assets/fonoaudiologiahospitalar.png";
 
 function Layout({ children }) {
   const history = useHistory();
@@ -34,6 +35,7 @@ function Layout({ children }) {
             </DefaultButton>
           </li>
         </ul>
+        <img src={logoFono} />
       </NavBar>
       <Content>{children}</Content>
     </Container>

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { colors } from "../../constants/colors.js";
 
 export const Container = styled.div`
   margin: 0;
@@ -9,12 +10,20 @@ export const Container = styled.div`
 `;
 
 export const NavBar = styled.div`
-  background: #191b25;
+  display: flex;
+  flex-direction: column;
+  background: ${colors.verdeagua};
   width: 4em;
   height: auto;
   transition: ease-in-out 0.2s;
+  img {
+    display: none;
+    max-width: 0em;
+    align-self: center;
+    margin-top: 80%;
+  }
   .menuwraper {
-    background: #ccc;
+    background: ${colors.tableHeader};
     width: 4em;
     height: 3em;
     display: flex;
@@ -32,6 +41,12 @@ export const NavBar = styled.div`
     .menuwraper {
       width: 16em;
     }
+    img {
+      display: block;
+      max-width: 12em;
+      align-self: center;
+      margin-top: 80%;
+    }
     ul {
       display: flex;
       list-style: none;
@@ -42,7 +57,7 @@ export const NavBar = styled.div`
         display: flex;
         transition: box-shadow ease-in-out 0.2s;
         &:hover {
-          box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+          box-shadow: 0px 0px 10px ${colors.purplepink};
           cursor: pointer;
         }
       }
