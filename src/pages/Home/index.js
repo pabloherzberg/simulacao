@@ -1,4 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { useGlobalContext } from "../../context/index";
+import firebase from "../../context/firebase";
+import { Container, ChartContainer, NavBar } from "./style.js";
+import { colors } from "../../constants/colors.js";
+import { LinearProgress } from "@material-ui/core";
 import {
   BarChart,
   Bar,
@@ -7,168 +12,229 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
+  PieChart,
+  Pie,
+  Sector,
 } from "recharts";
-import { Container, ChartContainer, FormContainer } from "./style.js";
-import { TextField, Button } from "@material-ui/core";
 
 function Home() {
-  const [fonos, setFonos] = useState(2);
-  const [pacientes, setPacientes] = useState(100);
-  const [entradas, setEntradas] = useState(10);
-  const [mediaAtendimento, setMediaAtendimento] = useState(0);
-  const [pendencias, setPendencias] = useState([]);
-  const [atendimentos, setAtendimentos] = useState([]);
-  const [aux, setAux] = useState(10);
-  const [total, setTotal] = useState([]);
-  const [resto, setResto] = useState(0);
-  const [week, setWeek] = useState([
-    { atendimentos, pendencias },
-    { atendimentos, pendencias },
-    { atendimentos, pendencias },
-    { atendimentos, pendencias },
+  const { tableContext } = useGlobalContext();
+  const [state, setState] = useState({ activeIndex: 0 });
+  const [data, setData] = useState();
+  const [count, setCount] = useState(0);
+  const [totalSetor, setTotalSetor] = useState();
+  const [totalSemana, setTotalSemana] = useState([0, 0, 0, 0]);
+  const [pendenciasSetor, setPendenciasSetor] = useState();
+  const [pendenciasSemana, setPendenciasSemana] = useState([0, 0, 0, 0]);
+  const [dataTable, setDataTable] = useState(tableContext);
+  const [meses, setMeses] = useState([
+    "Novembro 2019",
+    "Dezembro 2019",
+    "Janeiro 2020",
+    "Fevereiro 2020",
+    "Março 2020",
+    "Abril 2020",
+    "Maio 2020",
+    "Junho 2020",
+    "Julho 2020",
+    "Agosto 2020",
+    "Setembro 2020",
+    "Outubro 2020",
   ]);
 
   useEffect(() => {
-    setMediaAtendimento(aux * fonos);
-  }, [fonos, aux]);
+    firebase
+      .database()
+      .ref("tabela")
+      .once("value")
+      .then((snapshot) => setDataTable(snapshot.val()));
+  }, []);
 
   useEffect(() => {
-    const pen1 = pacientes - mediaAtendimento;
-    const pen2 = pen1 - mediaAtendimento;
-    const pen3 = pen2 - mediaAtendimento;
-    const pen4 = pen3 - mediaAtendimento;
-    setPendencias([pen1, pen2, pen3, pen4]);
+    setData(dataTable[count].data);
+    setTotalSetor(dataTable[count].totalSetor);
+    setTotalSemana(dataTable[count].totalSemana);
+    setPendenciasSetor(dataTable[count].pendenciasSetor);
+    setPendenciasSemana(dataTable[count].pendenciasSemana);
+  }, [count, dataTable]);
 
-    const aten1 = mediaAtendimento;
-    const aten2 = mediaAtendimento * 2;
-    const aten3 = mediaAtendimento * 3;
-    const aten4 = mediaAtendimento * 4;
-    setAtendimentos([aten1, aten2, aten3, aten4]);
-  }, [fonos, pacientes, mediaAtendimento]);
-
-  useEffect(() => {
-    setWeek([
-      {
-        atendimentos: atendimentos[0],
-        pendencias: pendencias[0],
-        entradas: entradas,
-      },
-      {
-        atendimentos: atendimentos[1],
-        pendencias: pendencias[1],
-        entradas: entradas,
-      },
-      {
-        atendimentos: atendimentos[2],
-        pendencias: pendencias[2],
-        entradas: entradas,
-      },
-      {
-        atendimentos: atendimentos[3],
-        pendencias: pendencias[3],
-        entradas: entradas,
-      },
-    ]);
-  }, [pendencias, entradas]);
-
-  console.log(pendencias);
-  const data = [
+  const chartData = [
     {
       name: "Semana 1",
-      atendimentos: week[0].atendimentos,
-      pendencias: week[0].pendencias,
-      entradas: week[0].entradas,
+      atendimentos: totalSemana[0],
+      pendencias: pendenciasSemana[0],
       amt: 2400,
     },
     {
       name: "Semana 2",
-      atendimentos: week[1].atendimentos,
-      pendencias: week[1].pendencias,
-      entradas: week[1].entradas,
+      atendimentos: totalSemana[1],
+      pendencias: pendenciasSemana[1],
       amt: 2400,
     },
     {
       name: "Semana 3",
-      atendimentos: week[2].atendimentos,
-      pendencias: week[2].pendencias,
-      entradas: week[2].entradas,
+      atendimentos: totalSemana[2],
+      pendencias: pendenciasSemana[2],
       amt: 2400,
     },
     {
       name: "Semana 4",
-      atendimentos: week[3].atendimentos,
-      pendencias: week[3].pendencias,
-      entradas: week[3].entradas,
+      atendimentos: totalSemana[3],
+      pendencias: pendenciasSemana[3],
       amt: 2400,
     },
   ];
 
-  return (
+  const dataPie = [
+    {
+      name: "Atendimentos",
+      value: Number(
+        totalSemana[0] + totalSemana[1] + totalSemana[2] + totalSemana[3]
+      ),
+      fill: colors.verdeagua,
+    },
+    {
+      name: "Pendências",
+      value: Number(
+        pendenciasSemana[0] +
+          pendenciasSemana[1] +
+          pendenciasSemana[2] +
+          pendenciasSemana[3]
+      ),
+      fill: colors.pink,
+    },
+  ];
+
+  const renderActiveShape = (props) => {
+    const RADIAN = Math.PI / 180;
+    const {
+      cx,
+      cy,
+      midAngle,
+      innerRadius,
+      outerRadius,
+      startAngle,
+      endAngle,
+      fill,
+      payload,
+      percent,
+      value,
+    } = props;
+    const sin = Math.sin(-RADIAN * midAngle);
+    const cos = Math.cos(-RADIAN * midAngle);
+    const sx = cx + (outerRadius + 10) * cos;
+    const sy = cy + (outerRadius + 10) * sin;
+    const mx = cx + (outerRadius + 30) * cos;
+    const my = cy + (outerRadius + 30) * sin;
+    const ex = mx + (cos >= 0 ? 1 : -1) * 22;
+    const ey = my;
+    const textAnchor = cos >= 0 ? "start" : "end";
+
+    return (
+      <g>
+        <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>
+          {payload.name}
+        </text>
+        <Sector
+          cx={cx}
+          cy={cy}
+          innerRadius={innerRadius}
+          outerRadius={outerRadius}
+          startAngle={startAngle}
+          endAngle={endAngle}
+          fill={fill}
+        />
+        <Sector
+          cx={cx}
+          cy={cy}
+          startAngle={startAngle}
+          endAngle={endAngle}
+          innerRadius={outerRadius + 6}
+          outerRadius={outerRadius + 10}
+          fill={fill}
+        />
+        <path
+          d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`}
+          stroke={fill}
+          fill="none"
+        />
+        <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
+        <text
+          x={ex + (cos >= 0 ? 1 : -1) * 12}
+          y={ey}
+          textAnchor={textAnchor}
+          fill="#333"
+        >{`Total ${value}`}</text>
+        <text
+          x={ex + (cos >= 0 ? 1 : -1) * 12}
+          y={ey}
+          dy={18}
+          textAnchor={textAnchor}
+          fill="#999"
+        >
+          {`(${(percent * 100).toFixed(2)}%)`}
+        </text>
+      </g>
+    );
+  };
+
+  const onPieEnter = (data, index) => {
+    setState({
+      activeIndex: index,
+    });
+  };
+  return !dataTable ? (
+    <LinearProgress />
+  ) : (
     <Container>
+      <NavBar>
+        <button
+          id="anterior"
+          onClick={() => {
+            if (count > 0) {
+              setCount(count - 1);
+            }
+          }}
+        ></button>
+        <span>{meses[count]}</span>
+        <button
+          id="posterior"
+          onClick={() => {
+            if (count < 11) {
+              setCount(count + 1);
+            }
+          }}
+        ></button>
+      </NavBar>
       <ChartContainer>
-        <BarChart responsive={true} width={600} height={300} data={data}>
+        <BarChart width={600} height={400} data={chartData}>
           <CartesianGrid />
           <XAxis dataKey="name" />
           <YAxis />
           <Tooltip />
-          <Legend />
-          <Bar type="monotone" dataKey="atendimentos" fill="#8884d8" />
+          <Bar type="monotone" dataKey="atendimentos" fill={colors.verdeagua} />
           <Bar
             type="monotone"
             stackId="a"
             dataKey="pendencias"
-            fill="#82ca9d"
+            fill={colors.pink}
           />
-          <Bar type="monotone" stackId="a" dataKey="entradas" fill="#ff55f5" />
+          <Legend />
         </BarChart>
+        <PieChart responsive={true} width={600} height={400}>
+          <Pie
+            activeIndex={state.activeIndex}
+            activeShape={renderActiveShape}
+            data={dataPie}
+            cx={250}
+            cy={200}
+            innerRadius={60}
+            outerRadius={80}
+            dataKey="value"
+            onMouseEnter={onPieEnter}
+          />
+        </PieChart>
       </ChartContainer>
-      {/* <FormContainer>
-        <TextField
-          className="inputfield"
-          defaultValue={fonos}
-          onChange={(e) => setFonos(e.target.value)}
-          label="Quantidade de profissionais"
-          type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          variant="outlined"
-        />
-
-        <TextField
-          className="inputfield"
-          defaultValue={aux}
-          onChange={(e) => setAux(e.target.value)}
-          label="Média de atendimentos por profissional na semana"
-          type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          variant="outlined"
-        />
-        <TextField
-          className="inputfield"
-          defaultValue={pacientes}
-          onChange={(e) => setPacientes(e.target.value)}
-          label="Quantidade de pacientes"
-          type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          variant="outlined"
-        />
-        <TextField
-          className="inputfield"
-          defaultValue={entradas}
-          onChange={(e) => setEntradas(e.target.value)}
-          label="Entradas por semena"
-          type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          variant="outlined"
-        />
-      </FormContainer> */}
     </Container>
   );
 }

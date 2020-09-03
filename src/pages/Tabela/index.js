@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import firebase from "../../context/firebase";
+import { useGlobalContext } from "../../context/index.js";
 import { useHistory } from "react-router-dom";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
@@ -9,7 +11,15 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import EditIcon from "@material-ui/icons/Edit";
-import { Modal, ButtonSave, Container, NavBar } from "./styled.js";
+import SaveIcon from "@material-ui/icons/Save";
+import {
+  Modal,
+  ButtonSave,
+  Container,
+  NavBar,
+  ButtonSaveFirebase,
+  WrapButtons,
+} from "./styled.js";
 import { colors } from "../../constants/colors.js";
 
 const StyledTableCell = withStyles((theme) => ({
@@ -37,1238 +47,11 @@ const useStyles = makeStyles({
 });
 
 export default function CustomizedTables() {
+  const { tableContext, setTableContext } = useGlobalContext();
+  const [count, setCount] = useState(0);
   const classes = useStyles();
   const history = useHistory();
-  const [tableData, setTableData] = useState(
-    sessionStorage.getItem("table")
-      ? JSON.parse(sessionStorage.getItem("table"))
-      : [
-          {
-            data: [
-              {
-                utineo: 17,
-                utiped: 5,
-                uti1: 5,
-                uti2: 7,
-                uti3: 13,
-                uti4: 2,
-                uti5: 0,
-                uti6: 20,
-                uti7: 0,
-                uti8: 7,
-                uti9: 0,
-                uti10: 0,
-                uti11: 0,
-                uti12: 0,
-              },
-              {
-                utineo: 8,
-                utiped: 3,
-                uti1: 7,
-                uti2: 3,
-                uti3: 3,
-                uti4: 2,
-                uti5: 0,
-                uti6: 17,
-                uti7: 0,
-                uti8: 7,
-                uti9: 0,
-                uti10: 2,
-                uti11: 3,
-                uti12: 0,
-              },
-              {
-                utineo: 7,
-                utiped: 9,
-                uti1: 1,
-                uti2: 1,
-                uti3: 2,
-                uti4: 5,
-                uti5: 1,
-                uti6: 9,
-                uti7: 1,
-                uti8: 2,
-                uti9: 0,
-                uti10: 2,
-                uti11: 2,
-                uti12: 0,
-              },
-              {
-                utineo: 17,
-                utiped: 1,
-                uti1: 5,
-                uti2: 0,
-                uti3: 6,
-                uti4: 1,
-                uti5: 0,
-                uti6: 18,
-                uti7: 3,
-                uti8: 6,
-                uti9: 0,
-                uti10: 11,
-                uti11: 5, //posto2
-                uti12: 0,
-              },
-            ],
-            totalSetor: {
-              utineo: 49,
-              utiped: 18,
-              uti1: 18,
-              uti2: 11,
-              uti3: 24,
-              uti4: 24,
-              uti5: 1,
-              uti6: 64,
-              uti7: 4,
-              uti8: 22,
-              uti9: 0,
-              uti10: 15,
-              uti11: 10,
-              uti12: 0,
-            },
-            totalSemana: [0, 0, 0, 0],
-            pendenciasSetor: {
-              utineo: [0, 0, 0, 0],
-              utiped: [0, 0, 0, 0],
-              uti1: [0, 0, 0, 0],
-              uti2: [0, 0, 0, 0],
-              uti3: [0, 0, 0, 0],
-              uti4: [0, 0, 0, 0],
-              uti5: [0, 0, 0, 0],
-              uti6: [0, 0, 0, 0],
-              uti7: [0, 0, 0, 0],
-              uti8: [0, 0, 0, 0],
-              uti9: [0, 0, 0, 0],
-              uti10: [0, 0, 0, 0],
-              uti11: [0, 0, 0, 0],
-              uti12: [0, 0, 0, 0],
-            },
-            pendenciasSemana: [2, 6, 5, 3],
-          },
-          {
-            data: [
-              {
-                utineo: 15,
-                utiped: 1,
-                uti1: 8,
-                uti2: 0,
-                uti3: 3,
-                uti4: 2,
-                uti5: 0,
-                uti6: 17,
-                uti7: 0,
-                uti8: 12,
-                uti9: 0,
-                uti10: 8,
-                uti11: 2,
-                uti12: 0,
-              },
-              {
-                utineo: 19,
-                utiped: 0,
-                uti1: 7,
-                uti2: 1,
-                uti3: 6,
-                uti4: 3,
-                uti5: 0,
-                uti6: 19,
-                uti7: 0,
-                uti8: 11,
-                uti9: 0,
-                uti10: 4,
-                uti11: 2,
-                uti12: 0,
-              },
-              {
-                utineo: 19,
-                utiped: 4,
-                uti1: 3,
-                uti2: 0,
-                uti3: 6,
-                uti4: 2,
-                uti5: 1,
-                uti6: 19,
-                uti7: 0,
-                uti8: 4,
-                uti9: 0,
-                uti10: 1,
-                uti11: 2,
-                uti12: 0,
-              },
-              {
-                utineo: 8,
-                utiped: 2,
-                uti1: 4,
-                uti2: 3,
-                uti3: 9,
-                uti4: 13,
-                uti5: 1,
-                uti6: 28,
-                uti7: 12,
-                uti8: 3,
-                uti9: 0,
-                uti10: 8,
-                uti11: 4,
-                uti12: 0,
-              },
-            ],
-            totalSetor: {
-              utineo: 61,
-              utiped: 7,
-              uti1: 22,
-              uti2: 4,
-              uti3: 24,
-              uti4: 24,
-              uti5: 2,
-              uti6: 83,
-              uti7: 12,
-              uti8: 30,
-              uti9: 0,
-              uti10: 21,
-              uti11: 10,
-              uti12: 0,
-            },
-            totalSemana: [0, 0, 0, 0],
-            pendenciasSetor: {
-              utineo: [0, 0, 0, 0],
-              utiped: [0, 0, 0, 0],
-              uti1: [0, 0, 0, 0],
-              uti2: [0, 0, 0, 0],
-              uti3: [0, 0, 0, 0],
-              uti4: [0, 0, 0, 0],
-              uti5: [0, 0, 0, 0],
-              uti6: [0, 0, 0, 0],
-              uti7: [0, 0, 0, 0],
-              uti8: [0, 0, 0, 0],
-              uti9: [0, 0, 0, 0],
-              uti10: [0, 0, 0, 0],
-              uti11: [0, 0, 0, 0],
-              uti12: [0, 0, 0, 0],
-            },
-            pendenciasSemana: [11, 1, 11, 2],
-          },
-          {
-            data: [
-              {
-                utineo: 7,
-                utiped: 1,
-                uti1: 5,
-                uti2: 0,
-                uti3: 8,
-                uti4: 10,
-                uti5: 2,
-                uti6: 2,
-                uti7: 0,
-                uti8: 3,
-                uti9: 0,
-                uti10: 4,
-                uti11: 4,
-                uti12: 0,
-              },
-              {
-                utineo: 15,
-                utiped: 4,
-                uti1: 6,
-                uti2: 0,
-                uti3: 6,
-                uti4: 20,
-                uti5: 7,
-                uti6: 3,
-                uti7: 0,
-                uti8: 5,
-                uti9: 0,
-                uti10: 11,
-                uti11: 6,
-                uti12: 0,
-              },
-              {
-                utineo: 26,
-                utiped: 3,
-                uti1: 2,
-                uti2: 2,
-                uti3: 8,
-                uti4: 16,
-                uti5: 2,
-                uti6: 7,
-                uti7: 0,
-                uti8: 3,
-                uti9: 0,
-                uti10: 6,
-                uti11: 4,
-                uti12: 0,
-              },
-              {
-                utineo: 14,
-                utiped: 8,
-                uti1: 4,
-                uti2: 5,
-                uti3: 10,
-                uti4: 5,
-                uti5: 6,
-                uti6: 10,
-                uti7: 3,
-                uti8: 7,
-                uti9: 0,
-                uti10: 9,
-                uti11: 8,
-                uti12: 5,
-              },
-            ],
-            totalSetor: {
-              utineo: 62,
-              utiped: 16,
-              uti1: 17,
-              uti2: 7,
-              uti3: 32,
-              uti4: 32,
-              uti5: 17,
-              uti6: 22,
-              uti7: 3,
-              uti8: 18,
-              uti9: 0,
-              uti10: 30,
-              uti11: 22,
-              uti12: 0,
-            },
-            totalSemana: [46, 83, 79, 94],
-            pendenciasSetor: {
-              utineo: [0, 0, 0, 0],
-              utiped: [0, 0, 0, 0],
-              uti1: [0, 0, 0, 0],
-              uti2: [0, 0, 0, 0],
-              uti3: [0, 0, 0, 0],
-              uti4: [0, 0, 0, 0],
-              uti5: [0, 0, 0, 0],
-              uti6: [0, 0, 0, 0],
-              uti7: [0, 0, 0, 0],
-              uti8: [0, 0, 0, 0],
-              uti9: [0, 0, 0, 0],
-              uti10: [0, 0, 0, 0],
-              uti11: [0, 0, 0, 0],
-              uti12: [0, 0, 0, 0],
-            },
-            pendenciasSemana: [4, 3, 6, 7],
-          },
-          {
-            data: [
-              {
-                utineo: 0,
-                utiped: 0,
-                uti1: 0,
-                uti2: 0,
-                uti3: 0,
-                uti4: 0,
-                uti5: 0,
-                uti6: 0,
-                uti7: 0,
-                uti8: 0,
-                uti9: 0,
-                uti10: 0,
-                uti11: 0,
-                uti12: 0,
-              },
-              {
-                utineo: 0,
-                utiped: 0,
-                uti1: 0,
-                uti2: 0,
-                uti3: 0,
-                uti4: 0,
-                uti5: 0,
-                uti6: 0,
-                uti7: 0,
-                uti8: 0,
-                uti9: 0,
-                uti10: 0,
-                uti11: 0,
-                uti12: 0,
-              },
-              {
-                utineo: 0,
-                utiped: 0,
-                uti1: 0,
-                uti2: 0,
-                uti3: 0,
-                uti4: 0,
-                uti5: 0,
-                uti6: 0,
-                uti7: 0,
-                uti8: 0,
-                uti9: 0,
-                uti10: 0,
-                uti11: 0,
-                uti12: 0,
-              },
-              {
-                utineo: 0,
-                utiped: 0,
-                uti1: 0,
-                uti2: 0,
-                uti3: 0,
-                uti4: 0,
-                uti5: 0,
-                uti6: 0,
-                uti7: 0,
-                uti8: 0,
-                uti9: 0,
-                uti10: 0,
-                uti11: 0,
-                uti12: 0,
-              },
-            ],
-            totalSetor: {
-              utineo: 0,
-              utiped: 0,
-              uti1: 0,
-              uti2: 0,
-              uti3: 0,
-              uti4: 0,
-              uti5: 0,
-              uti6: 0,
-              uti7: 0,
-              uti8: 0,
-              uti9: 0,
-              uti10: 0,
-              uti11: 0,
-              uti12: 0,
-            },
-            totalSemana: [0, 0, 0, 0],
-            pendenciasSetor: {
-              utineo: [0, 0, 0, 0],
-              utiped: [0, 0, 0, 0],
-              uti1: [0, 0, 0, 0],
-              uti2: [0, 0, 0, 0],
-              uti3: [0, 0, 0, 0],
-              uti4: [0, 0, 0, 0],
-              uti5: [0, 0, 0, 0],
-              uti6: [0, 0, 0, 0],
-              uti7: [0, 0, 0, 0],
-              uti8: [0, 0, 0, 0],
-              uti9: [0, 0, 0, 0],
-              uti10: [0, 0, 0, 0],
-              uti11: [0, 0, 0, 0],
-              uti12: [0, 0, 0, 0],
-            },
-            pendenciasSemana: [0, 0, 0, 0],
-          },
-          {
-            data: [
-              {
-                utineo: 0,
-                utiped: 0,
-                uti1: 0,
-                uti2: 0,
-                uti3: 0,
-                uti4: 0,
-                uti5: 0,
-                uti6: 0,
-                uti7: 0,
-                uti8: 0,
-                uti9: 0,
-                uti10: 0,
-                uti11: 0,
-                uti12: 0,
-              },
-              {
-                utineo: 0,
-                utiped: 0,
-                uti1: 0,
-                uti2: 0,
-                uti3: 0,
-                uti4: 0,
-                uti5: 0,
-                uti6: 0,
-                uti7: 0,
-                uti8: 0,
-                uti9: 0,
-                uti10: 0,
-                uti11: 0,
-                uti12: 0,
-              },
-              {
-                utineo: 0,
-                utiped: 0,
-                uti1: 0,
-                uti2: 0,
-                uti3: 0,
-                uti4: 0,
-                uti5: 0,
-                uti6: 0,
-                uti7: 0,
-                uti8: 0,
-                uti9: 0,
-                uti10: 0,
-                uti11: 0,
-                uti12: 0,
-              },
-              {
-                utineo: 0,
-                utiped: 0,
-                uti1: 0,
-                uti2: 0,
-                uti3: 0,
-                uti4: 0,
-                uti5: 0,
-                uti6: 0,
-                uti7: 0,
-                uti8: 0,
-                uti9: 0,
-                uti10: 0,
-                uti11: 0,
-                uti12: 0,
-              },
-            ],
-            totalSetor: {
-              utineo: 0,
-              utiped: 0,
-              uti1: 0,
-              uti2: 0,
-              uti3: 0,
-              uti4: 0,
-              uti5: 0,
-              uti6: 0,
-              uti7: 0,
-              uti8: 0,
-              uti9: 0,
-              uti10: 0,
-              uti11: 0,
-              uti12: 0,
-            },
-            totalSemana: [0, 0, 0, 0],
-            pendenciasSetor: {
-              utineo: [0, 0, 0, 0],
-              utiped: [0, 0, 0, 0],
-              uti1: [0, 0, 0, 0],
-              uti2: [0, 0, 0, 0],
-              uti3: [0, 0, 0, 0],
-              uti4: [0, 0, 0, 0],
-              uti5: [0, 0, 0, 0],
-              uti6: [0, 0, 0, 0],
-              uti7: [0, 0, 0, 0],
-              uti8: [0, 0, 0, 0],
-              uti9: [0, 0, 0, 0],
-              uti10: [0, 0, 0, 0],
-              uti11: [0, 0, 0, 0],
-              uti12: [0, 0, 0, 0],
-            },
-            pendenciasSemana: [0, 0, 0, 0],
-          },
-          {
-            data: [
-              {
-                utineo: 0,
-                utiped: 0,
-                uti1: 0,
-                uti2: 0,
-                uti3: 0,
-                uti4: 0,
-                uti5: 0,
-                uti6: 0,
-                uti7: 0,
-                uti8: 0,
-                uti9: 0,
-                uti10: 0,
-                uti11: 0,
-                uti12: 0,
-              },
-              {
-                utineo: 0,
-                utiped: 0,
-                uti1: 0,
-                uti2: 0,
-                uti3: 0,
-                uti4: 0,
-                uti5: 0,
-                uti6: 0,
-                uti7: 0,
-                uti8: 0,
-                uti9: 0,
-                uti10: 0,
-                uti11: 0,
-                uti12: 0,
-              },
-              {
-                utineo: 0,
-                utiped: 0,
-                uti1: 0,
-                uti2: 0,
-                uti3: 0,
-                uti4: 0,
-                uti5: 0,
-                uti6: 0,
-                uti7: 0,
-                uti8: 0,
-                uti9: 0,
-                uti10: 0,
-                uti11: 0,
-                uti12: 0,
-              },
-              {
-                utineo: 0,
-                utiped: 0,
-                uti1: 0,
-                uti2: 0,
-                uti3: 0,
-                uti4: 0,
-                uti5: 0,
-                uti6: 0,
-                uti7: 0,
-                uti8: 0,
-                uti9: 0,
-                uti10: 0,
-                uti11: 0,
-                uti12: 0,
-              },
-            ],
-            totalSetor: {
-              utineo: 0,
-              utiped: 0,
-              uti1: 0,
-              uti2: 0,
-              uti3: 0,
-              uti4: 0,
-              uti5: 0,
-              uti6: 0,
-              uti7: 0,
-              uti8: 0,
-              uti9: 0,
-              uti10: 0,
-              uti11: 0,
-              uti12: 0,
-            },
-            totalSemana: [0, 0, 0, 0],
-            pendenciasSetor: {
-              utineo: [0, 0, 0, 0],
-              utiped: [0, 0, 0, 0],
-              uti1: [0, 0, 0, 0],
-              uti2: [0, 0, 0, 0],
-              uti3: [0, 0, 0, 0],
-              uti4: [0, 0, 0, 0],
-              uti5: [0, 0, 0, 0],
-              uti6: [0, 0, 0, 0],
-              uti7: [0, 0, 0, 0],
-              uti8: [0, 0, 0, 0],
-              uti9: [0, 0, 0, 0],
-              uti10: [0, 0, 0, 0],
-              uti11: [0, 0, 0, 0],
-              uti12: [0, 0, 0, 0],
-            },
-            pendenciasSemana: [0, 0, 0, 0],
-          },
-          {
-            data: [
-              {
-                utineo: 0,
-                utiped: 0,
-                uti1: 0,
-                uti2: 0,
-                uti3: 0,
-                uti4: 0,
-                uti5: 0,
-                uti6: 0,
-                uti7: 0,
-                uti8: 0,
-                uti9: 0,
-                uti10: 0,
-                uti11: 0,
-                uti12: 0,
-              },
-              {
-                utineo: 0,
-                utiped: 0,
-                uti1: 0,
-                uti2: 0,
-                uti3: 0,
-                uti4: 0,
-                uti5: 0,
-                uti6: 0,
-                uti7: 0,
-                uti8: 0,
-                uti9: 0,
-                uti10: 0,
-                uti11: 0,
-                uti12: 0,
-              },
-              {
-                utineo: 0,
-                utiped: 0,
-                uti1: 0,
-                uti2: 0,
-                uti3: 0,
-                uti4: 0,
-                uti5: 0,
-                uti6: 0,
-                uti7: 0,
-                uti8: 0,
-                uti9: 0,
-                uti10: 0,
-                uti11: 0,
-                uti12: 0,
-              },
-              {
-                utineo: 0,
-                utiped: 0,
-                uti1: 0,
-                uti2: 0,
-                uti3: 0,
-                uti4: 0,
-                uti5: 0,
-                uti6: 0,
-                uti7: 0,
-                uti8: 0,
-                uti9: 0,
-                uti10: 0,
-                uti11: 0,
-                uti12: 0,
-              },
-            ],
-            totalSetor: {
-              utineo: 0,
-              utiped: 0,
-              uti1: 0,
-              uti2: 0,
-              uti3: 0,
-              uti4: 0,
-              uti5: 0,
-              uti6: 0,
-              uti7: 0,
-              uti8: 0,
-              uti9: 0,
-              uti10: 0,
-              uti11: 0,
-              uti12: 0,
-            },
-            totalSemana: [0, 0, 0, 0],
-            pendenciasSetor: {
-              utineo: [0, 0, 0, 0],
-              utiped: [0, 0, 0, 0],
-              uti1: [0, 0, 0, 0],
-              uti2: [0, 0, 0, 0],
-              uti3: [0, 0, 0, 0],
-              uti4: [0, 0, 0, 0],
-              uti5: [0, 0, 0, 0],
-              uti6: [0, 0, 0, 0],
-              uti7: [0, 0, 0, 0],
-              uti8: [0, 0, 0, 0],
-              uti9: [0, 0, 0, 0],
-              uti10: [0, 0, 0, 0],
-              uti11: [0, 0, 0, 0],
-              uti12: [0, 0, 0, 0],
-            },
-            pendenciasSemana: [0, 0, 0, 0],
-          },
-          {
-            data: [
-              {
-                utineo: 0,
-                utiped: 0,
-                uti1: 0,
-                uti2: 0,
-                uti3: 0,
-                uti4: 0,
-                uti5: 0,
-                uti6: 0,
-                uti7: 0,
-                uti8: 0,
-                uti9: 0,
-                uti10: 0,
-                uti11: 0,
-                uti12: 0,
-              },
-              {
-                utineo: 0,
-                utiped: 0,
-                uti1: 0,
-                uti2: 0,
-                uti3: 0,
-                uti4: 0,
-                uti5: 0,
-                uti6: 0,
-                uti7: 0,
-                uti8: 0,
-                uti9: 0,
-                uti10: 0,
-                uti11: 0,
-                uti12: 0,
-              },
-              {
-                utineo: 0,
-                utiped: 0,
-                uti1: 0,
-                uti2: 0,
-                uti3: 0,
-                uti4: 0,
-                uti5: 0,
-                uti6: 0,
-                uti7: 0,
-                uti8: 0,
-                uti9: 0,
-                uti10: 0,
-                uti11: 0,
-                uti12: 0,
-              },
-              {
-                utineo: 0,
-                utiped: 0,
-                uti1: 0,
-                uti2: 0,
-                uti3: 0,
-                uti4: 0,
-                uti5: 0,
-                uti6: 0,
-                uti7: 0,
-                uti8: 0,
-                uti9: 0,
-                uti10: 0,
-                uti11: 0,
-                uti12: 0,
-              },
-            ],
-            totalSetor: {
-              utineo: 0,
-              utiped: 0,
-              uti1: 0,
-              uti2: 0,
-              uti3: 0,
-              uti4: 0,
-              uti5: 0,
-              uti6: 0,
-              uti7: 0,
-              uti8: 0,
-              uti9: 0,
-              uti10: 0,
-              uti11: 0,
-              uti12: 0,
-            },
-            totalSemana: [0, 0, 0, 0],
-            pendenciasSetor: {
-              utineo: [0, 0, 0, 0],
-              utiped: [0, 0, 0, 0],
-              uti1: [0, 0, 0, 0],
-              uti2: [0, 0, 0, 0],
-              uti3: [0, 0, 0, 0],
-              uti4: [0, 0, 0, 0],
-              uti5: [0, 0, 0, 0],
-              uti6: [0, 0, 0, 0],
-              uti7: [0, 0, 0, 0],
-              uti8: [0, 0, 0, 0],
-              uti9: [0, 0, 0, 0],
-              uti10: [0, 0, 0, 0],
-              uti11: [0, 0, 0, 0],
-              uti12: [0, 0, 0, 0],
-            },
-            pendenciasSemana: [0, 0, 0, 0],
-          },
-          {
-            data: [
-              {
-                utineo: 0,
-                utiped: 0,
-                uti1: 0,
-                uti2: 0,
-                uti3: 0,
-                uti4: 0,
-                uti5: 0,
-                uti6: 0,
-                uti7: 0,
-                uti8: 0,
-                uti9: 0,
-                uti10: 0,
-                uti11: 0,
-                uti12: 0,
-              },
-              {
-                utineo: 0,
-                utiped: 0,
-                uti1: 0,
-                uti2: 0,
-                uti3: 0,
-                uti4: 0,
-                uti5: 0,
-                uti6: 0,
-                uti7: 0,
-                uti8: 0,
-                uti9: 0,
-                uti10: 0,
-                uti11: 0,
-                uti12: 0,
-              },
-              {
-                utineo: 0,
-                utiped: 0,
-                uti1: 0,
-                uti2: 0,
-                uti3: 0,
-                uti4: 0,
-                uti5: 0,
-                uti6: 0,
-                uti7: 0,
-                uti8: 0,
-                uti9: 0,
-                uti10: 0,
-                uti11: 0,
-                uti12: 0,
-              },
-              {
-                utineo: 0,
-                utiped: 0,
-                uti1: 0,
-                uti2: 0,
-                uti3: 0,
-                uti4: 0,
-                uti5: 0,
-                uti6: 0,
-                uti7: 0,
-                uti8: 0,
-                uti9: 0,
-                uti10: 0,
-                uti11: 0,
-                uti12: 0,
-              },
-            ],
-            totalSetor: {
-              utineo: 0,
-              utiped: 0,
-              uti1: 0,
-              uti2: 0,
-              uti3: 0,
-              uti4: 0,
-              uti5: 0,
-              uti6: 0,
-              uti7: 0,
-              uti8: 0,
-              uti9: 0,
-              uti10: 0,
-              uti11: 0,
-              uti12: 0,
-            },
-            totalSemana: [0, 0, 0, 0],
-            pendenciasSetor: {
-              utineo: [0, 0, 0, 0],
-              utiped: [0, 0, 0, 0],
-              uti1: [0, 0, 0, 0],
-              uti2: [0, 0, 0, 0],
-              uti3: [0, 0, 0, 0],
-              uti4: [0, 0, 0, 0],
-              uti5: [0, 0, 0, 0],
-              uti6: [0, 0, 0, 0],
-              uti7: [0, 0, 0, 0],
-              uti8: [0, 0, 0, 0],
-              uti9: [0, 0, 0, 0],
-              uti10: [0, 0, 0, 0],
-              uti11: [0, 0, 0, 0],
-              uti12: [0, 0, 0, 0],
-            },
-            pendenciasSemana: [0, 0, 0, 0],
-          },
-          {
-            data: [
-              {
-                utineo: 0,
-                utiped: 0,
-                uti1: 0,
-                uti2: 0,
-                uti3: 0,
-                uti4: 0,
-                uti5: 0,
-                uti6: 0,
-                uti7: 0,
-                uti8: 0,
-                uti9: 0,
-                uti10: 0,
-                uti11: 0,
-                uti12: 0,
-              },
-              {
-                utineo: 0,
-                utiped: 0,
-                uti1: 0,
-                uti2: 0,
-                uti3: 0,
-                uti4: 0,
-                uti5: 0,
-                uti6: 0,
-                uti7: 0,
-                uti8: 0,
-                uti9: 0,
-                uti10: 0,
-                uti11: 0,
-                uti12: 0,
-              },
-              {
-                utineo: 0,
-                utiped: 0,
-                uti1: 0,
-                uti2: 0,
-                uti3: 0,
-                uti4: 0,
-                uti5: 0,
-                uti6: 0,
-                uti7: 0,
-                uti8: 0,
-                uti9: 0,
-                uti10: 0,
-                uti11: 0,
-                uti12: 0,
-              },
-              {
-                utineo: 0,
-                utiped: 0,
-                uti1: 0,
-                uti2: 0,
-                uti3: 0,
-                uti4: 0,
-                uti5: 0,
-                uti6: 0,
-                uti7: 0,
-                uti8: 0,
-                uti9: 0,
-                uti10: 0,
-                uti11: 0,
-                uti12: 0,
-              },
-            ],
-            totalSetor: {
-              utineo: 0,
-              utiped: 0,
-              uti1: 0,
-              uti2: 0,
-              uti3: 0,
-              uti4: 0,
-              uti5: 0,
-              uti6: 0,
-              uti7: 0,
-              uti8: 0,
-              uti9: 0,
-              uti10: 0,
-              uti11: 0,
-              uti12: 0,
-            },
-            totalSemana: [0, 0, 0, 0],
-            pendenciasSetor: {
-              utineo: [0, 0, 0, 0],
-              utiped: [0, 0, 0, 0],
-              uti1: [0, 0, 0, 0],
-              uti2: [0, 0, 0, 0],
-              uti3: [0, 0, 0, 0],
-              uti4: [0, 0, 0, 0],
-              uti5: [0, 0, 0, 0],
-              uti6: [0, 0, 0, 0],
-              uti7: [0, 0, 0, 0],
-              uti8: [0, 0, 0, 0],
-              uti9: [0, 0, 0, 0],
-              uti10: [0, 0, 0, 0],
-              uti11: [0, 0, 0, 0],
-              uti12: [0, 0, 0, 0],
-            },
-            pendenciasSemana: [0, 0, 0, 0],
-          },
-          {
-            data: [
-              {
-                utineo: 0,
-                utiped: 0,
-                uti1: 0,
-                uti2: 0,
-                uti3: 0,
-                uti4: 0,
-                uti5: 0,
-                uti6: 0,
-                uti7: 0,
-                uti8: 0,
-                uti9: 0,
-                uti10: 0,
-                uti11: 0,
-                uti12: 0,
-              },
-              {
-                utineo: 0,
-                utiped: 0,
-                uti1: 0,
-                uti2: 0,
-                uti3: 0,
-                uti4: 0,
-                uti5: 0,
-                uti6: 0,
-                uti7: 0,
-                uti8: 0,
-                uti9: 0,
-                uti10: 0,
-                uti11: 0,
-                uti12: 0,
-              },
-              {
-                utineo: 0,
-                utiped: 0,
-                uti1: 0,
-                uti2: 0,
-                uti3: 0,
-                uti4: 0,
-                uti5: 0,
-                uti6: 0,
-                uti7: 0,
-                uti8: 0,
-                uti9: 0,
-                uti10: 0,
-                uti11: 0,
-                uti12: 0,
-              },
-              {
-                utineo: 0,
-                utiped: 0,
-                uti1: 0,
-                uti2: 0,
-                uti3: 0,
-                uti4: 0,
-                uti5: 0,
-                uti6: 0,
-                uti7: 0,
-                uti8: 0,
-                uti9: 0,
-                uti10: 0,
-                uti11: 0,
-                uti12: 0,
-              },
-            ],
-            totalSetor: {
-              utineo: 0,
-              utiped: 0,
-              uti1: 0,
-              uti2: 0,
-              uti3: 0,
-              uti4: 0,
-              uti5: 0,
-              uti6: 0,
-              uti7: 0,
-              uti8: 0,
-              uti9: 0,
-              uti10: 0,
-              uti11: 0,
-              uti12: 0,
-            },
-            totalSemana: [0, 0, 0, 0],
-            pendenciasSetor: {
-              utineo: [0, 0, 0, 0],
-              utiped: [0, 0, 0, 0],
-              uti1: [0, 0, 0, 0],
-              uti2: [0, 0, 0, 0],
-              uti3: [0, 0, 0, 0],
-              uti4: [0, 0, 0, 0],
-              uti5: [0, 0, 0, 0],
-              uti6: [0, 0, 0, 0],
-              uti7: [0, 0, 0, 0],
-              uti8: [0, 0, 0, 0],
-              uti9: [0, 0, 0, 0],
-              uti10: [0, 0, 0, 0],
-              uti11: [0, 0, 0, 0],
-              uti12: [0, 0, 0, 0],
-            },
-            pendenciasSemana: [0, 0, 0, 0],
-          },
-          {
-            data: [
-              {
-                utineo: 0,
-                utiped: 0,
-                uti1: 0,
-                uti2: 0,
-                uti3: 0,
-                uti4: 0,
-                uti5: 0,
-                uti6: 0,
-                uti7: 0,
-                uti8: 0,
-                uti9: 0,
-                uti10: 0,
-                uti11: 0,
-                uti12: 0,
-              },
-              {
-                utineo: 0,
-                utiped: 0,
-                uti1: 0,
-                uti2: 0,
-                uti3: 0,
-                uti4: 0,
-                uti5: 0,
-                uti6: 0,
-                uti7: 0,
-                uti8: 0,
-                uti9: 0,
-                uti10: 0,
-                uti11: 0,
-                uti12: 0,
-              },
-              {
-                utineo: 0,
-                utiped: 0,
-                uti1: 0,
-                uti2: 0,
-                uti3: 0,
-                uti4: 0,
-                uti5: 0,
-                uti6: 0,
-                uti7: 0,
-                uti8: 0,
-                uti9: 0,
-                uti10: 0,
-                uti11: 0,
-                uti12: 0,
-              },
-              {
-                utineo: 0,
-                utiped: 0,
-                uti1: 0,
-                uti2: 0,
-                uti3: 0,
-                uti4: 0,
-                uti5: 0,
-                uti6: 0,
-                uti7: 0,
-                uti8: 0,
-                uti9: 0,
-                uti10: 0,
-                uti11: 0,
-                uti12: 0,
-              },
-            ],
-            totalSetor: {
-              utineo: 0,
-              utiped: 0,
-              uti1: 0,
-              uti2: 0,
-              uti3: 0,
-              uti4: 0,
-              uti5: 0,
-              uti6: 0,
-              uti7: 0,
-              uti8: 0,
-              uti9: 0,
-              uti10: 0,
-              uti11: 0,
-              uti12: 0,
-            },
-            totalSemana: [0, 0, 0, 0],
-            pendenciasSetor: {
-              utineo: [0, 0, 0, 0],
-              utiped: [0, 0, 0, 0],
-              uti1: [0, 0, 0, 0],
-              uti2: [0, 0, 0, 0],
-              uti3: [0, 0, 0, 0],
-              uti4: [0, 0, 0, 0],
-              uti5: [0, 0, 0, 0],
-              uti6: [0, 0, 0, 0],
-              uti7: [0, 0, 0, 0],
-              uti8: [0, 0, 0, 0],
-              uti9: [0, 0, 0, 0],
-              uti10: [0, 0, 0, 0],
-              uti11: [0, 0, 0, 0],
-              uti12: [0, 0, 0, 0],
-            },
-            pendenciasSemana: [0, 0, 0, 0],
-          },
-        ]
-  );
+  const [tableData, setTableData] = useState(tableContext);
   const [showModal, setShowModal] = useState(false);
   const [setor, setSetor] = useState("Setor");
   const [data, setData] = useState([
@@ -1370,8 +153,7 @@ export default function CustomizedTables() {
     uti11: [0, 0, 0, 0],
     uti12: [0, 0, 0, 0],
   });
-  const [pendenciasSemana, setPendenciasSemana] = useState([2, 6, 5, 3]);
-  const [count, setCount] = useState(0);
+  const [pendenciasSemana, setPendenciasSemana] = useState([0, 0, 0, 0]);
   const [meses, setMeses] = useState([
     "Novembro 2019",
     "Dezembro 2019",
@@ -1394,64 +176,71 @@ export default function CustomizedTables() {
   }, [count]);
 
   useEffect(() => {
-    setPendenciasSemana([
+    const sem1 =
       pendenciasSetor.utineo[0] +
-        pendenciasSetor.utiped[0] +
-        pendenciasSetor.uti1[0] +
-        pendenciasSetor.uti2[0] +
-        pendenciasSetor.uti3[0] +
-        pendenciasSetor.uti4[0] +
-        pendenciasSetor.uti5[0] +
-        pendenciasSetor.uti6[0] +
-        pendenciasSetor.uti7[0] +
-        pendenciasSetor.uti8[0] +
-        pendenciasSetor.uti9[0] +
-        pendenciasSetor.uti10[0] +
-        pendenciasSetor.uti11[0] +
-        pendenciasSetor.uti12[0],
+      pendenciasSetor.utiped[0] +
+      pendenciasSetor.uti1[0] +
+      pendenciasSetor.uti2[0] +
+      pendenciasSetor.uti3[0] +
+      pendenciasSetor.uti4[0] +
+      pendenciasSetor.uti5[0] +
+      pendenciasSetor.uti6[0] +
+      pendenciasSetor.uti7[0] +
+      pendenciasSetor.uti8[0] +
+      pendenciasSetor.uti9[0] +
+      pendenciasSetor.uti10[0] +
+      pendenciasSetor.uti11[0] +
+      pendenciasSetor.uti12[0];
+    const sem2 =
       pendenciasSetor.utineo[1] +
-        pendenciasSetor.utiped[1] +
-        pendenciasSetor.uti1[1] +
-        pendenciasSetor.uti2[1] +
-        pendenciasSetor.uti3[1] +
-        pendenciasSetor.uti4[1] +
-        pendenciasSetor.uti5[1] +
-        pendenciasSetor.uti6[1] +
-        pendenciasSetor.uti7[1] +
-        pendenciasSetor.uti8[1] +
-        pendenciasSetor.uti9[1] +
-        pendenciasSetor.uti10[1] +
-        pendenciasSetor.uti11[1] +
-        pendenciasSetor.uti12[1],
+      pendenciasSetor.utiped[1] +
+      pendenciasSetor.uti1[1] +
+      pendenciasSetor.uti2[1] +
+      pendenciasSetor.uti3[1] +
+      pendenciasSetor.uti4[1] +
+      pendenciasSetor.uti5[1] +
+      pendenciasSetor.uti6[1] +
+      pendenciasSetor.uti7[1] +
+      pendenciasSetor.uti8[1] +
+      pendenciasSetor.uti9[1] +
+      pendenciasSetor.uti10[1] +
+      pendenciasSetor.uti11[1] +
+      pendenciasSetor.uti12[1];
+    const sem3 =
       pendenciasSetor.utineo[2] +
-        pendenciasSetor.utiped[2] +
-        pendenciasSetor.uti1[2] +
-        pendenciasSetor.uti2[2] +
-        pendenciasSetor.uti3[2] +
-        pendenciasSetor.uti4[2] +
-        pendenciasSetor.uti5[2] +
-        pendenciasSetor.uti6[2] +
-        pendenciasSetor.uti7[2] +
-        pendenciasSetor.uti8[2] +
-        pendenciasSetor.uti9[2] +
-        pendenciasSetor.uti10[2] +
-        pendenciasSetor.uti11[2] +
-        pendenciasSetor.uti12[2],
+      pendenciasSetor.utiped[2] +
+      pendenciasSetor.uti1[2] +
+      pendenciasSetor.uti2[2] +
+      pendenciasSetor.uti3[2] +
+      pendenciasSetor.uti4[2] +
+      pendenciasSetor.uti5[2] +
+      pendenciasSetor.uti6[2] +
+      pendenciasSetor.uti7[2] +
+      pendenciasSetor.uti8[2] +
+      pendenciasSetor.uti9[2] +
+      pendenciasSetor.uti10[2] +
+      pendenciasSetor.uti11[2] +
+      pendenciasSetor.uti12[2];
+    const sem4 =
       pendenciasSetor.utineo[3] +
-        pendenciasSetor.utiped[3] +
-        pendenciasSetor.uti1[3] +
-        pendenciasSetor.uti2[3] +
-        pendenciasSetor.uti3[3] +
-        pendenciasSetor.uti4[3] +
-        pendenciasSetor.uti5[3] +
-        pendenciasSetor.uti6[3] +
-        pendenciasSetor.uti7[3] +
-        pendenciasSetor.uti8[3] +
-        pendenciasSetor.uti9[3] +
-        pendenciasSetor.uti10[3] +
-        pendenciasSetor.uti11[3] +
-        pendenciasSetor.uti12[3],
-    ]);
+      pendenciasSetor.utiped[3] +
+      pendenciasSetor.uti1[3] +
+      pendenciasSetor.uti2[3] +
+      pendenciasSetor.uti3[3] +
+      pendenciasSetor.uti4[3] +
+      pendenciasSetor.uti5[3] +
+      pendenciasSetor.uti6[3] +
+      pendenciasSetor.uti7[3] +
+      pendenciasSetor.uti8[3] +
+      pendenciasSetor.uti9[3] +
+      pendenciasSetor.uti10[3] +
+      pendenciasSetor.uti11[3] +
+      pendenciasSetor.uti12[3];
+    if (sem1 + sem2 + sem3 + sem4 === 0) {
+      setPendenciasSemana(tableContext[count].pendenciasSemana);
+    } else {
+      setPendenciasSemana([sem1, sem2, sem3, sem4]);
+    }
   }, [pendenciasSetor]);
 
   useEffect(() => {
@@ -1725,8 +514,9 @@ export default function CustomizedTables() {
       const newArray = Object.values({ ...old, [count]: table });
       setTableData(newArray);
       setAno(tableData);
-      sessionStorage.setItem("table", JSON.stringify(ano));
-      history.push("/geral");
+      setTableContext(ano);
+      handleSubmitFirebase();
+      history.push("/");
     } else {
       const old = tableData;
       const newArray = Object.values({ ...old, [count]: table });
@@ -1735,7 +525,10 @@ export default function CustomizedTables() {
       setAno(tableData);
     }
   };
-  console.log(pendenciasSetor);
+
+  const handleSubmitFirebase = () => {
+    firebase.database().ref("tabela").set(ano);
+  };
   return (
     <Container>
       {showModal && (
@@ -2448,7 +1241,9 @@ export default function CustomizedTables() {
           </TableBody>
         </Table>
       </TableContainer>
-      <ButtonSave onClick={handleSubmit}>Salvar Tabela</ButtonSave>
+      <WrapButtons>
+        <ButtonSave onClick={handleSubmit}>Próximo</ButtonSave>
+      </WrapButtons>
     </Container>
   );
 }

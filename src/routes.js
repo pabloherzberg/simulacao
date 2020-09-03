@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
-import Geral from "./pages/Geral";
 import Uti1 from "./pages/Uti1";
 import Uti2 from "./pages/Uti2";
 import Uti3 from "./pages/Uti3";
@@ -15,7 +14,7 @@ function Routes() {
   return (
     <BrowserRouter>
       <Switch>
-        <RouteWrapper layout={Layout} exact path="/" component={Geral} />
+        <RouteWrapper layout={Layout} exact path="/" component={Home} />
         <RouteWrapper
           layout={Layout}
           exact
@@ -28,7 +27,7 @@ function Routes() {
         <RouteWrapper layout={Layout} exact path="/utineo" component={Utineo} />
         <RouteWrapper layout={Layout} exact path="/utiped" component={Utiped} />
         <RouteWrapper layout={Layout} exact path="/tabela" component={Tabela} />
-        <RouteWrapper layout={Layout} exact path="/geral" component={Geral} />
+
         {/*  <Route exact path="/posto2eme" component={Posto2eme} />
         <Route exact path="/emeped" component={Emeped} />
         <Route exact path="/andar4" component={Andar4} />

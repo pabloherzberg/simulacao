@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { colors } from "../../constants/colors";
 
 export const Container = styled.div`
   height: 100%;
@@ -138,17 +139,33 @@ export const Modal = styled.div`
 `;
 
 export const ButtonSave = styled.button`
-  height: 4em;
   width: 15em;
+  height: 50%;
   border: none;
   border-radius: 4px;
   background: black;
   color: white;
   font-size: 1.5em;
-  margin: 0;
-  padding: 0;
-  position: relative;
-  left: 70%;
+  z-index: 10;
+  cursor: pointer;
+  box-shadow: 0px 5px 1px black;
+  margin-right: 2em;
+  &:active {
+    background-color: #3e8e41;
+    box-shadow: 0 2px #666;
+    transform: translateY(4px);
+  }
+`;
+
+export const ButtonSaveFirebase = styled.button`
+  width: 15em;
+  height: 50%;
+  margin-right: 2em;
+  border: none;
+  border-radius: 4px;
+  background: ${colors.blueBorder};
+  color: white;
+  font-size: 1.5em;
   z-index: 10;
   cursor: pointer;
   box-shadow: 0px 5px 1px black;
@@ -158,4 +175,11 @@ export const ButtonSave = styled.button`
     box-shadow: 0 2px #666;
     transform: translateY(4px);
   }
+`;
+
+export const WrapButtons = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 8em;
 `;
