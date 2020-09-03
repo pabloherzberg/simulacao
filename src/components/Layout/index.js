@@ -15,22 +15,12 @@ function Layout({ children }) {
         </div>
         <div className="navitems">
           <ul>
-            <li onClick={() => history.push("/tabela")}>
-              <DefaultButton
-                as={Link}
-                heightstyle={"3em"}
-                fontcolor={"white"}
-                to="/tabela"
-              >
-                TABELA
-              </DefaultButton>
-            </li>
             <li onClick={() => history.push("/")}>
               <DefaultButton
                 as={Link}
                 heightstyle={"3em"}
                 fontcolor={"white"}
-                to="/geral"
+                to="/"
               >
                 GERAL
               </DefaultButton>
@@ -43,6 +33,16 @@ function Layout({ children }) {
                 to="/setores"
               >
                 SETORES
+              </DefaultButton>
+            </li>
+            <li onClick={() => history.push("/tabela")}>
+              <DefaultButton
+                as={Link}
+                heightstyle={"3em"}
+                fontcolor={"white"}
+                to="/tabela"
+              >
+                TABELA
               </DefaultButton>
             </li>
           </ul>
