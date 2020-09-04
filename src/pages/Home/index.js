@@ -18,7 +18,7 @@ import {
 } from "recharts";
 
 function Home() {
-  const { tableContext } = useGlobalContext();
+  const { tableContext, user } = useGlobalContext();
   const [state, setState] = useState({ activeIndex: 0 });
   const [data, setData] = useState();
   const [count, setCount] = useState(0);
@@ -50,6 +50,7 @@ function Home() {
       .then((snapshot) => setDataTable(snapshot.val()));
   }, []);
 
+  console.log(user);
   useEffect(() => {
     setData(dataTable[count].data);
     setTotalSetor(dataTable[count].totalSetor);
