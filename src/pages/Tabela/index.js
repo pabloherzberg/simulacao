@@ -171,9 +171,17 @@ export default function CustomizedTables() {
   const [ano, setAno] = useState([]);
 
   useEffect(() => {
+    firebase
+      .database()
+      .ref("tabela")
+      .once("value")
+      .then((snapshot) => setTableData(snapshot.val()));
+  }, []);
+
+  useEffect(() => {
     setData(tableData[count].data);
     setPendenciasSetor(tableData[count].pendenciasSetor);
-  }, [count]);
+  }, [count, tableData]);
 
   useEffect(() => {
     const sem1 =
@@ -241,7 +249,7 @@ export default function CustomizedTables() {
     } else {
       setPendenciasSemana([sem1, sem2, sem3, sem4]);
     }
-  }, [pendenciasSetor]);
+  }, [count, pendenciasSetor, tableContext]);
 
   useEffect(() => {
     setTotalSetor({
