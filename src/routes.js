@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Tabela from "./pages/Tabela";
 import Setores from "./pages/Setores";
 import Login from "./pages/Login";
+import Geral from "./pages/Geral";
 
 function Routes() {
   const user = JSON.parse(localStorage.getItem("userFono"));
@@ -32,6 +33,9 @@ function Routes() {
             path="/setores"
             component={Setores}
           />
+        )}
+        {user && (
+          <RouteWrapper layout={Layout} exact path="/anual" component={Geral} />
         )}
       </Switch>
     </BrowserRouter>

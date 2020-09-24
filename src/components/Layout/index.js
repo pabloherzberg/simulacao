@@ -35,6 +35,16 @@ function Layout({ children }) {
                 SETORES
               </DefaultButton>
             </li>
+            <li onClick={() => history.push("/anual")}>
+              <DefaultButton
+                as={Link}
+                heightstyle={"3em"}
+                fontcolor={"white"}
+                to="/anual"
+              >
+                Anual
+              </DefaultButton>
+            </li>
             <li onClick={() => history.push("/tabela")}>
               <DefaultButton
                 as={Link}
