@@ -7,6 +7,8 @@ import Tabela from "./pages/Tabela";
 import Setores from "./pages/Setores";
 import Login from "./pages/Login";
 import Geral from "./pages/Geral";
+import Prontuarios from './pages/Prontuarios'
+import NovoPaciente from './pages/novoPaciente'
 
 function Routes() {
   const user = JSON.parse(localStorage.getItem("userFono"));
@@ -36,6 +38,12 @@ function Routes() {
         )}
         {user && (
           <RouteWrapper layout={Layout} exact path="/anual" component={Geral} />
+        )}
+        {user && (
+          <RouteWrapper layout={Layout} exact path="/prontuarios" component={Prontuarios} />
+        )}
+          {user && (
+          <RouteWrapper layout={Layout} exact path="/novo_paciente" component={NovoPaciente} />
         )}
       </Switch>
     </BrowserRouter>

@@ -55,6 +55,16 @@ function Layout({ children }) {
                 TABELA
               </DefaultButton>
             </li>
+            <li onClick={() => history.push("/prontuarios")}>
+              <DefaultButton
+                as={Link}
+                heightstyle={"3em"}
+                fontcolor={"white"}
+                to="/prontuarios"
+              >
+                PRONTUÁRIOS
+              </DefaultButton>
+            </li>
           </ul>
           <img src={logoFono} />
         </div>
