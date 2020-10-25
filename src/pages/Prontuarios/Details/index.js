@@ -219,24 +219,24 @@ function Details({selected, selectKey, newPerson, length}) {
               </div>
             </div>
           </div>
-                 {showVia&&
-                  <div onClick={handleClose} id='showVia'>
-                    <div id='content'>
-                      <h2>Editar via de alimentação</h2>
-                      <input onChange={handleChange} type="text" name="via" value={inputs.via} />
-                      <button onClick={()=>setShowVia(false)}>Ok</button>
-                    </div>
-                  </div>
-                 }
-                  {showOFAS&&
-                  <div onClick={handleClose} id='showOFAS'>
-                    <div id='content'>
-                      <h2>Editar OFAS</h2>
-                      <input onChange={handleChange} type="text" name="OFAS" value={inputs.OFAS} />
-                      <button onClick={()=>setShowOFAS(false)}>Ok</button>
-                    </div>
-                  </div>
-                 }
+            {showVia&&
+            <div onClick={handleClose} id='showVia'>
+              <div id='content'>
+                <h2>Editar via de alimentação</h2>
+                <input onChange={handleChange} type="text" name="via" value={inputs.via} />
+                <button onClick={()=>setShowVia(false)}>Ok</button>
+              </div>
+            </div>
+            }
+            {showOFAS&&
+            <div onClick={handleClose} id='showOFAS'>
+              <div id='content'>
+                <h2>Editar OFAS</h2>
+                <input onChange={handleChange} type="text" name="OFAS" value={inputs.OFAS} />
+                <button onClick={()=>setShowOFAS(false)}>Ok</button>
+              </div>
+            </div>
+            }
           </>
      )}
       </Container>

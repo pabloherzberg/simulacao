@@ -85,7 +85,7 @@ export default function CustomPaginationActionsTable({select, setLength, length,
 
     const res = window.confirm('Deseja DELETAR este paciente?')
     if(res){
-      firebase.database().ref(`pacientes/${index}`).remove()
+      firebase.database().ref(`pacientes/${index}`).set('deletado')
     }else{
       return
     }
