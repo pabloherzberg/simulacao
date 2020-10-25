@@ -97,8 +97,14 @@ export default function CustomPaginationActionsTable({select, setLength, length,
       <Table className={classes.table} aria-label="custom pagination table">
       <TableHead>
           <TableRow >
-            <TableCell></TableCell>
-            <TableCell></TableCell>
+            <TableCell style={{ width: 160 }}>
+              <img style={{width:'20%', marginRight:'1em'}} src={stethoscopeGreen}/>
+              <p style={{fontSize:'10px'}}>Em acompanhamento</p>
+            </TableCell>
+            <TableCell style={{ width: 160 }}>
+              <img style={{width:'20%', marginRight:'1em'}} src={stethoscopeRed}/>
+              <p style={{fontSize:'10px'}}>Em alta</p>
+            </TableCell>
             <TableCell align='center'>
               <Select>
               <select onChange={e=>setSelectedSetor(e.target.value)}>
