@@ -34,8 +34,6 @@ function Details({selected, selectKey, newPerson, length}) {
       setInputs({...selected})
     }
   },[selected, newPerson])
-
-  console.log(inputs)
   
   function handleChange(e){
     if(e.target.type === 'date'){
@@ -59,7 +57,7 @@ function Details({selected, selectKey, newPerson, length}) {
       {(selected || newPerson) && (<>
           <ul>
             <li><span>Nome:</span> <input onChange={handleChange} type="text" name="nome" value={inputs.nome}/> </li>
-            <li><span>Nome:</span> <input onChange={handleChange} type="text" name="idade" value={inputs.idade}/> </li>
+            <li><span>Idade:</span> <input onChange={handleChange} type="text" name="idade" value={inputs.idade}/> </li>
             <li><span>Setor:</span> 
             <select onChange={handleChange} type="text" name="setor" value={inputs.setor} >
               <option value="uti_neo">UTI NEO-NATAL</option>

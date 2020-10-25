@@ -61,7 +61,6 @@ export default function CustomPaginationActionsTable({select, setLength, length,
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [length]);
 
-  console.log(selectedSetor)
 
   function handleChangeStatus(index, row){
     const res = window.confirm('Deseja alterar o status para ATENDIMENTO JÁ REALIZADO?')
@@ -72,7 +71,7 @@ export default function CustomPaginationActionsTable({select, setLength, length,
       console.log(row.status)
     }
   }
-  console.log(rows)
+
 
   return (
     <TableContainer component={Paper}>
