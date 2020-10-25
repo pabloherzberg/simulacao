@@ -213,7 +213,7 @@ export const Container = styled.div`
             }
         }
     }
-     #showVoz{
+    #showRespiracao{
         z-index:100;
         position:fixed;
         top:0;
