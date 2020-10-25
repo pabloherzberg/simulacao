@@ -1,6 +1,12 @@
 import styled from 'styled-components'
 import {colors} from '../../../constants/colors'
 
+export const Wrapper = styled.div`
+.selectedRow{
+    background-color:${colors.blueBorder}
+}
+`
+
 export const Select = styled.div`
 position: relative;
 font-family:Arial;
