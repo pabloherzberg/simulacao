@@ -20,6 +20,7 @@ import LastPageIcon from '@material-ui/icons/LastPage';
 import stethoscopeGreen from '../../../assets/stethoscopeGreen.svg'
 import stethoscopeRed from '../../../assets/stethoscopeRed.svg'
 import addPerson from '../../../assets/add-user.svg'
+import deletePerson from '../../../assets/delete.svg'
 
 import {Select} from './styles'
 
@@ -69,13 +70,23 @@ export default function CustomPaginationActionsTable({select, setLength, length,
   }
 
   function handleChangeStatus(row){
-
     const index = arraySearch(rows, row)
 
     const res = window.confirm('Deseja alterar o status para ATENDIMENTO JÁ REALIZADO?')
     if(res){     
       firebase.database().ref(`pacientes/${index}`).child('status').set(!row.status)
       firebase.database().ref(`pacientes/${index}`).child('ultimo_atendimento').set(new Date().toLocaleDateString())
+    }else{
+      return
+    }
+  }
+
+  function handleDelete(row){
+    const index = arraySearch(rows, row)
+
+    const res = window.confirm('Deseja DELETAR este paciente?')
+    if(res){
+      firebase.database().ref(`pacientes/${index}`).remove()
     }else{
       return
     }
@@ -124,6 +135,7 @@ export default function CustomPaginationActionsTable({select, setLength, length,
             <TableCell >Idade</TableCell>
             <TableCell>Via de Alimentação</TableCell>
             <TableCell align='right'>Último Atendimento</TableCell>
+            <TableCell align='right'>Apagar</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -150,7 +162,9 @@ export default function CustomPaginationActionsTable({select, setLength, length,
               <TableCell style={{ width: 160 }} align="right">
                 {(row.ultimo_atendimento).toString().split('-').reverse().join('/')}
               </TableCell>
-             
+              <TableCell style={{ width: 160 }} align='right' onClick={()=>handleDelete(row)} component="th" scope="row">
+                <img src={deletePerson} style={{width:"25%", objectFit:'contain'}}/>
+              </TableCell>
             </TableRow>
           ))}
 

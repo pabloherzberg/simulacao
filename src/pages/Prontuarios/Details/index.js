@@ -37,6 +37,11 @@ function Details({selected, selectKey, newPerson, length}) {
   },[selected, newPerson])
   
   function handleChange(e){
+    if(e.target.name ==='via'){
+      
+        setShowVia(true)
+      
+    }
     if(e.target.type === 'date'){
       setInputs({...inputs, [e.target.name]: new Date(e.target.value)})   
     }
@@ -108,12 +113,13 @@ function Details({selected, selectKey, newPerson, length}) {
          
              <select onChange={handleChange} type="text" name="OFAS" value={inputs.OFAS} >
                      
+                     <option value="Funcionais">Funcionais</option>
                      <option value="Funcionais, dentado">Funcionais, dentado</option>
-                     <option value="Funcionais, desdentado parcial">Funcionais, desdentado parcial</option>
-                     <option value="Funcionais, desdentado total">Funcionais, desdentado total</option>
+                     <option value="Funcionais, edentado parcial">Funcionais, edentado parcial</option>
+                     <option value="Funcionais, edentado total">Funcionais, edentado total</option>
                      <option value="Força, tonus e mobilidade reduzidos, dentado ">Força, tônus e mobilidade reduzidos, dentado </option>
-                     <option value="Força, tonus e mobilidade reduzidos, desdentado parcial ">Força, tônus e mobilidade reduzidos, desdentado parcial </option>
-                     <option value="Força, tonus e mobilidade reduzidos, desdentado total ">Força, tônus e mobilidade reduzidos, desdentado total </option>
+                     <option value="Força, tonus e mobilidade reduzidos, edentado parcial ">Força, tônus e mobilidade reduzidos, edentado parcial </option>
+                     <option value="Força, tonus e mobilidade reduzidos, edentado total ">Força, tônus e mobilidade reduzidos, edentado total </option>
                      <option value="Paralisia Facial Periferica">Paralisia Facial Periférica</option>
                      <option value="Paralisia Facial Central">Paralisia Facial Central</option>              
      
@@ -162,6 +168,7 @@ function Details({selected, selectKey, newPerson, length}) {
                 <optgroup label='ADULTOS'>
                   <option value="SNE + VO ZERO">SNE + VO ZERO</option>
                   <option value="GTT + VO ZERO">GTT + VO ZERO</option>
+                  <option value="PL + LF">PL + LF</option>
                   <option value="6X 200ml PL + LF + SNE">6X 200ml PL + LF + SNE</option>
                   <option value="6X 200ml PL + LE + SNE">6X 200ml PL + LE + SNE</option>
                   <option value="PASTOSA + LF + SNE em desuso">PASTOSA + LF + SNE em desuso</option>
@@ -170,6 +177,7 @@ function Details({selected, selectKey, newPerson, length}) {
                   <option value= "BRANDA">BRANDA</option>
                 </optgroup>
                 <optgroup label='RNs'>
+                  <option value="VO + Amamentação">VO + Amamentação</option>
                   <option value="SNG + VO ZERO">SNG + VO ZERO</option>
                   <option value="GTT + VO ZERO">GTT + VO ZERO</option>
                   <option value="LILLO + SNG em desuso">LILLO + SNG em desuso</option>
@@ -179,10 +187,6 @@ function Details({selected, selectKey, newPerson, length}) {
                   <option value="BICO REDONDO volume total">BICO REDONDO volume total</option>
                   <option value="ORTODÔNTICA volume total">ORTODÔNTICA volume total</option>
                 </optgroup>
-                <optgroup label='OUTROS'>
-                  <option onClick={()=>setShowVia(true)} value="Outro">Editar</option>
-                </optgroup>
-
 
               </select>
             </p>
@@ -205,7 +209,7 @@ function Details({selected, selectKey, newPerson, length}) {
                     <div id='content'>
                       <h2>Qual via de alimentação?</h2>
                       <input onChange={handleChange} type="text" name="via" value={inputs.via} />
-                      <button onClick={()=>setShowVia(false)}>Criar</button>
+                      <button onClick={()=>setShowVia(false)}>Salvar</button>
                     </div>
                   </div>
                  }
