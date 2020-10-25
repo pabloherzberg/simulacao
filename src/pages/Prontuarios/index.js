@@ -12,6 +12,9 @@ function Prontuarios() {
   const [length, setLength] = useState(0)
   const [newPerson, setNewPerson] = useState(false)
 
+  console.log(newPerson)
+  
+
   return(
     <Wrapper>
         <Details length={length} newPerson={newPerson} selectKey={selectedKey} selected={selectedPerson} />

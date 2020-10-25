@@ -61,14 +61,23 @@ export default function CustomPaginationActionsTable({select, setLength, length,
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [length]);
 
+  function arraySearch(arr,val) {
+    for (var i=0; i<arr.length; i++)
+        if (arr[i] === val)                    
+            return i;
+    return false;
+  }
 
-  function handleChangeStatus(index, row){
+  function handleChangeStatus(row){
+
+    const index = arraySearch(rows, row)
+
     const res = window.confirm('Deseja alterar o status para ATENDIMENTO JÁ REALIZADO?')
-    if(res){
+    if(res){     
       firebase.database().ref(`pacientes/${index}`).child('status').set(!row.status)
       firebase.database().ref(`pacientes/${index}`).child('ultimo_atendimento').set(new Date().toLocaleDateString())
     }else{
-      console.log(row.status)
+      return
     }
   }
 
@@ -83,7 +92,7 @@ export default function CustomPaginationActionsTable({select, setLength, length,
             <TableCell align='center'>
               <Select>
               <select onChange={e=>setSelectedSetor(e.target.value)}>
-                <option value="uti_neo">UTI NEO-NATAL</option>
+                <option value="uti_neo">UTI NEO NATAL</option>
                 <option value="uti_ped">UTI PEDIÁTRICA</option>
                 <option value="uti_1">UTI 1</option>
                 <option value="uti_2">UTI 2</option>
@@ -123,10 +132,10 @@ export default function CustomPaginationActionsTable({select, setLength, length,
             <TableRow style={{cursor:'pointer'}} 
               onClick={()=>{
                 select(row); 
-                setSelectedKey(index); 
+                setSelectedKey(arraySearch(rows, row)); 
                 setNewPerson(false)
               }} key={index}>
-               <TableCell onClick={()=>handleChangeStatus(index, row)} style={{ width: 160 }} align="right">
+               <TableCell onClick={()=>handleChangeStatus(row)} style={{ width: 160 }} align="right">
                 {row.status? <img style={{width:'25%'}} src={stethoscopeGreen}/>:<img style={{width:'25%'}} src={stethoscopeRed}/>}
               </TableCell>
               <TableCell component="th" scope="row">
@@ -139,7 +148,7 @@ export default function CustomPaginationActionsTable({select, setLength, length,
                 {row.via}
               </TableCell>
               <TableCell style={{ width: 160 }} align="right">
-                {row.ultimo_atendimento}
+                {(row.ultimo_atendimento).toString().split('-').reverse().join('/')}
               </TableCell>
              
             </TableRow>

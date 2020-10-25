@@ -7,6 +7,7 @@ import diagnosisSVG from '../../../assets/diagnosis.svg'
 
 function Details({selected, selectKey, newPerson, length}) {
   const [inputs, setInputs] = useState()
+  const [showVia, setShowVia] = useState(false)
    
   useEffect(()=>{
     if(newPerson){
@@ -25,7 +26,7 @@ function Details({selected, selectKey, newPerson, length}) {
         respiracao:'',
         saida:'',
         setor:newPerson,
-        status:false,
+        status:true,
         ultimo_atendimento:'',
         via:'',
         voz:''
@@ -39,7 +40,7 @@ function Details({selected, selectKey, newPerson, length}) {
     if(e.target.type === 'date'){
       setInputs({...inputs, [e.target.name]: new Date(e.target.value)})   
     }
-    setInputs({...inputs, [e.target.name]: e.target.value, ultimo_atendimento: currentDate})
+    setInputs({...inputs, [e.target.name]: e.target.value})
   }
  
   function handleSave(){
@@ -50,8 +51,6 @@ function Details({selected, selectKey, newPerson, length}) {
     }
   }
 
-  const currentDate = (new Date().toLocaleDateString())
- 
   return (
    <Container>
       {(selected || newPerson) && (<>
@@ -77,9 +76,20 @@ function Details({selected, selectKey, newPerson, length}) {
               </select> 
              </li>
             <li><span>Médico solicitante:</span> <input onChange={handleChange} type="text" name="med_solicitante" value={inputs.med_solicitante} /> </li>
-            <li><span>Entrada:</span> <input onChange={handleChange} type="date" name="entrada" value={inputs.entrada} /> </li>
-            <li><span>Alta na fono:</span> <input onChange={handleChange} type="date" name="alta_fono" value={inputs.alta_fono} /> </li>
-            <li><span>Saída:</span> <input onChange={handleChange} type="date" name="saida" value={inputs.saida} /> </li>
+            
+            <li>
+              <div><span>Inicio na Fono:</span> <input onChange={handleChange} type="date" name="entrada_fono" value={inputs.entrada_fono} /></div>
+              <div><span>Alta na Fono:</span> <input onChange={handleChange} type="date" name="alta_fono" value={inputs.alta_fono} /></div>
+              <div><span>Tempo de internação:</span> <input onChange={handleChange} type="text" name="tempo_internacao" value={inputs.tempo_internacao} /></div>
+            </li>
+            
+
+            <li>
+              <div><span>Entrada:</span> <input onChange={handleChange} type="date" name="entrada" value={inputs.entrada} /></div>
+              <div><span>Saída:</span> <input onChange={handleChange} type="date" name="saida" value={inputs.saida} /></div>
+              <div><span>Ultimo Atendimento:</span> <input onChange={handleChange} type="date" name="ultimo_atendimento" value={inputs.ultimo_atendimento} /></div>
+            </li>
+            
           </ul>
           <div>
             <p> <span>Diagnóstico:</span> <input onChange={handleChange} type="text" name="diagnostico" value={inputs.diagnostico} /></p>
@@ -111,7 +121,7 @@ function Details({selected, selectKey, newPerson, length}) {
              </p>
             <p> <span>Voz:</span>
              <select onChange={handleChange} type="text" name="voz" value={inputs.voz} >
-                     
+                 <option value=""></option>    
                 <option value="Adequada">Adequada</option>
                 <option value="Loudness reduzido">Loudness reduzido</option>
                 <option value="Rouco-soprosa">Rouco-soprosa</option>
@@ -169,6 +179,9 @@ function Details({selected, selectKey, newPerson, length}) {
                   <option value="BICO REDONDO volume total">BICO REDONDO volume total</option>
                   <option value="ORTODÔNTICA volume total">ORTODÔNTICA volume total</option>
                 </optgroup>
+                <optgroup label='OUTROS'>
+                  <option onClick={()=>setShowVia(true)} value="Outro">Editar</option>
+                </optgroup>
 
 
               </select>
@@ -187,7 +200,15 @@ function Details({selected, selectKey, newPerson, length}) {
               </div>
             </div>
           </div>
-
+                 {showVia&&
+                  <div id='showVia'>
+                    <div id='content'>
+                      <h2>Qual via de alimentação?</h2>
+                      <input onChange={handleChange} type="text" name="via" value={inputs.via} />
+                      <button onClick={()=>setShowVia(false)}>Criar</button>
+                    </div>
+                  </div>
+                 }
           </>
      )}
       </Container>
