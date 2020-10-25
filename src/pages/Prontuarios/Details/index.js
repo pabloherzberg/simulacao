@@ -8,7 +8,9 @@ import diagnosisSVG from '../../../assets/diagnosis.svg'
 function Details({selected, selectKey, newPerson, length}) {
   const [inputs, setInputs] = useState()
   const [showVia, setShowVia] = useState(false)
+  const [showVoz, setShowVoz] = useState(false)
   const [showOFAS, setShowOFAS] = useState(false)
+  const [showRespiracao, setShowRespiracao] = useState(false)
    
   useEffect(()=>{
     if(newPerson){
@@ -39,11 +41,17 @@ function Details({selected, selectKey, newPerson, length}) {
   
   function handleChange(e){
     if(e.target.name ==='via'){
-        setShowVia(true)
+      setShowVia(true)
     }
     if(e.target.name ==='OFAS'){
       setShowOFAS(true)
-  }
+    }
+    if(e.target.name ==='voz'){
+        setShowVoz(true)
+    }
+    if(e.target.name ==='respiracao'){
+      setShowRespiracao(true)
+    }
     if(e.target.type === 'date'){
       setInputs({...inputs, [e.target.name]: new Date(e.target.value)})   
     }
@@ -60,22 +68,28 @@ function Details({selected, selectKey, newPerson, length}) {
 
   function handleClose(e){
     if(e.target.id ==='showVia' ||
-      e.target.id ==='showOFAS'
+      e.target.id ==='showOFAS' ||
+      e.target.id ==='showVoz' ||
+      e.target.id ==='showRespiracao'
     ){
       setShowVia(false)
       setShowOFAS(false)
+      setShowVoz(false)
+      setShowRespiracao(false)
     }
   }
 
   return (
    <Container>
       {(selected || newPerson) && (<>
+
+        
           <ul>
             <li><span>Nome:</span> <input onChange={handleChange} type="text" name="nome" value={inputs.nome}/> </li>
             <li><span>Idade:</span> <input onChange={handleChange} type="text" name="idade" value={inputs.idade}/> </li>
             <li><span>Setor:</span> 
             <select onChange={handleChange} type="text" name="setor" value={inputs.setor} >
-              <option value="uti_neo">UTI NEO-NATAL</option>
+              <option value="uti_neo">UTI NEONATAL</option>
                 <option value="uti_ped">UTI PEDIÁTRICA</option>
                 <option value="uti_1">UTI 1</option>
                 <option value="uti_2">UTI 2</option>
@@ -94,16 +108,16 @@ function Details({selected, selectKey, newPerson, length}) {
             <li><span>Médico solicitante:</span> <input onChange={handleChange} type="text" name="med_solicitante" value={inputs.med_solicitante} /> </li>
             
             <li>
-              <div><span>Inicio na Fono:</span> <input onChange={handleChange} type="date" name="entrada_fono" value={inputs.entrada_fono} /></div>
+              <div><span>Início na Fono:</span> <input onChange={handleChange} type="date" name="entrada_fono" value={inputs.entrada_fono} /></div>
               <div><span>Alta na Fono:</span> <input onChange={handleChange} type="date" name="alta_fono" value={inputs.alta_fono} /></div>
-              <div><span>Tempo de internação:</span> <input onChange={handleChange} type="text" name="tempo_internacao" value={inputs.tempo_internacao} /></div>
+              <div><span>Último Atendimento:</span> <input onChange={handleChange} type="date" name="ultimo_atendimento" value={inputs.ultimo_atendimento} /></div>
             </li>
             
 
             <li>
               <div><span>Entrada:</span> <input onChange={handleChange} type="date" name="entrada" value={inputs.entrada} /></div>
               <div><span>Saída:</span> <input onChange={handleChange} type="date" name="saida" value={inputs.saida} /></div>
-              <div><span>Ultimo Atendimento:</span> <input onChange={handleChange} type="date" name="ultimo_atendimento" value={inputs.ultimo_atendimento} /></div>
+              <div><span>Tempo de Internação:</span> <input onChange={handleChange} type="text" name="tempo_internacao" value={inputs.tempo_internacao} /></div>
             </li>
             
           </ul>
@@ -148,8 +162,10 @@ function Details({selected, selectKey, newPerson, length}) {
                 <option value="Irregular">Irregular</option>
                 <option value="Astenica">Astênica</option>
                 <option value="Tensa">Tensa</option>
-                <option value="Afonico">Afônico</option>   
-
+                <option value="Afonico">Afônico</option>
+                <optgroup label='Selecionado'>
+                  <option id='edit' value={inputs.voz}>{inputs.voz}</option>    
+                </optgroup>
             </select>
             </p>
             
@@ -158,16 +174,18 @@ function Details({selected, selectKey, newPerson, length}) {
             
              <select onChange={handleChange} type="text" name="respiracao" value={inputs.respiracao} >
             
-               
+                 
                   <option value="VE ao AA">VE ao AA</option>
                   <option value="VE com catéter de O2">VE com catéter de O2</option>
                   <option value="VM">VM</option>
                   <option value="TQT plástica com cuff insuflado">TQT plástica com cuff insuflado</option>
                   <option value="TQT plástica aberta com cuff desinsuflado">TQT plástica aberta com cuff desinsuflado</option>
-                  <option value="TQT plástica tamponada com cuff desinsuflado">TQT plástica tamponada com cuff desinsuflado</option>
+                  <option value="TQT plástica tamponada">TQT plástica tamponada</option>
                   <option value="TQT metática aberta">TQT metática aberta</option>
-                  <option value="TQT metálica tamponada">TQT metálica tamponada</option>       
-              
+                  <option value="TQT metálica tamponada">TQT metálica tamponada</option> 
+                  <optgroup label='Selecionado'>
+                    <option id='edit' value={inputs.respiracao}>{inputs.respiracao}</option>    
+                  </optgroup>      
 
 
               </select>
@@ -199,7 +217,7 @@ function Details({selected, selectKey, newPerson, length}) {
                   <option value="BICO REDONDO volume total">BICO REDONDO volume total</option>
                   <option value="ORTODÔNTICA volume total">ORTODÔNTICA volume total</option>
                 </optgroup>
-                <optgroup>
+                <optgroup label='Selecionado'>
                   <option id='edit' value={inputs.via}>{inputs.via}</option>
                 </optgroup>
 
@@ -234,6 +252,24 @@ function Details({selected, selectKey, newPerson, length}) {
                 <h2>Editar OFAS</h2>
                 <input onChange={handleChange} type="text" name="OFAS" value={inputs.OFAS} />
                 <button onClick={()=>setShowOFAS(false)}>Ok</button>
+              </div>
+            </div>
+            }
+             {showVoz&&
+            <div onClick={handleClose} id='showVoz'>
+              <div id='content'>
+                <h2>Editar Voz</h2>
+                <input onChange={handleChange} type="text" name="voz" value={inputs.voz} />
+                <button onClick={()=>setShowVoz(false)}>Ok</button>
+              </div>
+            </div>
+            }
+              {showRespiracao&&
+            <div onClick={handleClose} id='showRespiracao'>
+              <div id='content'>
+                <h2>Editar tipo de Respiração</h2>
+                <input onChange={handleChange} type="text" name="respiracao" value={inputs.respiracao} />
+                <button onClick={()=>setShowRespiracao(false)}>Ok</button>
               </div>
             </div>
             }

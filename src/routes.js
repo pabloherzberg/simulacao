@@ -18,7 +18,7 @@ function Routes() {
       <Switch>
         {!user && <Route path="/" component={Login} />}
         {user && (
-          <RouteWrapper layout={Layout} exact path="/" component={Home} />
+          <RouteWrapper layout={Layout} exact path="/" component={Prontuarios} />
         )}
         {user && (
           <RouteWrapper
@@ -40,7 +40,7 @@ function Routes() {
           <RouteWrapper layout={Layout} exact path="/anual" component={Geral} />
         )}
         {user && (
-          <RouteWrapper layout={Layout} exact path="/prontuarios" component={Prontuarios} />
+          <RouteWrapper layout={Layout} exact path="/geral" component={Home} />
         )}
           {user && (
           <RouteWrapper layout={Layout} exact path="/novo_paciente" component={NovoPaciente} />

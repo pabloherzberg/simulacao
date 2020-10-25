@@ -71,7 +71,7 @@ export default function CustomPaginationActionsTable({select, setLength, length,
 
   function handleChangeStatus(row){
     const index = arraySearch(rows, row)
-    const text = row.status? 'ALTA FONOAUDIOLÓGICA': 'EM ACOMPANHAMENTO FONOAUDIOLÓGICO'
+    const text = row.status? 'DESEJA ALTERAR PARA ALTA FONOAUDIOLÓGICA?': 'DESEJA ALTERAR PARA EM ACOMPANHAMENTO FONOAUDIOLÓGICO?'
     const res = window.confirm(text)
     if(res){     
       firebase.database().ref(`pacientes/${index}`).child('status').set(!row.status)
@@ -102,7 +102,7 @@ export default function CustomPaginationActionsTable({select, setLength, length,
             <TableCell align='center'>
               <Select>
               <select onChange={e=>setSelectedSetor(e.target.value)}>
-                <option value="uti_neo">UTI NEO NATAL</option>
+                <option value="uti_neo">UTI NEONATAL</option>
                 <option value="uti_ped">UTI PEDIÁTRICA</option>
                 <option value="uti_1">UTI 1</option>
                 <option value="uti_2">UTI 2</option>
@@ -138,8 +138,11 @@ export default function CustomPaginationActionsTable({select, setLength, length,
           </TableRow>
         </TableHead>
         <TableBody>
-          {(rows.filter(o=> String(o.setor) === String(selectedSetor))
-          ).map((row, index) => (
+          {
+          (rows.filter(o=> String(o.setor) === String(selectedSetor))
+            .sort((a, b)=>{
+              return (a.status === b.status)? 0: a.status? -1 :1;
+            })).map((row, index) => (
             <TableRow style={{cursor:'pointer'}} 
               onClick={()=>{
                 select(row); 

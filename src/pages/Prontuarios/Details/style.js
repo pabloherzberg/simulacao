@@ -174,4 +174,83 @@ export const Container = styled.div`
             }
         }
     }
+    #showVoz{
+        z-index:100;
+        position:fixed;
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+        width:100%;
+        height:105%;
+        margin-top:-10px;
+        background-color:rgba(0,0,0,.5);
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        #content{
+            background-image: linear-gradient(to right,${colors.white}, ${colors.greenButtonHover},${colors.verdeagua});
+            height:50vh;
+            width:40vw;
+            display:flex;
+            flex-direction:column;
+            justify-content:space-evenly;
+            align-items:center;
+            input{
+                width:80%;
+                height:3em;
+            }
+            button{
+                border:none;
+                width:50%;
+                height:3em;
+                font-size:2em;
+                font-weight:bold;
+                &:hover{
+                    background-color:${colors.verdeagua};
+                    color:white;
+                }
+            }
+        }
+    }
+     #showVoz{
+        z-index:100;
+        position:fixed;
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+        width:100%;
+        height:105%;
+        margin-top:-10px;
+        background-color:rgba(0,0,0,.5);
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        #content{
+            background-image: linear-gradient(to right,${colors.white}, ${colors.greenButtonHover},${colors.verdeagua});
+            height:50vh;
+            width:40vw;
+            display:flex;
+            flex-direction:column;
+            justify-content:space-evenly;
+            align-items:center;
+            input{
+                width:80%;
+                height:3em;
+            }
+            button{
+                border:none;
+                width:50%;
+                height:3em;
+                font-size:2em;
+                font-weight:bold;
+                &:hover{
+                    background-color:${colors.verdeagua};
+                    color:white;
+                }
+            }
+        }
+    }
+    
 `
