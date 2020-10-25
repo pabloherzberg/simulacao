@@ -5,12 +5,37 @@ import { Container } from './style';
 import saveSVG from '../../../assets/save.svg'
 import diagnosisSVG from '../../../assets/diagnosis.svg'
 
-function Details({selected, selectKey}) {
-  const [inputs, setInputs] = useState({...selected})
+function Details({selected, selectKey, newPerson, length}) {
+  const [inputs, setInputs] = useState()
    
   useEffect(()=>{
-    setInputs({...selected})
-  },[selected])
+    if(newPerson){
+      setInputs({
+        OFAS:'',
+        alta_fono:'',
+        diagnostico:'',
+        entrada:'',
+        evolucoes:{},
+        idade:'',
+        linguagem:'',
+        med_solicitante:'',
+        nome:'',
+        observacoes:'',
+        pendencia:'',
+        respiracao:'',
+        saida:'',
+        setor:newPerson,
+        status:false,
+        ultimo_atendimento:'',
+        via:'',
+        voz:''
+      })
+    }else{
+      setInputs({...selected})
+    }
+  },[selected, newPerson])
+
+  console.log(inputs)
   
   function handleChange(e){
     if(e.target.type === 'date'){
@@ -20,16 +45,21 @@ function Details({selected, selectKey}) {
   }
  
   function handleSave(){
-    firebase.database().ref(`pacientes/${selectKey}`).set(inputs)
+    if(newPerson){
+      firebase.database().ref(`pacientes/${length}`).set(inputs)
+    }else{
+      firebase.database().ref(`pacientes/${selectKey}`).set(inputs)
+    }
   }
 
   const currentDate = (new Date().toLocaleDateString())
  
   return (
    <Container>
-      {selected && (<>
+      {(selected || newPerson) && (<>
           <ul>
             <li><span>Nome:</span> <input onChange={handleChange} type="text" name="nome" value={inputs.nome}/> </li>
+            <li><span>Nome:</span> <input onChange={handleChange} type="text" name="idade" value={inputs.idade}/> </li>
             <li><span>Setor:</span> 
             <select onChange={handleChange} type="text" name="setor" value={inputs.setor} >
               <option value="uti_neo">UTI NEO-NATAL</option>

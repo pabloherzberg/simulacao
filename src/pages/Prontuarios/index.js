@@ -9,12 +9,13 @@ function Prontuarios() {
 
   const [selectedPerson, setSelectedPerson] = useState(false)
   const [selectedKey, setSelectedKey] = useState(0)
-
+  const [length, setLength] = useState(0)
+  const [newPerson, setNewPerson] = useState(false)
 
   return(
     <Wrapper>
-        <Details selectKey={selectedKey} selected={selectedPerson} />
-        <Table setSelectedKey={setSelectedKey} select={setSelectedPerson}/>
+        <Details length={length} newPerson={newPerson} selectKey={selectedKey} selected={selectedPerson} />
+        <Table length={length} setLength={setLength} setNewPerson={setNewPerson} setSelectedKey={setSelectedKey} select={setSelectedPerson}/>
     </Wrapper>
   )
 }

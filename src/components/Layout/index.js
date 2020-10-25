@@ -42,7 +42,7 @@ function Layout({ children }) {
                 fontcolor={"white"}
                 to="/anual"
               >
-                Anual
+                ANUAL
               </DefaultButton>
             </li>
             <li onClick={() => history.push("/tabela")}>
