@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import firebase from "../../../context/firebase";
 import PropTypes from 'prop-types';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -22,7 +22,7 @@ import stethoscopeRed from '../../../assets/stethoscopeRed.svg'
 import addPerson from '../../../assets/add-user.svg'
 import deletePerson from '../../../assets/delete.svg'
 
-import {Select} from './styles'
+import {Wrapper, Select} from './styles'
 
 const useStyles1 = makeStyles((theme) => ({
   root: {
@@ -49,6 +49,8 @@ export default function CustomPaginationActionsTable({select, setLength, length,
   const [rows, setRows] = useState([])
   const [selectedSetor, setSelectedSetor] = useState('uti_neo')
 
+  const activeRef = useRef(null)
+
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
   useEffect(() => {
@@ -61,6 +63,10 @@ export default function CustomPaginationActionsTable({select, setLength, length,
       } )
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [length]);
+  function handleSelectedRow(){
+    activeRef.current.className='selectedRow'
+    console.log(activeRef.current)
+  }
 
   function arraySearch(arr,val) {
     for (var i=0; i<arr.length; i++)
@@ -93,8 +99,9 @@ export default function CustomPaginationActionsTable({select, setLength, length,
 
 
   return (
+    <Wrapper>
     <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="custom pagination table">
+      <Table  className={classes.table} aria-label="custom pagination table">
       <TableHead>
           <TableRow >
             <TableCell style={{ width: 160 }}>
@@ -149,8 +156,11 @@ export default function CustomPaginationActionsTable({select, setLength, length,
             .sort((a, b)=>{
               return (a.status === b.status)? 0: a.status? -1 :1;
             })).map((row, index) => (
-            <TableRow style={{cursor:'pointer'}} 
+            <TableRow
+            ref={activeRef}
+            style={{cursor:'pointer'}} 
               onClick={()=>{
+                handleSelectedRow()
                 select(row); 
                 setSelectedKey(arraySearch(rows, row)); 
                 setNewPerson(false)
@@ -185,5 +195,6 @@ export default function CustomPaginationActionsTable({select, setLength, length,
        
       </Table>
     </TableContainer>
+    </Wrapper>
   );
 }
