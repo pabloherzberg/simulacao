@@ -148,7 +148,8 @@ export default function CustomPaginationActionsTable({select, setSelectedKey}) {
             <TableCell></TableCell>
             <TableCell></TableCell>
             <TableCell align='center'>
-              <Select onChange={e=>setSelectedSetor(e.target.value)}>
+              <Select>
+              <select onChange={e=>setSelectedSetor(e.target.value)}>
                 <option value="uti_neo">UTI NEO-NATAL</option>
                 <option value="uti_ped">UTI PEDIÁTRICA</option>
                 <option value="uti_1">UTI 1</option>
@@ -163,17 +164,21 @@ export default function CustomPaginationActionsTable({select, setSelectedKey}) {
                 <option value="andar9">ANDAR 9</option>
                 <option value="andar10">ANDAR 10</option>
                 <option value="andar12">ANDAR 12</option>
+              </select>
               </Select>
               </TableCell>
             <TableCell></TableCell>
             <TableCell>
-              <div style={{width:'50px', height:'50px', cursor:'pointer'}} 
+              <div style={{width:'50px', height:'50px', cursor:'pointer', display:'flex'}} 
                 onClick={()=>{
                   history.push({
                     pathname:'/novo_paciente',
                     state: {setor: selectedSetor}
                   })
-                }}><img style={{width:'100%', objectFit:"contain"}} src={addPerson}/></div>
+                }}>
+                  <img style={{width:'100%', objectFit:"contain"}} src={addPerson}/>
+                  <label style={{fontSize:'12px', color:'#164921'}}>Adicionar paciente</label>
+              </div>
             </TableCell>
           </TableRow>
           <TableRow>

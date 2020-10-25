@@ -40,6 +40,7 @@ export const Container = styled.div`
         p{
         width:100%;
         display:flex;
+        justify-content:space-between;
             span{
             width:30%;
             }
@@ -49,19 +50,49 @@ export const Container = styled.div`
         }
         
     }
-    #save{
-        width:100px;
-        height:100px;
-        cursor:pointer;
-        align-self:flex-end;
-        img{
-            width:100%;
-            object-fit:contain;
+    #wrapperButtons{
+        display:flex;
+        flex-direction:row;
+       
+        width:100%;
+        justify-content:space-evenly;
+        #prontuarios{
+            display:flex;
+           flex-direction:column;
+           justify-content:center;
+           align-items:center;
+            width:80px;
+            height:80px;
+            cursor:pointer;
+            img{
+                width:100%;
+                object-fit:contain;
+            }
+            label{
+                font-size:14px;
+                font-weight:bold;
+                color:white;
+            }
         }
-        label{
-            font-size:14px;
-            font-weight:bold;
-            color:white;
+    
+        #save{
+           display:flex;
+           flex-direction:column;
+           justify-content:center;
+           align-items:center;
+            width:80px;
+            height:80px;
+            cursor:pointer;
+            img{
+                width:100%;
+                object-fit:contain;
+            }
+            label{
+                font-size:14px;
+                font-weight:bold;
+                color:white;
+                
+            }
         }
     }
 `
