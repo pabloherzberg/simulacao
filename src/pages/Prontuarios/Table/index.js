@@ -71,11 +71,10 @@ export default function CustomPaginationActionsTable({select, setLength, length,
 
   function handleChangeStatus(row){
     const index = arraySearch(rows, row)
-
-    const res = window.confirm('Deseja alterar o status para ATENDIMENTO JÁ REALIZADO?')
+    const text = row.status? 'ALTA FONOAUDIOLÓGICA': 'EM ACOMPANHAMENTO FONOAUDIOLÓGICO'
+    const res = window.confirm(text)
     if(res){     
       firebase.database().ref(`pacientes/${index}`).child('status').set(!row.status)
-      firebase.database().ref(`pacientes/${index}`).child('ultimo_atendimento').set(new Date().toLocaleDateString())
     }else{
       return
     }

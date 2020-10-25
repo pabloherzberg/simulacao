@@ -8,6 +8,7 @@ import diagnosisSVG from '../../../assets/diagnosis.svg'
 function Details({selected, selectKey, newPerson, length}) {
   const [inputs, setInputs] = useState()
   const [showVia, setShowVia] = useState(false)
+  const [showOFAS, setShowOFAS] = useState(false)
    
   useEffect(()=>{
     if(newPerson){
@@ -38,10 +39,11 @@ function Details({selected, selectKey, newPerson, length}) {
   
   function handleChange(e){
     if(e.target.name ==='via'){
-      
         setShowVia(true)
-      
     }
+    if(e.target.name ==='OFAS'){
+      setShowOFAS(true)
+  }
     if(e.target.type === 'date'){
       setInputs({...inputs, [e.target.name]: new Date(e.target.value)})   
     }
@@ -53,6 +55,15 @@ function Details({selected, selectKey, newPerson, length}) {
       firebase.database().ref(`pacientes/${length}`).set(inputs)
     }else{
       firebase.database().ref(`pacientes/${selectKey}`).set(inputs)
+    }
+  }
+
+  function handleClose(e){
+    if(e.target.id ==='showVia' ||
+      e.target.id ==='showOFAS'
+    ){
+      setShowVia(false)
+      setShowOFAS(false)
     }
   }
 
@@ -121,7 +132,8 @@ function Details({selected, selectKey, newPerson, length}) {
                      <option value="Força, tonus e mobilidade reduzidos, edentado parcial ">Força, tônus e mobilidade reduzidos, edentado parcial </option>
                      <option value="Força, tonus e mobilidade reduzidos, edentado total ">Força, tônus e mobilidade reduzidos, edentado total </option>
                      <option value="Paralisia Facial Periferica">Paralisia Facial Periférica</option>
-                     <option value="Paralisia Facial Central">Paralisia Facial Central</option>              
+                     <option value="Paralisia Facial Central">Paralisia Facial Central</option>
+                    <option id='edit' value={inputs.OFAS}>{inputs.OFAS}</option>              
      
                  </select>
              </p>
@@ -162,7 +174,7 @@ function Details({selected, selectKey, newPerson, length}) {
              
              
              </p>
-            <p> <span>Via:</span> 
+            <p> <span>Via de alimentação:</span> 
               <select onChange={handleChange} type="text" name="via" value={inputs.via} >
             
                 <optgroup label='ADULTOS'>
@@ -187,6 +199,9 @@ function Details({selected, selectKey, newPerson, length}) {
                   <option value="BICO REDONDO volume total">BICO REDONDO volume total</option>
                   <option value="ORTODÔNTICA volume total">ORTODÔNTICA volume total</option>
                 </optgroup>
+                <optgroup>
+                  <option id='edit' value={inputs.via}>{inputs.via}</option>
+                </optgroup>
 
               </select>
             </p>
@@ -205,11 +220,20 @@ function Details({selected, selectKey, newPerson, length}) {
             </div>
           </div>
                  {showVia&&
-                  <div id='showVia'>
+                  <div onClick={handleClose} id='showVia'>
                     <div id='content'>
-                      <h2>Qual via de alimentação?</h2>
+                      <h2>Editar via de alimentação</h2>
                       <input onChange={handleChange} type="text" name="via" value={inputs.via} />
-                      <button onClick={()=>setShowVia(false)}>Salvar</button>
+                      <button onClick={()=>setShowVia(false)}>Ok</button>
+                    </div>
+                  </div>
+                 }
+                  {showOFAS&&
+                  <div onClick={handleClose} id='showOFAS'>
+                    <div id='content'>
+                      <h2>Editar OFAS</h2>
+                      <input onChange={handleChange} type="text" name="OFAS" value={inputs.OFAS} />
+                      <button onClick={()=>setShowOFAS(false)}>Ok</button>
                     </div>
                   </div>
                  }
