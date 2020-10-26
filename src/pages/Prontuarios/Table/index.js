@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect} from 'react';
 import firebase from "../../../context/firebase";
 import PropTypes from 'prop-types';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -47,9 +47,8 @@ export default function CustomPaginationActionsTable({select, setLength, length,
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [rows, setRows] = useState([])
-  const [selectedSetor, setSelectedSetor] = useState('uti_neo')
+  const [selectedSetor, setSelectedSetor] = useState('todos')
 
-  const activeRef = useRef(null)
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
@@ -63,10 +62,7 @@ export default function CustomPaginationActionsTable({select, setLength, length,
       } )
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [length]);
-  function handleSelectedRow(){
-    activeRef.current.className='selectedRow'
-    console.log(activeRef.current)
-  }
+
 
   function arraySearch(arr,val) {
     for (var i=0; i<arr.length; i++)
@@ -115,6 +111,7 @@ export default function CustomPaginationActionsTable({select, setLength, length,
             <TableCell align='center'>
               <Select>
               <select onChange={e=>setSelectedSetor(e.target.value)}>
+                <option value="todos">TODOS</option>
                 <option value="uti_neo">UTI NEONATAL</option>
                 <option value="uti_ped">UTI PEDIÁTRICA</option>
                 <option value="uti_1">UTI 1</option>
@@ -144,6 +141,7 @@ export default function CustomPaginationActionsTable({select, setLength, length,
           <TableRow>
             <TableCell align='right'>Status</TableCell>
             <TableCell >Paciente</TableCell>
+            <TableCell>Setor</TableCell>
             <TableCell >Idade</TableCell>
             <TableCell>Via de Alimentação</TableCell>
             <TableCell align='right'>Último Atendimento</TableCell>
@@ -152,15 +150,24 @@ export default function CustomPaginationActionsTable({select, setLength, length,
         </TableHead>
         <TableBody>
           {
-          (rows.filter(o=> String(o.setor) === String(selectedSetor))
-            .sort((a, b)=>{
-              return (a.status === b.status)? 0: a.status? -1 :1;
-            })).map((row, index) => (
+            (rows
+              .filter(o=> {
+                if(selectedSetor === 'todos' &&
+                  o.nome
+                ){
+                  return o
+                }else{
+                  return String(o.setor) === String(selectedSetor)
+                }
+              })
+              .sort((a, b)=>{
+                return (a.status === b.status)? 0: a.status? -1 :1;
+              })
+            ).map((row, index) => (
             <TableRow
-            ref={activeRef}
-            style={{cursor:'pointer'}} 
+      
+              style={{cursor:'pointer'}} 
               onClick={()=>{
-                handleSelectedRow()
                 select(row); 
                 setSelectedKey(arraySearch(rows, row)); 
                 setNewPerson(false)
@@ -170,6 +177,9 @@ export default function CustomPaginationActionsTable({select, setLength, length,
               </TableCell>
               <TableCell component="th" scope="row">
                 {row.nome}
+              </TableCell>
+              <TableCell>
+                {row.setor}
               </TableCell>
               <TableCell component="th" scope="row">
                 {row.idade}
