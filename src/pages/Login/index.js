@@ -1,21 +1,23 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+
 import firebase from "../../context/firebase";
-import { useGlobalContext } from "../../context/index";
-import { Container } from "./style.js";
+
+import { Container, Loading } from "./style.js";
 
 export default function Login() {
-  const history = useHistory();
+  
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
+  const [loading, setLoading] = useState(false)
 
   function handleSubmit() {
+    setLoading(true)
     firebase
       .auth()
       .signInWithEmailAndPassword(email, pass)
       .then(() => {
         const uid = firebase.auth().currentUser;
-        localStorage.setItem("userFono", JSON.stringify(uid));
+        sessionStorage.setItem("userFono", JSON.stringify(uid));
         window.location.href = "/";
       });
   }
@@ -78,7 +80,10 @@ export default function Login() {
                             <i className="input-icon uil uil-lock-alt"></i>
                           </div>
                           <a onClick={handleSubmit} className="btn mt-4">
-                            Entrar
+                            {loading?
+                            <Loading>
+                              <div id="inside"></div>
+                            </Loading> :'Entrar'}
                           </a>
                         </div>
                       </div>

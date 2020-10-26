@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { colors } from "../../constants/colors";
-import arrow from "../../assets/arrow-up-left.svg";
+
 
 export const Container = styled.div`
   @import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900");
@@ -287,3 +287,32 @@ export const Container = styled.div`
     display: block;
   }
 `;
+
+export const Loading = styled.div`
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  content:"";
+  width:40px;
+  height:40px;
+  background-image: linear-gradient(to right, ${colors.verdeagua},${colors.purplepink});
+  border-radius:50%;
+  animation: turn infinite forwards 1s;
+  #inside{
+    display:block;
+    content:"";
+    width:30px;
+    height:30px;
+    background: #ffeba7;
+    border-radius:50%;
+  }
+  @keyframes turn{
+    0%{
+      transform:rotate(0deg)
+    }
+    100%{
+      transform:rotate(360deg)
+    }
+  }
+
+`

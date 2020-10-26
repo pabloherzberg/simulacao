@@ -8,10 +8,10 @@ import Setores from "./pages/Setores";
 import Login from "./pages/Login";
 import Geral from "./pages/Geral";
 import Prontuarios from './pages/Prontuarios'
-import NovoPaciente from './pages/novoPaciente'
+
 
 function Routes() {
-  const user = JSON.parse(localStorage.getItem("userFono"));
+  const user = JSON.parse(sessionStorage.getItem("userFono"));
 
   return (
     <BrowserRouter>
@@ -42,9 +42,7 @@ function Routes() {
         {user && (
           <RouteWrapper layout={Layout} exact path="/geral" component={Home} />
         )}
-          {user && (
-          <RouteWrapper layout={Layout} exact path="/novo_paciente" component={NovoPaciente} />
-        )}
+          
       </Switch>
     </BrowserRouter>
   );
