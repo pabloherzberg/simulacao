@@ -108,6 +108,8 @@ export default function CustomPaginationActionsTable({select, setLength, length,
               <img style={{width:'20%', marginRight:'1em'}} src={stethoscopeRed}/>
               <p style={{fontSize:'10px'}}>Em alta</p>
             </TableCell>
+            <TableCell></TableCell>
+            <TableCell></TableCell>
             <TableCell align='center'>
               <Select>
               <select onChange={e=>setSelectedSetor(e.target.value)}>
@@ -129,8 +131,10 @@ export default function CustomPaginationActionsTable({select, setLength, length,
               </select>
               </Select>
               </TableCell>
+            
+            
             <TableCell></TableCell>
-            <TableCell style={{cursor:'pointer'}}>
+            <TableCell align='right' style={{cursor:'pointer'}}>
               <div style={{width:'50px', height:'50px', display:'flex'}} 
                 onClick={()=> setNewPerson(selectedSetor)}>
                   <img style={{width:'100%', objectFit:"contain"}} src={addPerson}/>
