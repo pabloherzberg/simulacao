@@ -59,10 +59,14 @@ function Details({selected, selectKey, newPerson, length}) {
   }
  
   function handleSave(){
-    if(newPerson){
-      firebase.database().ref(`pacientes/${length}`).set(inputs)
+    if(inputs.setor==='todos'){
+      alert('Selecione um SETOR')
     }else{
-      firebase.database().ref(`pacientes/${selectKey}`).set(inputs)
+      if(newPerson){
+        firebase.database().ref(`pacientes/${length}`).set(inputs)
+      }else{
+        firebase.database().ref(`pacientes/${selectKey}`).set(inputs)
+      }
     }
   }
 
@@ -89,7 +93,8 @@ function Details({selected, selectKey, newPerson, length}) {
             <li><span>Idade:</span> <input onChange={handleChange} type="text" name="idade" value={inputs.idade}/> </li>
             <li><span>Setor:</span> 
             <select onChange={handleChange} type="text" name="setor" value={inputs.setor} >
-              <option value="uti_neo">UTI NEONATAL</option>
+                <option value=""></option>
+                <option value="uti_neo">UTI NEONATAL</option>
                 <option value="uti_ped">UTI PEDIÁTRICA</option>
                 <option value="uti_1">UTI 1</option>
                 <option value="uti_2">UTI 2</option>

@@ -23,6 +23,7 @@ import stethoscopeBlack from '../../../assets/stethoscopeBlack.svg'
 import addPerson from '../../../assets/add-user.svg'
 import deletePerson from '../../../assets/delete.svg'
 import matar from '../../../assets/death.svg'
+import ressussitar from '../../../assets/live.svg'
 
 import {Wrapper, Select} from './styles'
 
@@ -50,7 +51,7 @@ export default function CustomPaginationActionsTable({select, setLength, length,
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [rows, setRows] = useState([])
   const [selectedSetor, setSelectedSetor] = useState('todos')
-  const [kill, setKill ] = useState(false)
+  
 
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
@@ -65,15 +66,6 @@ export default function CustomPaginationActionsTable({select, setLength, length,
       } )
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [length]);
-
-  useEffect(()=>{
-    if(kill){
-      setTimeout(() => {
-        setKill(false)
-      }, 1000);
-    }
-  }, [kill])
-
 
   function arraySearch(arr,val) {
     for (var i=0; i<arr.length; i++)
@@ -106,10 +98,13 @@ export default function CustomPaginationActionsTable({select, setLength, length,
 
   function handleDeath(row){
     const index = arraySearch(rows, row)
-    const res = window.confirm('FINISH HIM!')
+
+    const text = row.obito? 'DESEJA DESFAZER O STATUS DE ÓBITO?' : 'DESEJA ALTERAR O STATUS PARA ÓBITO?'
+
+    const res = window.confirm(text)
     if(res){
-      firebase.database().ref(`pacientes/${index}`).child('obito').set(true)   
-      setKill(true)
+      firebase.database().ref(`pacientes/${index}`).child('obito').set(!row.obito)   
+      
     }else{
       return
     }
@@ -117,7 +112,6 @@ export default function CustomPaginationActionsTable({select, setLength, length,
 
   return (
     <Wrapper>
-      { kill && <div className='kill' id="finish"></div>}
     <TableContainer component={Paper}>
       <Table  className={classes.table} aria-label="custom pagination table">
       <TableHead>
@@ -132,7 +126,7 @@ export default function CustomPaginationActionsTable({select, setLength, length,
             </TableCell>
             <TableCell style={{ width: 160 }}>
               <img style={{width:'20%', marginRight:'1em'}} src={stethoscopeBlack}/>
-              <p style={{fontSize:'10px'}}>Tá MORTOOOO</p>
+              <p style={{fontSize:'10px'}}>Óbito</p>
             </TableCell>
             <TableCell></TableCell>
             <TableCell align='center'>
@@ -174,7 +168,7 @@ export default function CustomPaginationActionsTable({select, setLength, length,
             <TableCell >Idade</TableCell>
             <TableCell>Via de Alimentação</TableCell>
             <TableCell align='right'>Último Atendimento</TableCell>
-            <TableCell align='center'>MATAR</TableCell>
+            <TableCell align='center'>Alterar status de Vida/Óbito</TableCell>
             <TableCell align='right'>Apagar</TableCell>
           </TableRow>
         </TableHead>
@@ -221,7 +215,7 @@ export default function CustomPaginationActionsTable({select, setLength, length,
                 {(row.ultimo_atendimento).toString().split('-').reverse().join('/')}
               </TableCell>
               <TableCell style={{ width: 160 }} align='center' onClick={()=>handleDeath(row)} component="th" scope="row">
-                <img src={matar} style={{width:"25%", objectFit:'contain'}}/>
+                {row.obito?<img src={ressussitar} style={{width:"25%", objectFit:'contain'}}/>:<img src={matar} style={{width:"25%", objectFit:'contain'}}/>}
               </TableCell>
               <TableCell style={{ width: 160 }} align='right' onClick={()=>handleDelete(row)} component="th" scope="row">
                 <img src={deletePerson} style={{width:"25%", objectFit:'contain'}}/>
