@@ -116,17 +116,23 @@ export default function CustomPaginationActionsTable({select, setLength, length,
       <Table  className={classes.table} aria-label="custom pagination table">
       <TableHead>
           <TableRow >
-            <TableCell style={{ width: 160 }}>
-              <img style={{width:'20%', marginRight:'1em'}} src={stethoscopeGreen}/>
-              <p style={{fontSize:'10px'}}>Em acompanhamento</p>
+            <TableCell >
+              <div style={{width:'45px', height:'45px', display:'flex'}}>
+                <img style={{width:'100%', objectFit:'contain'}} src={stethoscopeGreen}/>
+                <p style={{fontSize:'10px'}}>Em acompanhamento</p>
+              </div>
             </TableCell>
-            <TableCell style={{ width: 160 }}>
-              <img style={{width:'20%', marginRight:'1em'}} src={stethoscopeRed}/>
-              <p style={{fontSize:'10px'}}>Em alta</p>
+            <TableCell >
+              <div style={{width:'45px', height:'45px', display:'flex'}}>
+                <img style={{width:'100%', objectFit:'contain'}} src={stethoscopeRed}/>
+                <p style={{fontSize:'10px'}}>Em alta</p>
+              </div>
             </TableCell>
-            <TableCell style={{ width: 160 }}>
-              <img style={{width:'20%', marginRight:'1em'}} src={stethoscopeBlack}/>
-              <p style={{fontSize:'10px'}}>Óbito</p>
+            <TableCell >
+              <div style={{width:'45px', height:'45px', display:'flex'}}>
+                <img style={{width:'100%', objectFit:'contain'}} src={stethoscopeBlack}/>
+                <p style={{fontSize:'10px'}}>Óbito</p>
+              </div>
             </TableCell>
             <TableCell></TableCell>
             <TableCell align='center'>
@@ -151,10 +157,10 @@ export default function CustomPaginationActionsTable({select, setLength, length,
               </Select>
               </TableCell>
             
-            
+            <TableCell></TableCell>
             <TableCell></TableCell>
             <TableCell align='right' style={{cursor:'pointer'}}>
-              <div style={{width:'50px', height:'50px', display:'flex'}} 
+              <div style={{width:'45px', height:'45px', display:'flex'}} 
                 onClick={()=> setNewPerson(selectedSetor)}>
                   <img style={{width:'100%', objectFit:"contain"}} src={addPerson}/>
                   <label style={{fontSize:'12px', color:'#164921'}}>Adicionar paciente</label>
@@ -185,7 +191,7 @@ export default function CustomPaginationActionsTable({select, setLength, length,
                 }
               })
               .sort((a, b)=>{
-                return (a.status === b.status)? 0: a.status? -1 :1;
+                return  a.obito? 1:(a.status === b.status)? 0: a.status? -1 :1;
               })
             ).map((row, index) => (
             <TableRow

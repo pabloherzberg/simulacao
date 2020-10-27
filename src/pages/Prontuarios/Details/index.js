@@ -90,7 +90,38 @@ function Details({selected, selectKey, newPerson, length}) {
         
           <ul>
             <li><span>Nome:</span> <input onChange={handleChange} type="text" name="nome" value={inputs.nome}/> </li>
-            <li><span>Idade:</span> <input onChange={handleChange} type="text" name="idade" value={inputs.idade}/> </li>
+            <li 
+              style={{
+               
+                display:'flex',
+               
+                alignItems:'center',
+                width:'100%'
+              }}
+            >
+              <div 
+                style={{
+                  display:'flex',
+                  width:'50%'
+                }}
+              >
+                <span>Idade:</span>
+                <input onChange={handleChange} type="text" name="idade" value={inputs.idade}/> 
+              </div>
+              <div
+                 style={{
+                  display:'flex',
+                  width:'50%'
+                }}
+              >
+                <span>Sexo:</span>
+                <select onChange={handleChange} type="text" name="sexo" value={inputs.sexo} >
+                  <option value=""></option>
+                  <option value="masculino">Masculino</option>
+                  <option value="Feminino">Feminino</option>
+                </select>  
+              </div>
+            </li>
             <li><span>Setor:</span> 
             <select onChange={handleChange} type="text" name="setor" value={inputs.setor} >
                 <option value=""></option>
