@@ -19,8 +19,10 @@ import LastPageIcon from '@material-ui/icons/LastPage';
 
 import stethoscopeGreen from '../../../assets/stethoscopeGreen.svg'
 import stethoscopeRed from '../../../assets/stethoscopeRed.svg'
+import stethoscopeBlack from '../../../assets/stethoscopeBlack.svg'
 import addPerson from '../../../assets/add-user.svg'
 import deletePerson from '../../../assets/delete.svg'
+import matar from '../../../assets/death.svg'
 
 import {Wrapper, Select} from './styles'
 
@@ -48,6 +50,7 @@ export default function CustomPaginationActionsTable({select, setLength, length,
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [rows, setRows] = useState([])
   const [selectedSetor, setSelectedSetor] = useState('todos')
+  const [kill, setKill ] = useState(false)
 
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
@@ -62,6 +65,14 @@ export default function CustomPaginationActionsTable({select, setLength, length,
       } )
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [length]);
+
+  useEffect(()=>{
+    if(kill){
+      setTimeout(() => {
+        setKill(false)
+      }, 1000);
+    }
+  }, [kill])
 
 
   function arraySearch(arr,val) {
@@ -93,9 +104,20 @@ export default function CustomPaginationActionsTable({select, setLength, length,
     }
   }
 
+  function handleDeath(row){
+    const index = arraySearch(rows, row)
+    const res = window.confirm('FINISH HIM!')
+    if(res){
+      firebase.database().ref(`pacientes/${index}`).child('obito').set(true)   
+      setKill(true)
+    }else{
+      return
+    }
+  }
 
   return (
     <Wrapper>
+      { kill && <div className='kill' id="finish"></div>}
     <TableContainer component={Paper}>
       <Table  className={classes.table} aria-label="custom pagination table">
       <TableHead>
@@ -108,7 +130,10 @@ export default function CustomPaginationActionsTable({select, setLength, length,
               <img style={{width:'20%', marginRight:'1em'}} src={stethoscopeRed}/>
               <p style={{fontSize:'10px'}}>Em alta</p>
             </TableCell>
-            <TableCell></TableCell>
+            <TableCell style={{ width: 160 }}>
+              <img style={{width:'20%', marginRight:'1em'}} src={stethoscopeBlack}/>
+              <p style={{fontSize:'10px'}}>Tá MORTOOOO</p>
+            </TableCell>
             <TableCell></TableCell>
             <TableCell align='center'>
               <Select>
@@ -149,6 +174,7 @@ export default function CustomPaginationActionsTable({select, setLength, length,
             <TableCell >Idade</TableCell>
             <TableCell>Via de Alimentação</TableCell>
             <TableCell align='right'>Último Atendimento</TableCell>
+            <TableCell align='center'>MATAR</TableCell>
             <TableCell align='right'>Apagar</TableCell>
           </TableRow>
         </TableHead>
@@ -177,7 +203,7 @@ export default function CustomPaginationActionsTable({select, setLength, length,
                 setNewPerson(false)
               }} key={index}>
                <TableCell onClick={()=>handleChangeStatus(row)} style={{ width: 160 }} align="right">
-                {row.status? <img style={{width:'25%'}} src={stethoscopeGreen}/>:<img style={{width:'25%'}} src={stethoscopeRed}/>}
+                {row.obito? <img style={{width:'25%'}} src={stethoscopeBlack}/>: row.status? <img style={{width:'25%'}} src={stethoscopeGreen}/>:<img style={{width:'25%'}} src={stethoscopeRed}/>}
               </TableCell>
               <TableCell component="th" scope="row">
                 {row.nome}
@@ -193,6 +219,9 @@ export default function CustomPaginationActionsTable({select, setLength, length,
               </TableCell>
               <TableCell style={{ width: 160 }} align="right">
                 {(row.ultimo_atendimento).toString().split('-').reverse().join('/')}
+              </TableCell>
+              <TableCell style={{ width: 160 }} align='center' onClick={()=>handleDeath(row)} component="th" scope="row">
+                <img src={matar} style={{width:"25%", objectFit:'contain'}}/>
               </TableCell>
               <TableCell style={{ width: 160 }} align='right' onClick={()=>handleDelete(row)} component="th" scope="row">
                 <img src={deletePerson} style={{width:"25%", objectFit:'contain'}}/>
