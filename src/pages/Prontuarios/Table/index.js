@@ -1,21 +1,17 @@
 import React, {useState, useEffect} from 'react';
 import firebase from "../../../context/firebase";
-import PropTypes from 'prop-types';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+
+import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
-import TableFooter from '@material-ui/core/TableFooter';
-import TablePagination from '@material-ui/core/TablePagination';
+
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import IconButton from '@material-ui/core/IconButton';
-import FirstPageIcon from '@material-ui/icons/FirstPage';
-import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-import LastPageIcon from '@material-ui/icons/LastPage';
+
+import Loading from '../../../components/Loading'
 
 import stethoscopeGreen from '../../../assets/stethoscopeGreen.svg'
 import stethoscopeRed from '../../../assets/stethoscopeRed.svg'
@@ -26,14 +22,6 @@ import matar from '../../../assets/death.svg'
 import ressussitar from '../../../assets/live.svg'
 
 import {Wrapper, Select} from './styles'
-
-const useStyles1 = makeStyles((theme) => ({
-  root: {
-    flexShrink: 0,
-    marginLeft: theme.spacing(2.5),
-  },
-}));
-
 
 const useStyles2 = makeStyles({
   table: {
@@ -47,14 +35,9 @@ const useStyles2 = makeStyles({
 export default function CustomPaginationActionsTable({select, setLength, length, setSelectedKey, setNewPerson}) {
 
   const classes = useStyles2();
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [rows, setRows] = useState([])
   const [selectedSetor, setSelectedSetor] = useState('todos')
   const [search, setSearch] =useState(false)
-
-
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
   useEffect(() => {
     firebase
@@ -112,6 +95,7 @@ export default function CustomPaginationActionsTable({select, setLength, length,
 
   return (
     <Wrapper>
+       {rows.length<1&&<Loading/>}
     <TableContainer component={Paper}>
       <Table  className={classes.table} aria-label="custom pagination table">
       <TableHead>
@@ -235,12 +219,6 @@ export default function CustomPaginationActionsTable({select, setLength, length,
               </TableCell>
             </TableRow>
           ))}
-
-          {emptyRows > 0 && (
-            <TableRow style={{ height: 53 * emptyRows }}>
-              <TableCell colSpan={6} />
-            </TableRow>
-          )}
         </TableBody>
        
       </Table>
