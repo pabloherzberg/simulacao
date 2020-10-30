@@ -51,7 +51,7 @@ export default function CustomPaginationActionsTable({select, setLength, length,
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [rows, setRows] = useState([])
   const [selectedSetor, setSelectedSetor] = useState('todos')
-  
+  const [search, setSearch] =useState(false)
 
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
@@ -157,7 +157,14 @@ export default function CustomPaginationActionsTable({select, setLength, length,
               </Select>
               </TableCell>
             
-            <TableCell></TableCell>
+            <TableCell>
+              <input 
+                disabled={selectedSetor !== 'todos'?true:false} 
+                placeholder='Pesquisar por nome' 
+                type="text" 
+                onChange={e=>setSearch(e.target.value)}
+              />
+            </TableCell>
             <TableCell></TableCell>
             <TableCell align='right' style={{cursor:'pointer'}}>
               <div style={{width:'45px', height:'45px', display:'flex'}} 
@@ -185,7 +192,7 @@ export default function CustomPaginationActionsTable({select, setLength, length,
                 if(selectedSetor === 'todos' &&
                   o.nome
                 ){
-                  return o
+                  return search?o.nome.toLowerCase().includes(search.toLowerCase())?o:'':o
                 }else{
                   return String(o.setor) === String(selectedSetor)
                 }
