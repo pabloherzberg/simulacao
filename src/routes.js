@@ -10,6 +10,7 @@ import Geral from "./pages/Geral";
 import Prontuarios from './pages/Prontuarios'
 
 import HomeMobile from './pages/Mobile/Home'
+import DetailsMobile from './pages/Mobile/Details'
 
 
 function Routes() {
@@ -23,6 +24,9 @@ function Routes() {
           window.innerWidth <= 768?
           <Route exact path='/' component={HomeMobile} />:
           <RouteWrapper layout={Layout} exact path="/" component={Prontuarios} />
+        )}
+        {user &&(
+          <Route exact path='/detalhes' component={DetailsMobile}/>
         )}
         {user && (
           <RouteWrapper

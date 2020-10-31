@@ -63,9 +63,9 @@ function Details({selected, selectKey, newPerson, length}) {
       alert('Selecione um SETOR')
     }else{
       if(newPerson){
-        firebase.database().ref(`pacientes/${length}`).set(inputs)
+        firebase.database().ref(`pacientes/${length}`).set(inputs).then(()=>alert('Dados Salvos'))
       }else{
-        firebase.database().ref(`pacientes/${selectKey}`).set(inputs)
+        firebase.database().ref(`pacientes/${selectKey}`).set(inputs).then(()=>alert('Dados Salvos'))
       }
     }
   }

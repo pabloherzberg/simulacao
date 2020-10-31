@@ -93,6 +93,10 @@ export default function CustomPaginationActionsTable({select, setLength, length,
     }
   }
 
+  function scrollPage(){
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
   return (
     <Wrapper>
        {rows.length<1&&<Loading/>}
@@ -192,6 +196,7 @@ export default function CustomPaginationActionsTable({select, setLength, length,
                 select(row); 
                 setSelectedKey(arraySearch(rows, row)); 
                 setNewPerson(false)
+                scrollPage()
               }} key={index}>
                <TableCell onClick={()=>handleChangeStatus(row)} style={{ width: 160 }} align="right">
                 {row.obito? <img style={{width:'25%'}} src={stethoscopeBlack}/>: row.status? <img style={{width:'25%'}} src={stethoscopeGreen}/>:<img style={{width:'25%'}} src={stethoscopeRed}/>}
