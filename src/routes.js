@@ -9,6 +9,8 @@ import Login from "./pages/Login";
 import Geral from "./pages/Geral";
 import Prontuarios from './pages/Prontuarios'
 
+import HomeMobile from './pages/Mobile/Home'
+
 
 function Routes() {
   const user = JSON.parse(sessionStorage.getItem("userFono"));
@@ -18,6 +20,8 @@ function Routes() {
       <Switch>
         {!user && <Route path="/" component={Login} />}
         {user && (
+          window.innerWidth <= 768?
+          <Route exact path='/' component={HomeMobile} />:
           <RouteWrapper layout={Layout} exact path="/" component={Prontuarios} />
         )}
         {user && (
