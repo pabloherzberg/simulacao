@@ -44,9 +44,9 @@ function Evolucoes() {
     <Container>
       {loading?<></>:
         <ul>
-          {list.map(item=><li>
+          {list.map(item=><a href={item.url}><li>
             <img src={item.url}/>
-          </li>)}
+          </li></a>)}
         </ul>
       }
     </Container>
