@@ -60,7 +60,7 @@ function Details() {
             (
               <li>
                 <span>Status: </span>
-                  <span>{item[1]?'Em baixa fonoaudiológica': 'Em alta fonoaudiológica'}</span>
+                <span>{item[1]?'Em baixa fonoaudiológica': 'Em alta fonoaudiológica'}</span>
               </li>
             ):
             (<li>

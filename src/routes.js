@@ -8,6 +8,7 @@ import Setores from "./pages/Setores";
 import Login from "./pages/Login";
 import Geral from "./pages/Geral";
 import Prontuarios from './pages/Prontuarios'
+import Evolucoes from './pages/Evolucoes'
 
 import HomeMobile from './pages/Mobile/Home'
 import DetailsMobile from './pages/Mobile/Details'
@@ -24,6 +25,11 @@ function Routes() {
           window.innerWidth <= 768?
           <Route exact path='/' component={HomeMobile} />:
           <RouteWrapper layout={Layout} exact path="/" component={Prontuarios} />
+        )}
+         {user && (
+          window.innerWidth <= 768?
+          <></>:
+          <RouteWrapper layout={Layout} exact path="/evolucoes" component={Evolucoes} />
         )}
         {user &&(
           <Route exact path='/detalhes' component={DetailsMobile}/>

@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import firebase from '../../../context/firebase'
+import {useHistory} from 'react-router-dom'
 
 import { Container } from './style';
 import saveSVG from '../../../assets/save.svg'
@@ -11,6 +12,8 @@ function Details({selected, selectKey, newPerson, length}) {
   const [showVoz, setShowVoz] = useState(false)
   const [showOFAS, setShowOFAS] = useState(false)
   const [showRespiracao, setShowRespiracao] = useState(false)
+
+  const history = useHistory()
    
   useEffect(()=>{
     if(newPerson){
@@ -263,7 +266,10 @@ function Details({selected, selectKey, newPerson, length}) {
           <div style={{display:'flex', flexDirection:'column'}}>
             <p> <span>Observações:</span> <textarea onChange={handleChange} name="observacoes" value={inputs.observacoes} id="" cols="30" rows="5"></textarea></p>
             <div id='wrapperButtons'>
-              <div id='prontuarios'>
+              <div id='prontuarios' onClick={()=>history.push({
+                pathname:"/evolucoes",
+                state:{paciente:selected, index:selectKey}
+              })}>
                 <img src={diagnosisSVG} />
                 <label>Evoluções</label>
               </div>
