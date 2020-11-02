@@ -27,7 +27,9 @@ function Evolucoes() {
           // And finally display them
           imageRef.getDownloadURL()
           .then((url) => {
-            setImgUrl({url:url})
+            const time = url.substr(93, 13)
+            const t = new Date(Number(time)).toLocaleString()
+            setImgUrl({url:url, time:t})
           })
           .catch(() => {
            console.log('erro')
@@ -39,14 +41,23 @@ function Evolucoes() {
       });     
     },[])
     
-
   return (
     <Container>
       {loading?<></>:
         <ul>
-          {list.map(item=><a href={item.url}><li>
-            <img src={item.url}/>
-          </li></a>)}
+          {list
+            .sort((a,b)=>{
+              return b.time - a.time
+            })
+            .map(item=>(
+              item.url &&
+              <a href={item.url}>
+                <li>
+                  <img src={item.url}/>
+                  <span>{String(item.time)}</span>
+                </li>
+              </a>)
+            )}
         </ul>
       }
     </Container>

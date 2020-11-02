@@ -26,7 +26,11 @@ function Routes() {
           <Route exact path='/' component={HomeMobile} />:
           <RouteWrapper layout={Layout} exact path="/" component={Prontuarios} />
         )}
-         {user &&  <RouteWrapper layout={Layout} exact path="/evolucoes" component={Evolucoes} />}
+         {user &&  
+             window.innerWidth <= 768?
+             <Route exact path='/evolucoesMobile' component={Evolucoes} />:
+            <RouteWrapper layout={Layout} exact path="/evolucoes" component={Evolucoes} />
+          }
         {user &&(
           <Route exact path='/detalhes' component={DetailsMobile}/>
         )}

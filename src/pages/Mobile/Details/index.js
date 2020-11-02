@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {useHistory} from 'react-router-dom'
 import firebase from '../../../context/firebase'
 import {useLocation} from 'react-router-dom'
 import { Container } from './styles';
@@ -12,6 +13,7 @@ function Details() {
     const [imageFullData, setImageFullData] = useState("");
     const [status, setStatus] = useState(false)
     const [loading, setLoading] = useState(false)
+    const history = useHistory()
 
     async function fileHandler(event) {
         const fileObj = event.target.files[0];
@@ -54,6 +56,11 @@ function Details() {
       <section id='one'>
         <h2>Detalhes</h2>
         <ul>
+            <li id='evolucoes'
+              onClick={()=>history.push({
+                pathname:"/evolucoesMobile",
+                state:{paciente:paciente, index:index}
+              })}>Ver Evoluções</li>
             {paciente && Object.entries(paciente).map(item=>
             item[0]==='prontuarios'?"":
             item[0]==='status'?

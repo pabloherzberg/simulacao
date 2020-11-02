@@ -10,6 +10,20 @@ export const Container = styled.div`
         list-style:none;
         margin:0;
         padding-left:10px;
+        
+        #evolucoes{
+            margin:auto;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:30%;
+            width:80vw;
+            color:${colors.white};
+            background-color:${colors.lightGreen};
+            border:none;
+            border-radius:4px;
+            font-weight:bold;
+        }
         li{
             span:first-child{
                 font-weight:bold;
