@@ -6,7 +6,6 @@ export const Container = styled.div`
     flex-direction:column;
     height:100vh;
  #one{
-     height:70%;
     ul{
         list-style:none;
         margin:0;
@@ -22,7 +21,7 @@ export const Container = styled.div`
     }
  }
  #two{
-     height:30%;
+     height:30vh;
      display:flex;
      flex-direction:column;
      align-items:center;
