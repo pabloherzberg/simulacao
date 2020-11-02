@@ -202,16 +202,16 @@ export default function CustomPaginationActionsTable({select, setLength, length,
                 {row.obito? <img style={{width:'25%'}} src={stethoscopeBlack}/>: row.status? <img style={{width:'25%'}} src={stethoscopeGreen}/>:<img style={{width:'25%'}} src={stethoscopeRed}/>}
               </TableCell>
               <TableCell component="th" scope="row">
-                VOU COMER UM JOHN LENNON NO BENDIZÊ{/* {row.nome} */}
+                {row.nome}
               </TableCell>
               <TableCell>
-                VOU COMER UM JOHN LENNON NO BENDIZÊ{/* {row.setor} */}
+                {row.setor}
               </TableCell>
               <TableCell component="th" scope="row">
-                VOU COMER UM JOHN LENNON NO BENDIZÊ{/* {row.idade} */}
+                {row.idade}
               </TableCell>
               <TableCell component="th" scope="row">
-                VOU COMER UM JOHN LENNON NO BENDIZÊ{/* {row.via} */}
+                {row.via}
               </TableCell>
               <TableCell style={{ width: 160 }} align="right">
                 {(row.ultimo_atendimento).toString().split('-').reverse().join('/')}
