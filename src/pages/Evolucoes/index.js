@@ -5,6 +5,9 @@ import firebase from '../../context/firebase'
 
 import { Container } from './styles';
 
+import selfie from '../../assets/file.svg'
+import Uploading from  '../../components/Uploading'
+
 function Evolucoes() {
 
   const location = useLocation()
@@ -14,12 +17,15 @@ function Evolucoes() {
   const [list, setList] = useState([])
   const [url, setUrl] = useState('')
   const [tempo, setTempo] = useState(new Date())
+  const [image, setImage] = useState("");
+  const [imageFullData, setImageFullData] = useState("");
 
   useEffect(()=>{
     setList([...list, imgURL])
   },[imgURL])
 
   useEffect(()=>{
+
     firebase
       .storage()
       .ref(`pacientes/${index}`)
@@ -47,9 +53,54 @@ function Evolucoes() {
       });     
     },[])
 
+  async function fileHandler(event) {
+      const fileObj = event.target.files[0];
+  
+      if (fileObj) {
+        const image = URL.createObjectURL(fileObj);
+        setImage(image);
+        setImageFullData(fileObj);  
+      } else {
+        console.log("Imagem não carregada");
+      }
+  }
+  async function uploadImg(e) {
+      e.preventDefault();
+      setLoading(true)
+      
+      const current = new Date().getTime()
+  
+      firebase
+        .database()
+        .ref(`pacientes/${index}/prontuarios/`)
+        .push(current)
+  
+      firebase
+        .storage()
+        .ref(`pacientes/${index}/${current}`)
+        .put(imageFullData)
+        .then(() => {
+          setLoading(false)
+          alert("Novo prontuário salvo com sucesso!")
+        })
+        .catch((e) => {
+          setLoading(false)
+          console.error(e)
+        });
+  }
+  
   return (
     <Container>
       {loading?<></>:
+      <>
+        <header>
+          <img height='100%' src={image}/>
+          <form onSubmit={uploadImg}>
+            <label htmlFor="upload-photo"><img src={selfie} /><span>Anexar novo arquivo de prontuário</span></label>
+            <input id='upload-photo' onChange={fileHandler} name='captureImg' type="file" accept='image/*' capture='camera'/>
+            <input id='submit' style={{opacity:image?'1':'0.5'}} disabled={image?false:true} type="submit" value="Salvar"/>
+          </form>
+        </header>
         <ul>
           {list
             .sort((a,b)=>{
@@ -65,6 +116,7 @@ function Evolucoes() {
               </a>)
             )}
         </ul>
+      </>
       }
     </Container>
   )
