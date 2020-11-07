@@ -17,7 +17,7 @@ export default function Login() {
       .signInWithEmailAndPassword(email, pass)
       .then(() => {
         const uid = firebase.auth().currentUser;
-        sessionStorage.setItem("userFono", JSON.stringify(uid));
+        localStorage.setItem("userFono", JSON.stringify(uid));
         window.location.href = "/";
       });
   }

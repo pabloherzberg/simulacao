@@ -8,6 +8,7 @@ import { Container, Modal } from './styles';
 import Footer from '../../../components/Footer'
 
 import stethoscopeRed from '../../../assets/stethoscopeRed.svg'
+import stethoscopeBlack from '../../../assets/stethoscopeBlack.svg'
 import stethoscopeGreen from '../../../assets/stethoscopeGreen.svg'
 
 function Home() {
@@ -156,10 +157,14 @@ function Home() {
                                 state:{paciente:paciente, index:i}
                             })
                         }}>
-                            <td>{paciente.status?<img src={stethoscopeGreen}/>:<img src={stethoscopeRed}/>}</td><td>{paciente.nome}</td>
+                            <td>{paciente.obito? <img  src={stethoscopeBlack}/>: paciente.status? <img  src={stethoscopeGreen}/>:<img  src={stethoscopeRed}/>}</td><td>{paciente.nome}</td>
+                            {/* <td>{paciente.status?<img src={stethoscopeGreen}/>:<img src={stethoscopeRed}/>}</td><td>{paciente.nome}</td> */}
                         </tr>
                 ))}
                 </tbody>
+                <tfoot>
+                    <td>footer</td><td>footer</td>
+                </tfoot>
             </table>
             
         </Container>

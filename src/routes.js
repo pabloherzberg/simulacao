@@ -16,7 +16,7 @@ import EditMobile from './pages/Mobile/Edit'
 
 
 function Routes() {
-  const user = JSON.parse(sessionStorage.getItem("userFono"));
+  const user = JSON.parse(localStorage.getItem("userFono"));
 
   return (
     <BrowserRouter>

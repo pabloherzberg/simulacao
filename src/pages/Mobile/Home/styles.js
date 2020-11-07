@@ -67,6 +67,11 @@ export const Container = styled.div`
         td{
             text-align:center;
         }
+        tfoot{
+            background-color:transparent;
+            color:transparent;
+            height:100px;
+        }
     }
 `
 
