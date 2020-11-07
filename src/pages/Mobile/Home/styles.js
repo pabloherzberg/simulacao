@@ -3,6 +3,55 @@ import {colors} from '../../../constants/colors'
 
 export const Container = styled.div`
     width:100%;
+    header{
+        padding-top:10px;
+        padding-bottom:10px;
+        background-color:${colors.blueBorder};
+        display:flex;
+        flex-wrap:wrap;
+        ul{
+            gap:1em;
+            list-style:none;
+            display:flex;
+            li{
+                position: relative;
+                width:100px;
+                height:2em;
+                border-radius:4px;
+                background-color:${colors.deepBlue};
+                span{
+                    font-size:.7em;
+                    color:white;
+                    font-weight:bold;
+                }
+                &::after{
+                    position:absolute;
+                    content:"X";
+                    display:flex;
+                    justify-content:center;
+                    align-items:center;
+                    color:white;
+                    top:0;
+                    right:-.8em;
+                    font-size:.8em;
+                    width:1em;
+                    height:1.1em;
+                    border-radius:4px;
+                    background-color:${colors.deepBlue};
+                }
+            }
+        }
+        button{
+            margin-left:auto;
+            border:none;
+            border-radius:4px;
+            background-color:${colors.lightGreen};
+            color:white;
+            width:50%;
+            font-size:1em;
+            height:2em;
+        }
+    }
     table{
         width:100%;
         thead{
@@ -17,6 +66,40 @@ export const Container = styled.div`
         }
         td{
             text-align:center;
+        }
+    }
+`
+
+export const Modal = styled.div`
+    background-color:rgba(0,0,0,.5);
+    position: fixed;
+    height:100%;
+    z-index:5000;
+    width:100%;
+    display:flex;
+    justify-content:center;
+
+    #content{
+        margin-top:10%;
+        background-color:white;
+        display:flex;
+        justify-content:space-evenly;
+        align-items:center;
+        flex-direction:column;
+        width:90%;
+        height:50%;
+        border-radius:4px;
+        h2{
+            text-align:center;
+        }
+        button{
+            height:3em;
+            color:white;
+            font-size:1em;
+            width:80%;
+            border:none;
+            border-radius:4px;
+            background-color:${colors.lightGreen}
         }
     }
 `

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import {useLocation} from 'react-router-dom'
+import {useLocation, useHistory} from 'react-router-dom'
 import firebase from '../../context/firebase'
 
 import { Container } from './styles';
@@ -20,12 +20,18 @@ function Evolucoes() {
   const [image, setImage] = useState("");
   const [imageFullData, setImageFullData] = useState("");
 
+  const history = useHistory()
+
+  useEffect(()=>{
+    CarregarProntuarios()    
+  },[])
+
   useEffect(()=>{
     setList([...list, imgURL])
   },[imgURL])
 
-  useEffect(()=>{
-
+  
+  function CarregarProntuarios(){
     firebase
       .storage()
       .ref(`pacientes/${index}`)
@@ -51,7 +57,7 @@ function Evolucoes() {
       }).catch(function(error) {
         // Handle any errors
       });     
-    },[])
+  }
 
   async function fileHandler(event) {
       const fileObj = event.target.files[0];
@@ -64,6 +70,7 @@ function Evolucoes() {
         console.log("Imagem não carregada");
       }
   }
+
   async function uploadImg(e) {
       e.preventDefault();
       setLoading(true)
@@ -82,6 +89,7 @@ function Evolucoes() {
         .then(() => {
           setLoading(false)
           alert("Novo prontuário salvo com sucesso!")
+          history.push('/')
         })
         .catch((e) => {
           setLoading(false)
@@ -91,7 +99,7 @@ function Evolucoes() {
   
   return (
     <Container>
-      {loading?<></>:
+      {loading?<Uploading/>:
       <>
         <header>
           <img height='100%' src={image}/>
@@ -104,7 +112,7 @@ function Evolucoes() {
         <ul>
           {list
             .sort((a,b)=>{
-              return b.time - a.time
+              return new Date(b.time) - new Date(a.time)
             })
             .map(item=>(
               item.url &&

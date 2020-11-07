@@ -7,7 +7,7 @@ import stethoscopeGreen from '../../assets/stethoscopeGreen.svg'
 
 function Uploading() {
   return <Container>
-      <p>Enviando arquivo...</p>
+      <p>Carregando...</p>
       <img id='red' src={stethoscopeRed}/>
       <img id='green'src={stethoscopeGreen}/>
   </Container>

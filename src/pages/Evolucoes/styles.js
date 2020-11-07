@@ -64,7 +64,7 @@ export const Container = styled.div`
      }
     }
     ul{
-        
+        gap:2em;
         @media only screen and (max-width: 768px) {
             flex-direction:column;
         }
@@ -74,7 +74,7 @@ export const Container = styled.div`
         justify-content:space-evenly;
         padding-top:3em;
         li{
-            
+           
             display:flex;
             justify-content:center;
             align-items:center;

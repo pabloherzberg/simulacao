@@ -1229,9 +1229,23 @@ export default function GlobalProvider({ children }) {
       pendenciasSemana: [0, 0, 0, 0],
     },
   ]);
+  const [footerSetor, setFooterSetor] = useState(false)
+  const [footerNome, setFooterNome] = useState(false)
+  const [footerStatus, setFooterStatus] = useState(false)
+  const [length, setLength] = useState(0);
 
   return (
-    <GlobalContext.Provider value={{ tableContext, setTableContext }}>
+    <GlobalContext.Provider value={{ 
+      tableContext, 
+      setTableContext, 
+      footerSetor, 
+      setFooterSetor,
+      footerNome,
+      setFooterNome,
+      footerStatus, 
+      setFooterStatus,
+      length, setLength
+     }}>
       {children}
     </GlobalContext.Provider>
   );
@@ -1239,6 +1253,24 @@ export default function GlobalProvider({ children }) {
 
 export function useGlobalContext() {
   const context = useContext(GlobalContext);
-  const { tableContext, setTableContext } = context;
-  return { tableContext, setTableContext };
+  const {  
+    tableContext, 
+    setTableContext, 
+    footerSetor, 
+    setFooterSetor,
+    footerNome,
+    setFooterNome,
+    footerStatus, 
+    setFooterStatus,
+    length, setLength } = context;
+  return {  
+    tableContext, 
+    setTableContext, 
+    footerSetor, 
+    setFooterSetor,
+    footerNome,
+    setFooterNome,
+    footerStatus, 
+    setFooterStatus,
+    length, setLength };
 }

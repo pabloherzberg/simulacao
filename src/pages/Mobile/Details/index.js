@@ -4,6 +4,7 @@ import firebase from '../../../context/firebase'
 import {useLocation} from 'react-router-dom'
 import { Container } from './styles';
 import selfie from '../../../assets/selfie.svg'
+import pencil from '../../../assets/pencil.svg'
 import Uploading from  '../../../components/Uploading'
 
 function Details() {
@@ -11,10 +12,9 @@ function Details() {
     const {paciente, index} = location.state
     const [image, setImage] = useState("");
     const [imageFullData, setImageFullData] = useState("");
-    const [status, setStatus] = useState(false)
     const [loading, setLoading] = useState(false)
     const history = useHistory()
-
+    
     async function fileHandler(event) {
         const fileObj = event.target.files[0];
     
@@ -54,13 +54,15 @@ function Details() {
   return <Container>
     {loading&&<Uploading/>}
       <section id='one'>
-        <h2>Detalhes</h2>
+        <div id='header'>
+          <h2>Detalhes</h2>
+            <button onClick={()=>history.push({
+              pathname:'/edit',
+              state:{selected:paciente, selectKey:index}
+            })}><img src={pencil} />Editar</button>
+          </div>
         <ul>
-            <li id='evolucoes'
-              onClick={()=>history.push({
-                pathname:"/evolucoesMobile",
-                state:{paciente:paciente, index:index}
-              })}>Ver Evoluções</li>
+            
             {paciente && Object.entries(paciente).map(item=>
             item[0]==='prontuarios'?"":
             item[0]==='status'?
@@ -75,12 +77,20 @@ function Details() {
                   <span>{item[1]}</span>
             </li>)
             )}
+            <li style={{height:'3em'}} id='evolucoes'
+              onClick={()=>history.push({
+                pathname:"/evolucoesMobile",
+                state:{paciente:paciente, index:index}
+              })}>Ver Evoluções</li>
         </ul>
       </section>
       <section id='two'>
         <h2>Enviar foto de prontuário</h2>
         <form onSubmit={uploadImg}>
-            <label htmlFor="upload-photo"><img src={selfie} /><span>Abrir Câmera</span></label>
+            <label htmlFor="upload-photo">
+              <img src={selfie} />
+              <span>Abrir Câmera</span>
+            </label>
             <input id='upload-photo' onChange={fileHandler} name='captureImg' type="file" accept='image/*' capture='camera'/>
             <input id='submit' style={{opacity:image?'1':'0.5'}} disabled={image?false:true} type="submit" value="Fazer upload da foto"/>
         </form>

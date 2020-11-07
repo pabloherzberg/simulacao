@@ -6,6 +6,27 @@ export const Container = styled.div`
     flex-direction:column;
     height:100vh;
  #one{
+    #header{
+        display:flex;
+        justify-content:space-between;
+        padding:1em;
+        button{
+            border:none;
+            border-radius:4px;
+            background-color:${colors.lightGreen};
+            width:50%;
+            height:2.5em;
+            display:flex;
+            justify-content:space-evenly;
+            align-items:center;
+            color:${colors.white};
+            font-weight:bold;
+            img{
+                height:100%;
+                object-fit:contain;
+            }
+        }
+    }
     ul{
         list-style:none;
         margin:0;
@@ -34,7 +55,8 @@ export const Container = styled.div`
         }
     }
  }
- #two{
+ #two{  
+    margin-top:1.5em;
      height:30vh;
      display:flex;
      flex-direction:column;
