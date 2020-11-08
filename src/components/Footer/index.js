@@ -32,6 +32,10 @@ function Footer({length}) {
                 pathname:'/edit',
                 state:{newPerson:true, length:length}
             })}><span> Adicionar paciente </span></li>
+             <li onClick={()=>history.push({
+                pathname:'/contatos',
+                state:{newPerson:true, length:length}
+            })}><span> Contatos </span></li>
         </ul>
     </Container>
   )
