@@ -1,4 +1,4 @@
-var CACHE_NAME = 'otimigas-app';
+var CACHE_NAME = 'fonos-app';
 
 var urlsToCache = [
     '/',
@@ -6,7 +6,7 @@ var urlsToCache = [
     '/static/js/main.chunk.js',
     '/static/js/1.chunk.js',
     '/static/js/0.chunk.js',
-    '/favicon.ico',
+    '/logo.png',
     '/css?family=Open+Sans',
     '/icon?family=Material+Icons'
 ];

@@ -45,7 +45,18 @@ function Home() {
             if (arr[i] === val)                    
                 return i;
         return false;
-      }
+    }
+
+    function handleChangeStatus(paciente){
+    const index = arraySearch(pacientes, paciente)
+    const text = paciente.status? 'DESEJA ALTERAR PARA ALTA FONOAUDIOLÓGICA?': 'DESEJA ALTERAR PARA EM ACOMPANHAMENTO FONOAUDIOLÓGICO?'
+    const res = window.confirm(text)
+    if(res){     
+        firebase.database().ref(`pacientes/${index}`).child('status').set(!paciente.status)
+    }else{
+        return
+    }
+    }
 
     return(
         <Container>
@@ -150,15 +161,17 @@ function Home() {
                         return  a.obito? 1:(a.status === b.status)? 0: a.status? -1 :1;
                       })
                     .map(paciente=>(
-                        <tr onClick={()=>{
-                            const i = arraySearch(pacientes, paciente)
-                            history.push({
-                                pathname:'/detalhes',
-                                state:{paciente:paciente, index:i}
-                            })
-                        }}>
-                            <td>{paciente.obito? <img  src={stethoscopeBlack}/>: paciente.status? <img  src={stethoscopeGreen}/>:<img  src={stethoscopeRed}/>}</td><td>{paciente.nome}</td>
-                            {/* <td>{paciente.status?<img src={stethoscopeGreen}/>:<img src={stethoscopeRed}/>}</td><td>{paciente.nome}</td> */}
+                        <tr>
+                            <td onClick={()=>handleChangeStatus(paciente)}>{paciente.obito? <img  src={stethoscopeBlack}/>: paciente.status? <img  src={stethoscopeGreen}/>:<img  src={stethoscopeRed}/>}</td>
+                            <td onClick={()=>{
+                                const i = arraySearch(pacientes, paciente)
+                                history.push({
+                                    pathname:'/detalhes',
+                                    state:{paciente:paciente, index:i}
+                                })
+                                }}>{paciente.nome}
+                            </td>
+                            
                         </tr>
                 ))}
                 </tbody>
