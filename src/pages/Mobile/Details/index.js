@@ -72,6 +72,13 @@ function Details() {
                 <span>{item[1]?'Em baixa fonoaudiológica': 'Em alta fonoaudiológica'}</span>
               </li>
             ):
+            item[0]==='observacoes'?
+            (
+              <li>
+                <span>{item[0]}: </span>
+                <mark>{item[1]}</mark>
+            </li>
+            ):
             (<li>
                 <span>{item[0]}: </span>
                   <span>{item[1]}</span>

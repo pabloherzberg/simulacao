@@ -158,8 +158,8 @@ function Home() {
                           }
                       })
                     .sort((a, b)=>{
-                        return  a.obito? 1:(a.status === b.status)? 0: a.status? -1 :1;
-                      })
+                        return (a.status === b.status)? 0: a.status? -1 :1;
+                      })                    
                     .map(paciente=>(
                         <tr>
                             <td onClick={()=>handleChangeStatus(paciente)}>{paciente.obito? <img  src={stethoscopeBlack}/>: paciente.status? <img  src={stethoscopeGreen}/>:<img  src={stethoscopeRed}/>}</td>

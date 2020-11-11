@@ -49,6 +49,10 @@ export const Container = styled.div`
             span:first-child{
                 font-weight:bold;
             }
+            mark { 
+                background-color: yellow;
+                color: black;
+            }
         }
         li:nth-child(even){
             background-color:${colors.lighGray};

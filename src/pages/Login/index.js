@@ -19,7 +19,12 @@ export default function Login() {
         const uid = firebase.auth().currentUser;
         localStorage.setItem("userFono", JSON.stringify(uid));
         window.location.href = "/";
-      });
+      }).catch(()=>{
+        setLoading(false)
+        setEmail('')
+        setPass('')
+        alert('Email ou senha incorretos')
+      })
   }
 
   function createAccount() {
