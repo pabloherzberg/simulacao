@@ -4,6 +4,11 @@ import { Container } from './styles';
 
 import {useGlobalContext} from '../../context/index'
 
+import send from '../../assets/message.svg'
+import addUser from '../../assets/add-user.svg'
+import filter from '../../assets/missing.svg'
+import contatos from '../../assets/contatos.svg'
+
 function Footer({length, pacientesCheck}) {
     const [ eixoY, setEixoY] = useState(0)
 
@@ -25,17 +30,17 @@ function Footer({length, pacientesCheck}) {
   return (
     <Container style={{display:eixoY/tela > 0.6?'none':'block'}}>
         <ul>
-            <li onClick={()=>setFooterSetor(true)}><span> Setor </span></li>
-            <li onClick={()=>setFooterNome(true)}><span> Nome </span></li>
-            <li onClick={()=>setFooterStatus(true)}><span> Status </span></li>
+            <li onClick={()=>setFooterSetor(true)}> <img src={filter} />  <span> Setor </span></li>
+            <li onClick={()=>setFooterNome(true)}> <img src={filter} /> <span> Nome </span></li>
+            <li onClick={()=>setFooterStatus(true)}>  <img src={filter} /> <span> Status </span></li>
             <li onClick={()=>history.push({
                 pathname:'/edit',
                 state:{newPerson:true, length:length}
-            })}><span> Adicionar paciente </span></li>
+            })}>  <img src={addUser} /> <span style={{fontSize:'.8em'}}> Adicionar paciente </span></li>
              <li onClick={()=>history.push({
                 pathname:'/contatos',
                 state:{pacientesCheck:false}
-            })}><span> Contatos </span></li>
+            })}> <img src={contatos} />  <span> Contatos </span></li>
              <li onClick={()=>{
                     pacientesCheck.length>0?
                     history.push({
@@ -43,7 +48,7 @@ function Footer({length, pacientesCheck}) {
                         state:{pacientesCheck:pacientesCheck}
                     }):
                     alert('Selecione pelo menos um paciente para enviar.')
-                }}><span> Enviar </span></li>
+                }}> <img src={send} /> <span> Enviar </span></li>
         </ul>
     </Container>
   )

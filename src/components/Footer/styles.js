@@ -27,12 +27,17 @@ export const Container = styled.div`
             display:flex;
             align-items:center;
             justify-content:center;
+            flex-direction:column;
             background-color:white;
             span{
                 font-weight:bold;
                 font-size:1em;
                 color:${colors.deepBlue};
                 text-align:center;
+            }
+            img{
+                object-fit:contain;
+                height:50%;
             }
         }
     }

@@ -57,8 +57,24 @@ export const Container = styled.div`
         thead{
            text-align:center;
            font-weight:bold;
+           border-bottom:solid 1px ${colors.tableHeader};
            td{
-               font-size:1.5em;
+               padding-top:.5em;
+               padding-bottom:.5em;
+                font-size:1.5em;
+                color:${colors.white};
+            &:nth-child(3){
+                background-color:${colors.tableHeader};
+                width:1.5em;
+            }
+            &:nth-child(2){
+                background-color:${colors.lighGray};
+                color:${colors.tableHeader};
+            }
+            &:nth-child(1){
+                background-color:${colors.tableHeader};
+                width:4em;
+            }
            }
         }
         tr:nth-child(even){
@@ -66,6 +82,10 @@ export const Container = styled.div`
         }
         td{
             text-align:center;
+            border-right:solid 1px ${colors.tableHeader};
+            img{
+                width:50%;
+            }
         }
         tfoot{
             background-color:transparent;

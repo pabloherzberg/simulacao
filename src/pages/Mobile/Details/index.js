@@ -15,19 +15,25 @@ function Details() {
     const [loading, setLoading] = useState(false)
     const history = useHistory()
     
+    /* useEffect(()=>{
+      uploadImg()
+    },[imageFullData]) */
+
+
     async function fileHandler(event) {
         const fileObj = event.target.files[0];
     
         if (fileObj) {
           const image = URL.createObjectURL(fileObj);
           setImage(image);
-          setImageFullData(fileObj);  
+          //setImageFullData(fileObj);
+          uploadImg(fileObj)
         } else {
           console.log("Imagem não carregada");
         }
     }
-    async function uploadImg(e) {
-        e.preventDefault();
+    async function uploadImg(imageFullData) {
+        //e.preventDefault();
         setLoading(true)
         
         const current = new Date().getTime()
@@ -45,9 +51,9 @@ function Details() {
             setLoading(false)
             alert("Novo prontuário salvo com sucesso!")
           })
-          .catch((e) => {
+          .catch(() => {
             setLoading(false)
-            console.error(e)
+            
           });
     }
 
@@ -93,13 +99,13 @@ function Details() {
       </section>
       <section id='two'>
         <h2>Enviar foto de prontuário</h2>
-        <form onSubmit={uploadImg}>
+        <form /* onSubmit={uploadImg} */>
             <label htmlFor="upload-photo">
               <img src={selfie} />
               <span>Abrir Câmera</span>
             </label>
             <input id='upload-photo' onChange={fileHandler} name='captureImg' type="file" accept='image/*' capture='camera'/>
-            <input id='submit' style={{opacity:image?'1':'0.5'}} disabled={image?false:true} type="submit" value="Fazer upload da foto"/>
+            {/* <input id='submit' style={{opacity:image?'1':'0.5'}} disabled={image?false:true} type="submit" value="Fazer upload da foto"/> */}
         </form>
       </section>
       </Container>

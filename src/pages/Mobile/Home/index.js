@@ -10,6 +10,7 @@ import Footer from '../../../components/Footer'
 import stethoscopeRed from '../../../assets/stethoscopeRed.svg'
 import stethoscopeBlack from '../../../assets/stethoscopeBlack.svg'
 import stethoscopeGreen from '../../../assets/stethoscopeGreen.svg'
+import verifica from '../../../assets/verifica.svg'
 
 function Home() {
     const [pacientes, setPacientes] = useState([])
@@ -141,7 +142,7 @@ function Home() {
             }
             <table>
                <thead>
-                  <td>Status</td><td>Nome</td><td>selecionar</td>
+                  <td>Status</td><td>Nome</td><td><img src={verifica}/></td>
                </thead>
                 <tbody>
                 {pacientes
