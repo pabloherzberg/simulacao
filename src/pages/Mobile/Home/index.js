@@ -17,6 +17,7 @@ function Home() {
     const [search, setSearch]=useState(false)
     const [status, setStatus]=useState('todos')
     const [length, setLength] = useState(0)
+    const [pacientesCheck, setPacientesCheck] = useState([])
    
     const history = useHistory()
 
@@ -48,14 +49,18 @@ function Home() {
     }
 
     function handleChangeStatus(paciente){
-    const index = arraySearch(pacientes, paciente)
-    const text = paciente.status? 'DESEJA ALTERAR PARA ALTA FONOAUDIOLÓGICA?': 'DESEJA ALTERAR PARA EM ACOMPANHAMENTO FONOAUDIOLÓGICO?'
-    const res = window.confirm(text)
-    if(res){     
-        firebase.database().ref(`pacientes/${index}`).child('status').set(!paciente.status)
-    }else{
-        return
+        const index = arraySearch(pacientes, paciente)
+        const text = paciente.status? 'DESEJA ALTERAR PARA ALTA FONOAUDIOLÓGICA?': 'DESEJA ALTERAR PARA EM ACOMPANHAMENTO FONOAUDIOLÓGICO?'
+        const res = window.confirm(text)
+        if(res){     
+            firebase.database().ref(`pacientes/${index}`).child('status').set(!paciente.status)
+        }else{
+            return
+        }
     }
+
+    function handleCheck(paciente){
+        setPacientesCheck([...pacientesCheck, paciente])
     }
 
     return(
@@ -119,7 +124,7 @@ function Home() {
                 </Modal>
             )}
             
-            <Footer length={length}/>
+            <Footer pacientesCheck={pacientesCheck} length={length}/>
             { (search || status!=='todos'||selectedSetor!=='todos')?
                 <header>
                 <ul>
@@ -136,7 +141,7 @@ function Home() {
             }
             <table>
                <thead>
-                  <td>Status</td><td>Nome</td>
+                  <td>Status</td><td>Nome</td><td>selecionar</td>
                </thead>
                 <tbody>
                 {pacientes
@@ -171,6 +176,7 @@ function Home() {
                                 })
                                 }}>{paciente.nome}
                             </td>
+                            <td><input onClick={()=>handleCheck(paciente)} type="checkbox" /></td>
                             
                         </tr>
                 ))}

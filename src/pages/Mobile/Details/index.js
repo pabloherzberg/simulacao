@@ -4,7 +4,7 @@ import firebase from '../../../context/firebase'
 import {useLocation} from 'react-router-dom'
 import { Container } from './styles';
 import selfie from '../../../assets/selfie.svg'
-import pencil from '../../../assets/pencil.svg'
+import pencil from '../../../assets/editar.svg'
 import Uploading from  '../../../components/Uploading'
 
 function Details() {

@@ -34,6 +34,7 @@ function Edit() {
         respiracao:'',
         saida:'',
         setor:newPerson,
+        leito:'',
         status:true,
         ultimo_atendimento:'',
         via:'',
@@ -139,6 +140,10 @@ function Edit() {
                 <option value="andar10">ANDAR 10</option>
                 <option value="andar12">ANDAR 12</option>
               </select> 
+            </li>
+            <li>
+              <span>Leito:</span>
+              <input onChange={handleChange} type="text" name="leito" value={inputs.leito}/> 
             </li>
             <li>
               <span>Médico solicitante:</span>

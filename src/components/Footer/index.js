@@ -4,7 +4,7 @@ import { Container } from './styles';
 
 import {useGlobalContext} from '../../context/index'
 
-function Footer({length}) {
+function Footer({length, pacientesCheck}) {
     const [ eixoY, setEixoY] = useState(0)
 
     const tela = document.body.clientHeight;
@@ -34,8 +34,16 @@ function Footer({length}) {
             })}><span> Adicionar paciente </span></li>
              <li onClick={()=>history.push({
                 pathname:'/contatos',
-                state:{newPerson:true, length:length}
+                state:{pacientesCheck:false}
             })}><span> Contatos </span></li>
+             <li onClick={()=>{
+                    pacientesCheck.length>0?
+                    history.push({
+                        pathname:'/contatos',
+                        state:{pacientesCheck:pacientesCheck}
+                    }):
+                    alert('Selecione pelo menos um paciente para enviar.')
+                }}><span> Enviar </span></li>
         </ul>
     </Container>
   )
