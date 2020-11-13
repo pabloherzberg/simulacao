@@ -164,7 +164,7 @@ function Home() {
                           }
                       })
                     .sort((a, b)=>{
-                        return (a.status === b.status)? 0: a.status? -1 :1;
+                        return (a.status === b.status)? 0: a.status? 1 :-1;
                       })
                     .sort((a, b)=>{
                         return a.obito?1 :-1
