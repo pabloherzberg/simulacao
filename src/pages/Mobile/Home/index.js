@@ -178,7 +178,7 @@ function Home() {
                                     pathname:'/detalhes',
                                     state:{paciente:paciente, index:i}
                                 })
-                                }}>{paciente.nome}
+                                }}>{paciente.nome.toUpperCase()}
                             </td>
                             <td><input onClick={()=>handleCheck(paciente)} type="checkbox" /></td>
                             

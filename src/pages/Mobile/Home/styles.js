@@ -57,14 +57,14 @@ export const Container = styled.div`
         thead{
            text-align:center;
            font-weight:bold;
-           border-bottom:solid 1px ${colors.tableHeader};
+           box-shadow:4px 4px 5px gray;
            td{
                padding-top:.5em;
                padding-bottom:.5em;
                 font-size:1.5em;
                 color:${colors.white};
             &:nth-child(3){
-                background-color:${colors.tableHeader};
+                background-color:${colors.blueBorder};
                 width:1.5em;
             }
             &:nth-child(2){
@@ -72,17 +72,18 @@ export const Container = styled.div`
                 color:${colors.tableHeader};
             }
             &:nth-child(1){
-                background-color:${colors.tableHeader};
+                background-color:${colors.blueBorder};
                 width:4em;
             }
            }
         }
         tr:nth-child(even){
             background-color:${colors.lighGray};
+            
         }
         td{
             text-align:center;
-            border-right:solid 1px ${colors.tableHeader};
+            
             img{
                 width:50%;
             }
@@ -125,6 +126,10 @@ export const Modal = styled.div`
             border:none;
             border-radius:4px;
             background-color:${colors.lightGreen}
+        }
+        select{
+            width:80%;
+            height:3em;
         }
     }
 `
