@@ -5,6 +5,7 @@ import firebase from '../../context/firebase'
 
 import { Container } from './styles';
 
+import none from '../../assets/no-touch.svg'
 import selfie from '../../assets/file.svg'
 import Uploading from  '../../components/Uploading'
 
@@ -111,6 +112,8 @@ function Evolucoes() {
       .delete()
       .finally(()=>history.goBack())   
   }
+
+  console.log(list)
   
   return (
     <Container>
@@ -124,6 +127,7 @@ function Evolucoes() {
             <input id='submit' style={{opacity:image?'1':'0.5'}} disabled={image?false:true} type="submit" value="Salvar"/>
           </form>
         </header>
+        {list.length>1?
         <ul>
           {list
             .sort((a,b)=>{
@@ -143,7 +147,14 @@ function Evolucoes() {
 
               )
             )}
-        </ul>
+        </ul>:
+        <div style={{display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center'}}>
+
+          <img width="100%" height='50%' src={none} />
+          <p style={{fontSize:'1.2em', fontWeight:'bold'}}>Nenhum prontuário para este paciente foi carregado até agora.</p>
+        
+        </div>
+        }
       </>
       }
     </Container>
