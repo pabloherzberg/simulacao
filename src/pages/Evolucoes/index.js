@@ -109,7 +109,7 @@ function Evolucoes() {
       .storage()
       .ref(filePath)
       .delete()
-      .finally(()=>window.location.reload())   
+      .finally(()=>history.goBack())   
   }
   
   return (
