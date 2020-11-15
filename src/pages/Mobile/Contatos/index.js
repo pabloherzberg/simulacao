@@ -37,7 +37,7 @@ function Contatos() {
         if(pacientesCheck){
             let message = []
             for(let paciente of pacientesCheck) {
-                message.push(`*Setor:* ${paciente.setor} %0a*Leito*: ${paciente.leito ? paciente.leito: ''} %0a*Nome:* ${paciente.nome} %0a*Via de alimentação:* ${encodeURIComponent(paciente.via)}`)
+                message.push(`*Setor:* ${paciente.setor} %0a*Leito*: ${paciente.leito ? paciente.leito: ''} %0a*Nome:* ${paciente.nome.toUpperCase()} %0a*Via de alimentação:* ${encodeURIComponent(paciente.via.toUpperCase())}`)
             }
            const mesg = (message.splice(',').join('%0a%0a'))
            window.open(`https://wa.me/?text=${mesg}`);

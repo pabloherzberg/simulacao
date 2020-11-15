@@ -64,7 +64,7 @@ export const Container = styled.div`
      }
     }
     ul{
-        gap:2em;
+        gap:2.5em;
         @media only screen and (max-width: 768px) {
             flex-direction:column;
         }
@@ -74,17 +74,32 @@ export const Container = styled.div`
         justify-content:space-evenly;
         padding-top:3em;
         li{
-           
             display:flex;
             justify-content:center;
             align-items:center;
             flex-direction:column;
-            height:25vh;
             width:25vh;
+            gap:.5em;
             img{
+                height:25vh;
                 object-fit:contain;
-                height:100%;
+                max-width:100%;
                 
+                }
+            span{
+                display:flex;
+                align-items:center;
+                height:2em;
+            }
+            button{
+                height:2em;
+                width:100%;
+                border:none;
+                border-radius:4px;
+                background-color:${colors.pink};
+                color:white;
+                font-size:1em;
+                font-weight:bold;
             }
         }
     }

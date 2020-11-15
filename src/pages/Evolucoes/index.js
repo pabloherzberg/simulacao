@@ -15,8 +15,7 @@ function Evolucoes() {
   const [imgURL, setImgUrl] = useState([])
   const [loading, setLoading] = useState(true)
   const [list, setList] = useState([])
-  const [url, setUrl] = useState('')
-  const [tempo, setTempo] = useState(new Date())
+  const [carregar, setCarregar] = useState(0)
   const [image, setImage] = useState("");
   const [imageFullData, setImageFullData] = useState("");
 
@@ -24,14 +23,21 @@ function Evolucoes() {
 
   useEffect(()=>{
     CarregarProntuarios()    
-  },[])
+  },[carregar])
 
   useEffect(()=>{
     setList([...list, imgURL])
   },[imgURL])
 
+  function arraySearch(arr,val) {
+    for (var i=0; i<arr.length; i++)
+        if (arr[i] === val)                    
+            return i;
+    return false;
+}
   
   function CarregarProntuarios(){
+    setLoading(true)
     firebase
       .storage()
       .ref(`pacientes/${index}`)
@@ -45,7 +51,7 @@ function Evolucoes() {
             imageRef.getMetadata()
             .then(data=>{
               const time = new Date(data.timeCreated).toLocaleString()
-              setImgUrl({url:url, time:time})
+              setImgUrl({url:url, time:time, data:data})
             }).catch(e=>console.log('erro dentro'))
           })
           .catch((e) => {
@@ -96,6 +102,15 @@ function Evolucoes() {
           console.error(e)
         });
   }
+
+  async function handleDelete(item){
+    const filePath = (item.data.fullPath)
+      firebase
+      .storage()
+      .ref(filePath)
+      .delete()
+      .finally(()=>window.location.reload())   
+  }
   
   return (
     <Container>
@@ -116,12 +131,17 @@ function Evolucoes() {
             })
             .map(item=>(
               item.url &&
-              <a href={item.url}>
+              
                 <li>
-                  <img src={item.url}/>
                   <span>{String(item.time)}</span>
+                  <img onClick={()=>history.push({
+                      pathname: '/image',
+                      state: {url:item.url}})}
+                   src={item.url}/>
+                  <button onClick={()=>handleDelete(item)}>Excluir</button>
                 </li>
-              </a>)
+
+              )
             )}
         </ul>
       </>

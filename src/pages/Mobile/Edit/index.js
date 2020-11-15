@@ -256,13 +256,13 @@ function Edit() {
                   <option value="ORTODÔNTICA volume total">ORTODÔNTICA volume total</option>
                 </optgroup>
                 <optgroup label='Selecionado'>
-                  <option id='edit' value={inputs.via}>{inputs.via}</option>
+                  <option id='edit' value={inputs.via.toUpperCase()}>{inputs.via}</option>
                 </optgroup>
               </select>
             </li>
             <li>
               <span>Observações:</span> 
-              <textarea onChange={handleChange} name="observacoes" value={inputs.observacoes} id="" cols="30" rows="5"></textarea>
+              <textarea onChange={handleChange} name="observacoes" value={inputs.observacoes.toUpperCase()} id="" cols="30" rows="5"></textarea>
             </li>
           </ul>
         </section>

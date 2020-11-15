@@ -8,6 +8,7 @@ import Setores from "./pages/Setores";
 import Login from "./pages/Login";
 import Geral from "./pages/Geral";
 import Prontuarios from './pages/Prontuarios'
+import Image from './pages/Evolucoes/Image'
 import Evolucoes from './pages/Evolucoes'
 
 import HomeMobile from './pages/Mobile/Home'
@@ -41,6 +42,9 @@ function Routes() {
         )}
           {user &&(
           <Route exact path='/contatos' component={ContatosMobile}/>
+        )}
+         {user &&(
+          <Route exact path='/image' component={Image}/>
         )}
         {user && (
           <RouteWrapper
