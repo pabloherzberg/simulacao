@@ -142,7 +142,7 @@ function Home() {
             }
             <table>
                <thead>
-                  <td>Status</td><td>Nome</td><td><img src={verifica}/></td>
+                  <td>Status</td><td>Nome</td><td>Setor</td><td><img src={verifica}/></td>
                </thead>
                 <tbody>
                 {pacientes
@@ -168,7 +168,7 @@ function Home() {
                       })
                     .sort((a, b)=>{
                         return a.obito?1 :-1
-                    })                    
+                    })             
                     .map(paciente=>(
                         <tr>
                             <td onClick={()=>handleChangeStatus(paciente)}>{paciente.obito? <img  src={stethoscopeBlack}/>: paciente.status? <img  src={stethoscopeGreen}/>:<img  src={stethoscopeRed}/>}</td>
@@ -180,6 +180,7 @@ function Home() {
                                 })
                                 }}>{paciente.nome.toUpperCase()}
                             </td>
+                            <td>{paciente.setor}</td>
                             <td><input onClick={()=>handleCheck(paciente)} type="checkbox" /></td>
                             
                         </tr>

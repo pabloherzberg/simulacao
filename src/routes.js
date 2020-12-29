@@ -10,6 +10,7 @@ import Geral from "./pages/Geral";
 import Prontuarios from './pages/Prontuarios'
 import Image from './pages/Evolucoes/Image'
 import Evolucoes from './pages/Evolucoes'
+import Dados from './pages/Mobile/Dados'
 
 import HomeMobile from './pages/Mobile/Home'
 import DetailsMobile from './pages/Mobile/Details'
@@ -45,6 +46,9 @@ function Routes() {
         )}
          {user &&(
           <Route exact path='/image' component={Image}/>
+        )}
+          {user &&(
+          <Route exact path='/dados' component={Dados}/>
         )}
         {user && (
           <RouteWrapper
