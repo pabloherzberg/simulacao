@@ -70,6 +70,9 @@ function Edit() {
     if(e.target.type === 'date'){
       setInputs({...inputs, [e.target.name]: new Date(e.target.value)})   
     }
+    if(e.target.name === 'prontuario_num'){
+      setInputs({...inputs, [e.target.name]: e.target.value})
+    }
     setInputs({...inputs, [e.target.name]: e.target.value})
   }
  
@@ -439,7 +442,7 @@ function Edit() {
               <div id='content'>
                 <h2>Editar tipo como foi passada a orientação</h2>
                 <input onChange={handleChange} type="text" name="orientacao" value={inputs.orientacao} />
-                <button onClick={()=>setShowRespiracao(false)}>Ok</button>
+                <button onClick={()=>setShowOrientacao(false)}>Ok</button>
               </div>
             </Modal>
             }
