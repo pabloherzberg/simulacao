@@ -31,7 +31,6 @@ function Edit() {
         linguagem:'',
         med_solicitante:'',
         prescricao:'',
-        demanda:'',
         nome:'',
         observacoes:'',
         pendencia:'',
@@ -182,14 +181,6 @@ function Edit() {
             <li>
               <span>Prescrição médica:</span>
               <select onChange={handleChange} type="text" name="prescricao" value={inputs.prescricao} >
-                <option value=""></option>
-                <option value="sim">Sim</option>
-                <option value="nao">Não</option>
-              </select> 
-            </li>
-            <li>
-              <span>Demanda espontânea:</span>
-              <select onChange={handleChange} type="text" name="demanda" value={inputs.demanda} >
                 <option value=""></option>
                 <option value="sim">Sim</option>
                 <option value="nao">Não</option>
