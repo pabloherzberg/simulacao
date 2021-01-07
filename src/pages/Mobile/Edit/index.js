@@ -8,8 +8,10 @@ import diagnosisSVG from '../../../assets/diagnosis.svg'
 
 function Edit() {
   const [inputs, setInputs] = useState(false)
-  const [showVia, setShowVia] = useState(false)
+  const [showViaFinal, setShowViaFinal] = useState(false)
+  const [showViaInicial, setShowViaInicial] = useState(false)
   const [showVoz, setShowVoz] = useState(false)
+  const [showOrientacao, setShowOrientacao] = useState(false)
   const [showOFAS, setShowOFAS] = useState(false)
   const [showRespiracao, setShowRespiracao] = useState(false)
 
@@ -28,6 +30,8 @@ function Edit() {
         idade:'',
         linguagem:'',
         med_solicitante:'',
+        prescricao:'',
+        demanda:'',
         nome:'',
         observacoes:'',
         pendencia:'',
@@ -47,7 +51,10 @@ function Edit() {
   
   function handleChange(e){
     if(e.target.name ==='via'){
-      setShowVia(true)
+      setShowViaFinal(true)
+    }
+    if(e.target.name === 'via_inicial'){
+      setShowViaInicial(true)
     }
     if(e.target.name ==='OFAS'){
       setShowOFAS(true)
@@ -57,6 +64,9 @@ function Edit() {
     }
     if(e.target.name ==='respiracao'){
       setShowRespiracao(true)
+    }
+    if(e.target.name === 'orientacao'){
+      setShowOrientacao(true)
     }
     if(e.target.type === 'date'){
       setInputs({...inputs, [e.target.name]: new Date(e.target.value)})   
@@ -88,12 +98,16 @@ function Edit() {
     if(e.target.id ==='showVia' ||
       e.target.id ==='showOFAS' ||
       e.target.id ==='showVoz' ||
+      e.target.id ==='showOrientacao' ||
       e.target.id ==='showRespiracao'
     ){
-      setShowVia(false)
+      setShowViaFinal(false)
+      setShowViaInicial(false)
       setShowOFAS(false)
       setShowVoz(false)
       setShowRespiracao(false)
+      setShowOrientacao(false)
+      
     }
   }
 
@@ -146,8 +160,40 @@ function Edit() {
               <input onChange={handleChange} type="text" name="leito" value={inputs.leito}/> 
             </li>
             <li>
+              <span>Especialidade:</span>
+              <select onChange={handleChange} type="text" name="especialidade" value={inputs.especialidade} >
+                <option value=""></option>
+                <option value="geriatria">Geriatria</option>
+                <option value="oncolologia">Oncologia</option>
+                <option value="neurologia">Neurologia</option>
+                <option value="clinica_medica">Clinica médica</option>
+                <option value="cirurgia">Cirurgia</option>
+                
+              </select> 
+            </li>
+            <li>
+              <span>Nº do prontuário:</span>
+              <input onChange={handleChange} type="text" name="prontuario_num" value={inputs.pronturario_num}/> 
+            </li>
+            <li>
               <span>Médico solicitante:</span>
               <input onChange={handleChange} type="text" name="med_solicitante" value={inputs.med_solicitante} />
+            </li>
+            <li>
+              <span>Prescrição médica:</span>
+              <select onChange={handleChange} type="text" name="prescricao" value={inputs.prescricao} >
+                <option value=""></option>
+                <option value="sim">Sim</option>
+                <option value="nao">Não</option>
+              </select> 
+            </li>
+            <li>
+              <span>Demanda espontânea:</span>
+              <select onChange={handleChange} type="text" name="demanda" value={inputs.demanda} >
+                <option value=""></option>
+                <option value="sim">Sim</option>
+                <option value="nao">Não</option>
+              </select> 
             </li>
             <li>
               <span>Início na Fono:</span>
@@ -230,27 +276,44 @@ function Edit() {
                 </optgroup>      
               </select>
              </li>
-            <li> 
-              <span>Via de alimentação:</span> 
-              <select onChange={handleChange} type="text" name="via" value={inputs.via} >
-                <optgroup label='ADULTOS'>
+             <li>
+              <span>Decanulado:</span>
+              <select onChange={handleChange} type="text" name="decanulado" value={inputs.decanulado} >
+                <option value=""></option>
+                <option value="sim">Sim</option>
+                <option value="nao">Não</option>
+              </select> 
+            </li>
+             <li> 
+              <span>Via de alimentação inicial:</span> 
+              <select onChange={handleChange} type="text" name="via_inicial" value={inputs.via_inicial} >
+                <optgroup label='ADULTO'>
+                  <option value=""></option>
                   <option value="SNE + VO ZERO">SNE + VO ZERO</option>
                   <option value="GTT + VO ZERO">GTT + VO ZERO</option>
                   <option value="PL + LF">PL + LF</option>
+                  <option value="PL + LE">PL + LE</option>
                   <option value="6X 200ml PL + LF + SNE">6X 200ml PL + LF + SNE</option>
                   <option value="6X 200ml PL + LE + SNE">6X 200ml PL + LE + SNE</option>
                   <option value="PASTOSA + LF + SNE em desuso">PASTOSA + LF + SNE em desuso</option>
+                  <option value="PASTOSA + LE + SNE em desuso">PASTOSA + LE + SNE em desuso</option>
                   <option value= "PASTOSA + LF">PASTOSA + LF</option>
                   <option value="BRANDA + SNE em desuso">BRANDA + SNE em desuso</option>
                   <option value= "BRANDA">BRANDA</option>
                 </optgroup>
-                <optgroup label='RNs'>
+                <optgroup label='INFANTIL'>
+                  <option value=""></option>
                   <option value="VO + Amamentação">VO + Amamentação</option>
                   <option value="SNG + VO ZERO">SNG + VO ZERO</option>
+                  <option value="SNG + VO ZERO + ESTÍMULO NÃO NUTRITIVO">SNG + VO ZERO + ESTÍMULO NÃO NUTRITIVO</option>
+                  <option value="SOG + VO ZERO">SOG + VO ZERO</option>
                   <option value="GTT + VO ZERO">GTT + VO ZERO</option>
                   <option value="LILLO + SNG em desuso">LILLO + SNG em desuso</option>
                   <option value= "BICO REDONDO + SNG em desuso">BICO REDONDO + SNG em desuso</option>
                   <option value="ORTODÔNTICA + SNG em desuso">ORTODÔNTICA + SNG em desuso</option>
+                  <option value="LILLO + SNG">LILLO + SNG </option>
+                  <option value= "BICO REDONDO + SNG ">BICO REDONDO + SNG </option>
+                  <option value="ORTODÔNTICA + SNG ">ORTODÔNTICA + SNG </option>
                   <option value= "LILLO volume total">LILLO volume total</option>
                   <option value="BICO REDONDO volume total">BICO REDONDO volume total</option>
                   <option value="ORTODÔNTICA volume total">ORTODÔNTICA volume total</option>
@@ -259,6 +322,69 @@ function Edit() {
                   <option id='edit' value={inputs.via.toUpperCase()}>{inputs.via}</option>
                 </optgroup>
               </select>
+            </li>
+            <li> 
+              <span>Via de alimentação final:</span> 
+              <select onChange={handleChange} type="text" name="via" value={inputs.via} >
+                <optgroup label='ADULTO'>
+                  <option value="SNE + VO ZERO">SNE + VO ZERO</option>
+                  <option value="GTT + VO ZERO">GTT + VO ZERO</option>
+                  <option value="PL + LF">PL + LF</option>
+                  <option value="PL + LE">PL + LE</option>
+                  <option value="6X 200ml PL + LF + SNE">6X 200ml PL + LF + SNE</option>
+                  <option value="6X 200ml PL + LE + SNE">6X 200ml PL + LE + SNE</option>
+                  <option value="PASTOSA + LF + SNE em desuso">PASTOSA + LF + SNE em desuso</option>
+                  <option value="PASTOSA + LE + SNE em desuso">PASTOSA + LE + SNE em desuso</option>
+                  <option value= "PASTOSA + LF">PASTOSA + LF</option>
+                  <option value="BRANDA + SNE em desuso">BRANDA + SNE em desuso</option>
+                  <option value= "BRANDA">BRANDA</option>
+                </optgroup>
+                <optgroup label='INFANTIL'>
+                  <option value="VO + Amamentação">VO + Amamentação</option>
+                  <option value="SNG + VO ZERO">SNG + VO ZERO</option>
+                  <option value="SNG + VO ZERO + ESTÍMULO NÃO NUTRITIVO">SNG + VO ZERO + ESTÍMULO NÃO NUTRITIVO</option>
+                  <option value="SOG + VO ZERO">SOG + VO ZERO</option>
+                  <option value="GTT + VO ZERO">GTT + VO ZERO</option>
+                  <option value="LILLO + SNG em desuso">LILLO + SNG em desuso</option>
+                  <option value= "BICO REDONDO + SNG em desuso">BICO REDONDO + SNG em desuso</option>
+                  <option value="ORTODÔNTICA + SNG em desuso">ORTODÔNTICA + SNG em desuso</option>
+                  <option value="LILLO + SNG">LILLO + SNG </option>
+                  <option value= "BICO REDONDO + SNG ">BICO REDONDO + SNG </option>
+                  <option value="ORTODÔNTICA + SNG ">ORTODÔNTICA + SNG </option>
+                  <option value= "LILLO volume total">LILLO volume total</option>
+                  <option value="BICO REDONDO volume total">BICO REDONDO volume total</option>
+                  <option value="ORTODÔNTICA volume total">ORTODÔNTICA volume total</option>
+                </optgroup>
+                <optgroup label='Selecionado'>
+                  <option id='edit' value={inputs.via.toUpperCase()}>{inputs.via}</option>
+                </optgroup>
+              </select>
+            </li>
+            <li>
+              <span>Cuidados paliativos:</span>
+              <select onChange={handleChange} type="text" name="paliativos" value={inputs.paliativos} >
+                <option value=""></option>
+                <option value="sim">Sim</option>
+                <option value="nao">Não</option>
+              </select> 
+            </li>
+            <li>
+              <span>PGC:</span>
+              <select onChange={handleChange} type="text" name="pgc" value={inputs.pgc} >
+                <option value=""></option>
+                <option value="sim">Sim</option>
+                <option value="nao">Não</option>
+              </select> 
+            </li>
+            <li>
+              <span>Orientação:</span>
+              <select onChange={handleChange} type="text" name="orientacao" value={inputs.orientacao} >
+                <option value=""></option>
+                <option value="Sim, mãe orientada">Sim, mãe orientada</option>
+                <option value="Sim, pai orientado">Sim, pai orientado</option>
+                <option value="Sim, pais orientados">Sim, pais orientados</option>
+                <option value="Sim, cuidador(a) orientado(a)">Sim, cuidador(a) orientado(a)</option>                
+              </select> 
             </li>
             <li>
               <span>Observações:</span> 
@@ -272,12 +398,21 @@ function Edit() {
             <label>Salvar</label>
           </div>
         </section>
-          {showVia&&
+          {showViaFinal&&
             <Modal onClick={handleClose} id='showVia'>
               <div id='content'>
-                <h2>Editar via de alimentação</h2>
+                <h2>Editar via de alimentação final</h2>
                 <input onChange={handleChange} type="text" name="via" value={inputs.via} />
-                <button onClick={()=>setShowVia(false)}>Ok</button>
+                <button onClick={()=>setShowViaFinal(false)}>Ok</button>
+              </div>
+            </Modal>
+            }
+            {showViaInicial&&
+            <Modal onClick={handleClose} id='showVia'>
+              <div id='content'>
+                <h2>Editar via de alimentação inicial</h2>
+                <input onChange={handleChange} type="text" name="via_inicial" value={inputs.via_inicial} />
+                <button onClick={()=>setShowViaInicial(false)}>Ok</button>
               </div>
             </Modal>
             }
@@ -304,6 +439,15 @@ function Edit() {
               <div id='content'>
                 <h2>Editar tipo de Respiração</h2>
                 <input onChange={handleChange} type="text" name="respiracao" value={inputs.respiracao} />
+                <button onClick={()=>setShowRespiracao(false)}>Ok</button>
+              </div>
+            </Modal>
+            }
+             {showOrientacao&&
+            <Modal onClick={handleClose} id='showOrientacao'>
+              <div id='content'>
+                <h2>Editar tipo como foi passada a orientação</h2>
+                <input onChange={handleChange} type="text" name="orientacao" value={inputs.orientacao} />
                 <button onClick={()=>setShowRespiracao(false)}>Ok</button>
               </div>
             </Modal>
