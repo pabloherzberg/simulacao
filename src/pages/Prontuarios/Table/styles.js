@@ -20,6 +20,13 @@ position:relative;
         0%{ opacity:1}; 100%{opacity:0}
     }
 }
+#buttonExportExcel{
+    border:none;
+    color:white;
+    font-size:1.5em;
+    border-radius:4px;
+    background-color:${colors.greenNav}
+}
 `
 
 export const Select = styled.div`

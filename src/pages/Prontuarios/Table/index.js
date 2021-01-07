@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import firebase from "../../../context/firebase";
+import ReactHTMLTableToExcel from "react-html-table-to-excel";
 
+import Tooltip from '../Tooltip/index'
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
@@ -38,6 +40,7 @@ export default function CustomPaginationActionsTable({select, setLength, length,
   const [rows, setRows] = useState([])
   const [selectedSetor, setSelectedSetor] = useState('todos')
   const [search, setSearch] =useState(false)
+  const [selectedPerson, setSelectedPerson] = useState()
 
   useEffect(() => {
     firebase
@@ -49,6 +52,8 @@ export default function CustomPaginationActionsTable({select, setLength, length,
       } )
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [length]);
+
+  console.log(rows)
 
   function arraySearch(arr,val) {
     for (var i=0; i<arr.length; i++)
@@ -97,8 +102,30 @@ export default function CustomPaginationActionsTable({select, setLength, length,
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
+  function nameToInitials( name,delimeter ) {
+
+    if( name ) {
+
+        var array = name.split( delimeter );
+
+        switch ( array.length ) {
+
+            case 1:
+                return array[0].charAt(0).toUpperCase();
+                break;
+            default:
+                return array[0].charAt(0).toUpperCase() + array[ array.length -1 ].charAt(0).toUpperCase();
+        }
+
+    }
+
+    return false;
+
+}
+
   return (
     <Wrapper>
+     {/*  <Tooltip selected={selectedPerson}/> */}
        {rows.length<1&&<Loading/>}
     <TableContainer component={Paper}>
       <Table  className={classes.table} aria-label="custom pagination table">
@@ -153,7 +180,16 @@ export default function CustomPaginationActionsTable({select, setLength, length,
                 onChange={e=>setSearch(e.target.value)}
               />
             </TableCell>
-            <TableCell></TableCell>
+            <TableCell>
+            <ReactHTMLTableToExcel
+                id="buttonExportExcel"
+                table="exportExcel"
+                filename="ListaParticipantes"
+                sheet="pagina 1"
+                buttonText="Exportar dados"
+                className="download-excel"
+              />
+            </TableCell>
             <TableCell align='right' style={{cursor:'pointer'}}>
               <div style={{width:'45px', height:'45px', display:'flex'}} 
                 onClick={()=> setNewPerson(selectedSetor)}>
@@ -190,9 +226,9 @@ export default function CustomPaginationActionsTable({select, setLength, length,
               })
             ).map((row, index) => (
             <TableRow
-      
               style={{cursor:'pointer'}} 
               onClick={()=>{
+                setSelectedPerson(row)
                 select(row); 
                 setSelectedKey(arraySearch(rows, row)); 
                 setNewPerson(false)
@@ -228,6 +264,158 @@ export default function CustomPaginationActionsTable({select, setLength, length,
        
       </Table>
     </TableContainer>
+
+
+
+    {/* tabela para exportar*/}
+
+    <TableContainer style={{display:'none'}}>
+    <Table id='exportExcel'>
+      <TableHead>
+          <TableRow>
+            <TableCell >Paciente</TableCell>
+            <TableCell >Idade</TableCell>
+            <TableCell>Sexo</TableCell>
+            <TableCell>Setor</TableCell>
+            <TableCell>Leito</TableCell>
+            <TableCell>Especialidade</TableCell>
+            <TableCell>Nº do prontuário</TableCell>
+            <TableCell>Médico solicitante</TableCell>
+            <TableCell>Prescrição médica</TableCell>
+            <TableCell>Início da fono</TableCell>
+            <TableCell>Alta da fono</TableCell>
+            <TableCell>Entrada</TableCell>
+            <TableCell>Saída</TableCell>
+            <TableCell>Tempo de internação</TableCell>
+            <TableCell>Diagnóstico</TableCell>
+            <TableCell>Linguágem</TableCell>
+            <TableCell>OFAS</TableCell>
+            <TableCell>Voz</TableCell>
+            <TableCell>Respiração</TableCell>
+            <TableCell>Decanulado</TableCell>
+            <TableCell>Via de Alimentação inicial</TableCell>
+            <TableCell>Via de Alimentação final</TableCell>
+            <TableCell>Cuidados paliativos</TableCell>
+            <TableCell>PGC</TableCell>
+            <TableCell>Orientação</TableCell>
+            <TableCell align='right'>Último Atendimento</TableCell>
+           
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {
+            (rows
+              .filter(o=> {
+                if(selectedSetor === 'todos' &&
+                  o.nome
+                ){
+                  return search?o.nome.toLowerCase().includes(search.toLowerCase())?o:'':o
+                }else{
+                  return String(o.setor) === String(selectedSetor)
+                }
+              })
+              .sort((a, b)=>{
+                return  a.obito? 1:(a.status === b.status)? 0: a.status? -1 :1;
+              })
+            ).map((row, index) => (
+            <TableRow
+              style={{cursor:'pointer'}} 
+              onClick={()=>{
+                setSelectedPerson(row)
+                select(row); 
+                setSelectedKey(arraySearch(rows, row)); 
+                setNewPerson(false)
+                scrollPage()
+              }} key={index}>
+           
+              <TableCell component="th" scope="row">
+                {nameToInitials(row.nome, " ")}
+              </TableCell>
+              <TableCell component="th" scope="row">
+                {row.idade}
+              </TableCell>
+              <TableCell component="th" scope="row">
+                {row.sexo}
+              </TableCell>
+              <TableCell>
+                {row.setor}
+              </TableCell>
+              <TableCell component="th" scope="row">
+                {row.leito}
+              </TableCell>
+              <TableCell component="th" scope="row">
+                {row.especialidade}
+              </TableCell>
+              <TableCell component="th" scope="row">
+                {row.prontuario_num}
+              </TableCell>
+              <TableCell component="th" scope="row">
+                {row.med_solicitante}
+              </TableCell>
+              <TableCell component="th" scope="row">
+                {row.prescricao}
+              </TableCell>
+              <TableCell component="th" scope="row">
+                {row.entrada_fono}
+              </TableCell>
+              <TableCell component="th" scope="row">
+                {row.alta_fono}
+              </TableCell>
+              <TableCell component="th" scope="row">
+                {row.entrada}
+              </TableCell>
+              <TableCell component="th" scope="row">
+                {row.saida}
+              </TableCell>
+              <TableCell component="th" scope="row">
+                {row.tempo_internacao && row.tempo_internacao}
+              </TableCell>
+              <TableCell component="th" scope="row">
+                {row.diagnostico}
+              </TableCell>
+              <TableCell component="th" scope="row">
+                {row.linguagem}
+              </TableCell>
+              <TableCell component="th" scope="row">
+                {row.OFAS}
+              </TableCell>
+              <TableCell component="th" scope="row">
+                {row.voz}
+              </TableCell>
+              <TableCell component="th" scope="row">
+                {row.respiracao}
+              </TableCell>
+              <TableCell component="th" scope="row">
+                {row.decanulado}
+              </TableCell>
+              <TableCell component="th" scope="row">
+                {row.via_inicial}
+              </TableCell>
+              <TableCell component="th" scope="row">
+                {row.via}
+              </TableCell>
+              <TableCell component="th" scope="row">
+                {row.paliativos && row.paliativos}
+              </TableCell>
+              <TableCell component="th" scope="row">
+                {row.pgc && row.pgc}
+              </TableCell>
+              <TableCell component="th" scope="row">
+                {row.orientacao && row.orientacao}
+              </TableCell>
+
+             
+              <TableCell style={{ width: 160 }} align="right">
+                {(row.ultimo_atendimento).toString().split('-').reverse().join('/')}
+              </TableCell>
+             
+            </TableRow>
+          ))}
+        </TableBody>
+       
+      </Table>
+      </TableContainer>
+
     </Wrapper>
   );
 }
