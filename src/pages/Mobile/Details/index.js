@@ -15,7 +15,6 @@ function Details() {
     const [loading, setLoading] = useState(false)
     const history = useHistory()
 
-    console.log(index)
 
     async function fileHandler(event) {
         const fileObj = event.target.files[0];
