@@ -78,9 +78,7 @@ function Edit() {
     if(e.target.type === 'date'){
       setInputs({...inputs, [e.target.name]: new Date(e.target.value)})   
     }
-    if(e.target.name === 'prontuario_num'){
-      setInputs({...inputs, [e.target.name]: e.target.value})
-    }
+   
     setInputs({...inputs, [e.target.name]: e.target.value})
   }
  
@@ -89,11 +87,28 @@ function Edit() {
       alert('Selecione um SETOR')
     }else{
       if(newPerson){
-        firebase.database().ref(`pacientes/${length}`).set(inputs).then(()=>{
+        firebase
+        .database()
+        .ref(`pacientes/${length}`)
+        .set(inputs)
+        .then(()=>{
           alert('Dados Salvos')
           history.push('/')
         })
-        
+      /*   const chave = firebase
+                      .database()
+                      .ref('/pacientes')
+                      .push()
+                      .key
+        firebase
+          .database()
+          .ref(`/pacientes/${chave}`)
+          .set(inputs)
+          .then(()=>{
+            alert('Dados Salvos')
+            history.push('/')
+          })
+         */
       }else{
         firebase.database().ref(`pacientes/${selectKey}`).set(inputs).then(()=>{
           alert('Dados Salvos')
@@ -183,7 +198,7 @@ function Edit() {
             </li>
             <li>
               <span>Nº do prontuário:</span>
-              <input onChange={handleChange} type="text" name="prontuario_num" value={inputs.pronturario_num}/> 
+              <input onChange={handleChange} type="text" name="prontuario_num" value={inputs.prontuario_num}/> 
             </li>
             <li>
               <span>Médico solicitante:</span>

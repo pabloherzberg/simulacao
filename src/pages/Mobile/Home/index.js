@@ -37,6 +37,7 @@ function Home() {
             .ref('pacientes')
             .on('value', snapshot=>{
                 setPacientes(snapshot.val())
+                console.log(snapshot.val())
                 const tamanho = snapshot.numChildren()
                 setLength(tamanho +1)
             })
