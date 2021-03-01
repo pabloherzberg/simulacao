@@ -82,6 +82,7 @@ function Home() {
                             <option value="uti_1">UTI 1</option>
                             <option value="uti_2">UTI 2</option>
                             <option value="uti_3">UTI 3</option>
+                            <option value="uti_4">UTI 4</option>
                             <option value="posto2">POSTO 2</option>
                             <option value="andar4">ANDAR 4</option>
                             <option value="andar5">ANDAR 5</option>

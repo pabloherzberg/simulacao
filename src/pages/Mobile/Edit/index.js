@@ -50,11 +50,14 @@ function Edit() {
         orientacao:"",
         evolucoes:{},
         observacoes:'',
+        status:true
       })
     }else{
       setInputs({...selected})
     }
   },[selected, newPerson])
+
+  console.log(selected)
   
   function handleChange(e){
     if(e.target.name ==='via'){
@@ -121,6 +124,7 @@ function Edit() {
 
   function handleClose(e){
     if(e.target.id ==='showVia' ||
+      e.target.id ==='showViaFinal' ||
       e.target.id ==='showOFAS' ||
       e.target.id ==='showVoz' ||
       e.target.id ==='showOrientacao' ||
@@ -169,6 +173,7 @@ function Edit() {
                 <option value="uti_1">UTI 1</option>
                 <option value="uti_2">UTI 2</option>
                 <option value="uti_3">UTI 3</option>
+                <option value="uti_4">UTI 4</option>
                 <option value="posto2">POSTO 2</option>
                 <option value="andar4">ANDAR 4</option>
                 <option value="andar5">ANDAR 5</option>
@@ -336,7 +341,7 @@ function Edit() {
                   <option value="ORTODÔNTICA volume total">ORTODÔNTICA volume total</option>
                 </optgroup>
                 <optgroup label='Selecionado'>
-                  <option id='edit' value={inputs.via.toUpperCase()}>{inputs.via}</option>
+                  <option defaultValue id='edit' value={inputs.via.toUpperCase()}>{inputs.via}</option>
                 </optgroup>
               </select>
             </li>
@@ -416,7 +421,7 @@ function Edit() {
           </div>
         </section>
           {showViaFinal&&
-            <Modal onClick={handleClose} id='showVia'>
+            <Modal onClick={handleClose} id='showViaFinal'>
               <div id='content'>
                 <h2>Editar via de alimentação final</h2>
                 <input onChange={handleChange} type="text" name="via" value={inputs.via} />
