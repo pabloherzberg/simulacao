@@ -16,6 +16,7 @@ import HomeMobile from './pages/Mobile/Home'
 import DetailsMobile from './pages/Mobile/Details'
 import EditMobile from './pages/Mobile/Edit'
 import ContatosMobile from './pages/Mobile/Contatos'
+import Atendimentos from './pages/Mobile/Atendimentos'
 
 
 function Routes() {
@@ -35,6 +36,9 @@ function Routes() {
              <Route exact path='/evolucoesMobile' component={Evolucoes} />:
             <RouteWrapper layout={Layout} exact path="/evolucoes" component={Evolucoes} />
           }
+          {user &&(
+          <Route exact path='/atendimentos' component={Atendimentos}/>
+        )}
         {user &&(
           <Route exact path='/detalhes' component={DetailsMobile}/>
         )}

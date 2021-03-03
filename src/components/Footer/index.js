@@ -25,7 +25,7 @@ function Footer({length, pacientesCheck}) {
     useEffect(()=>{
         console.log(tela)
         console.log(eixoY/document.body.clientHeight)
-    },[eixoY])
+    },[eixoY, tela])
 
   return (
     <Container style={{display:eixoY/tela > 0.6?'none':'block'}}>
@@ -37,6 +37,7 @@ function Footer({length, pacientesCheck}) {
                 pathname:'/edit',
                 state:{newPerson:true, length:length}
             })}>  <img src={addUser} /> <span style={{fontSize:'.8em'}}> Adicionar paciente </span></li>
+             <li onClick={()=>history.push('/atendimentos')}><img src={filter} /><span style={{fontSize:'.6em'}}>Atendimentos</span></li>
              <li onClick={()=>history.push({
                 pathname:'/contatos',
                 state:{pacientesCheck:false}
