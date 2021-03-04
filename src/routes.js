@@ -3,10 +3,10 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
-import Tabela from "./pages/Tabela";
+
 import Setores from "./pages/Setores";
 import Login from "./pages/Login";
-import Geral from "./pages/Geral";
+import Geral from "./pages/Graficos";
 import Prontuarios from './pages/Prontuarios'
 import Image from './pages/Evolucoes/Image'
 import Evolucoes from './pages/Evolucoes'
@@ -54,14 +54,7 @@ function Routes() {
           {user &&(
           <Route exact path='/dados' component={Dados}/>
         )}
-        {user && (
-          <RouteWrapper
-            layout={Layout}
-            exact
-            path="/tabela"
-            component={Tabela}
-          />
-        )}
+     
         {user && (
           <RouteWrapper
             layout={Layout}

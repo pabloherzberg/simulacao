@@ -25,26 +25,7 @@ function Layout({ children }) {
                 PRONTUÁRIOS
               </DefaultButton>
             </li>
-            <li onClick={() => history.push("/geral")}>
-              <DefaultButton
-                as={Link}
-                heightstyle={"3em"}
-                fontcolor={"white"}
-                to="/geral"
-              >
-                GERAL
-              </DefaultButton>
-            </li>
-            <li onClick={() => history.push("/setores")}>
-              <DefaultButton
-                as={Link}
-                heightstyle={"3em"}
-                fontcolor={"white"}
-                to="/setores"
-              >
-                SETORES
-              </DefaultButton>
-            </li>
+         
             <li onClick={() => history.push("/anual")}>
               <DefaultButton
                 as={Link}
@@ -52,19 +33,10 @@ function Layout({ children }) {
                 fontcolor={"white"}
                 to="/anual"
               >
-                ANUAL
+                GRÁFICOS
               </DefaultButton>
             </li>
-            <li onClick={() => history.push("/tabela")}>
-              <DefaultButton
-                as={Link}
-                heightstyle={"3em"}
-                fontcolor={"white"}
-                to="/tabela"
-              >
-                TABELA
-              </DefaultButton>
-            </li>
+           
           </ul>
           <img src={logoFono} />
         </div>
