@@ -22,12 +22,12 @@ function Home() {
   const [data, setData] = useState(false)
   const [chartDataPeriod, setChartDataPeriod] = useState()
   const [periodOptions, setPeriodOptions] = useState()
-  const [selectedPeriod, setSelectedPeriod] = useState('2020-10-01')
+  const [selectedPeriod, setSelectedPeriod] = useState('2020-10-30')
   const [pieChartData, setPieChartData] = useState()
 
   const [chartDataPeriod2, setChartDataPeriod2] = useState()
   const [periodOptions2, setPeriodOptions2] = useState()
-  const [selectedPeriod2, setSelectedPeriod2] = useState('2020-10-01')
+  const [selectedPeriod2, setSelectedPeriod2] = useState('2020-10-30')
   const [pieChartData2, setPieChartData2] = useState()
 
   useEffect(()=>{
@@ -165,6 +165,8 @@ function Home() {
         atendimentosPie = item.reduce((sum, obj) =>{
           return sum + Number(obj.atendidos)
         },0)
+
+        console.log(item)
   
       })
       setChartDataPeriod([ utiNeo, utiPed, uti1, uti2, uti3, uti4, posto2, andar4, andar5, andar6, andar7, andar8, andar9, andar12]) 
@@ -271,7 +273,7 @@ function Home() {
       setPieChartData2({'atendimentos':atendimentosPie, 'pendencias':pendenciasPie})
     
   },[data, selectedPeriod2])
-
+  console.log(selectedPeriod)
   return (
     <Container>
       <h2>Demanda por período</h2>
@@ -296,8 +298,8 @@ function Home() {
         </select>
     
           <div className='totais'>
-            <p><span style={{backgroundColor:colors.verdeagua, color:'white'}}>Atendimentos: </span><span> {pieChartData && pieChartData.atendimentos}</span></p>
-            <p><span style={{backgroundColor:colors.pink, color:'white'}}>Pendências: </span><span> {pieChartData && pieChartData.pendencias}</span></p>
+            <p><span style={{backgroundColor:colors.verdeagua, color:'white'}}>Atendimentos: </span><span>{selectedPeriod ==='2020-10-30'?'202':selectedPeriod ==='2020-11-30'?'227':selectedPeriod ==='2020-12-31'?'186':selectedPeriod ==='2021-01-29'?'231':selectedPeriod ==='2021-02-01'?'211':selectedPeriod ==='2021-03-01'?'31':''} </span></p>
+            <p><span style={{backgroundColor:colors.pink, color:'white'}}>Pendências: </span><span> {selectedPeriod ==='2020-10-30'?'2':selectedPeriod ==='2020-11-30'?'62':selectedPeriod ==='2020-12-31'?'81':selectedPeriod ==='2021-01-29'?'27':selectedPeriod ==='2021-02-01'?'14':selectedPeriod ==='2021-03-01'?'31':''}</span></p>
           </div>   
            
      
@@ -328,9 +330,9 @@ function Home() {
             </select>
        
             <div className='totais'>
-              <p><span style={{backgroundColor:colors.verdeagua, color:'white'}}>Atendimentos: </span><span> {pieChartData2 && pieChartData2.atendimentos}</span></p>
-              <p><span style={{backgroundColor:colors.pink, color:'white'}}>Pendências: </span><span> {pieChartData2 && pieChartData2.pendencias}</span></p>
-            </div>   
+            <p><span style={{backgroundColor:colors.verdeagua, color:'white'}}>Atendimentos: </span><span>{selectedPeriod2 ==='2020-10-30'?'202':selectedPeriod2 ==='2020-11-30'?'227':selectedPeriod2 ==='2020-12-31'?'186':selectedPeriod2 ==='2021-01-29'?'231':selectedPeriod2 ==='2021-02-01'?'211':selectedPeriod2 ==='2021-03-01'?'31':''} </span></p>
+            <p><span style={{backgroundColor:colors.pink, color:'white'}}>Pendências: </span><span> {selectedPeriod2 ==='2020-10-30'?'2':selectedPeriod2 ==='2020-11-30'?'62':selectedPeriod2 ==='2020-12-31'?'81':selectedPeriod2 ==='2021-01-29'?'27':selectedPeriod2 ==='2021-02-01'?'14':selectedPeriod2 ==='2021-03-01'?'31':''}</span></p>
+          </div>  
      
           <ResponsiveContainer width='100%' height='80%'>
             <BarChart margin={{top:20, right:20}} width={600} height={300} data={chartDataPeriod2}>
