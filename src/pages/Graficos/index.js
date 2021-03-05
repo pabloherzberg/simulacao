@@ -299,7 +299,7 @@ function Home() {
     
           <div className='totais'>
             <p><span style={{backgroundColor:colors.verdeagua, color:'white'}}>Atendimentos: </span><span>{selectedPeriod ==='2020-10-30'?'202':selectedPeriod ==='2020-11-30'?'227':selectedPeriod ==='2020-12-31'?'186':selectedPeriod ==='2021-01-29'?'231':selectedPeriod ==='2021-02-01'?'211':selectedPeriod ==='2021-03-01'?'31':''} </span></p>
-            <p><span style={{backgroundColor:colors.pink, color:'white'}}>Pendências: </span><span> {selectedPeriod ==='2020-10-30'?'2':selectedPeriod ==='2020-11-30'?'62':selectedPeriod ==='2020-12-31'?'81':selectedPeriod ==='2021-01-29'?'27':selectedPeriod ==='2021-02-01'?'14':selectedPeriod ==='2021-03-01'?'31':''}</span></p>
+            <p><span style={{backgroundColor:colors.pink, color:'white'}}>Pendências: </span><span> {selectedPeriod ==='2020-10-30'?'2':selectedPeriod ==='2020-11-30'?'62':selectedPeriod ==='2020-12-31'?'81':selectedPeriod ==='2021-01-29'?'27':selectedPeriod ==='2021-02-01'?'14':selectedPeriod ==='2021-03-01'?'05':''}</span></p>
           </div>   
            
      
@@ -331,7 +331,7 @@ function Home() {
        
             <div className='totais'>
             <p><span style={{backgroundColor:colors.verdeagua, color:'white'}}>Atendimentos: </span><span>{selectedPeriod2 ==='2020-10-30'?'202':selectedPeriod2 ==='2020-11-30'?'227':selectedPeriod2 ==='2020-12-31'?'186':selectedPeriod2 ==='2021-01-29'?'231':selectedPeriod2 ==='2021-02-01'?'211':selectedPeriod2 ==='2021-03-01'?'31':''} </span></p>
-            <p><span style={{backgroundColor:colors.pink, color:'white'}}>Pendências: </span><span> {selectedPeriod2 ==='2020-10-30'?'2':selectedPeriod2 ==='2020-11-30'?'62':selectedPeriod2 ==='2020-12-31'?'81':selectedPeriod2 ==='2021-01-29'?'27':selectedPeriod2 ==='2021-02-01'?'14':selectedPeriod2 ==='2021-03-01'?'31':''}</span></p>
+            <p><span style={{backgroundColor:colors.pink, color:'white'}}>Pendências: </span><span> {selectedPeriod2 ==='2020-10-30'?'2':selectedPeriod2 ==='2020-11-30'?'62':selectedPeriod2 ==='2020-12-31'?'81':selectedPeriod2 ==='2021-01-29'?'27':selectedPeriod2 ==='2021-02-01'?'14':selectedPeriod2 ==='2021-03-01'?'05':''}</span></p>
           </div>  
      
           <ResponsiveContainer width='100%' height='80%'>
