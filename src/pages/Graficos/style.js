@@ -17,7 +17,7 @@ export const Container = styled.div`
 
   #legenda{
     grid-row:1/2;
-    grid-column:6/12;
+    grid-column:6/13;
     padding:20px;
     h6{
       background-color:red;
@@ -34,22 +34,32 @@ export const Container = styled.div`
   }
   
   #chart{
-    
+        
     grid-row:2/3;
-    grid-column:2/12;
+    grid-column:2/13;
     height:300px;
     width:100%;
 
-    
+    .charts{
+      display:flex;
+      height:100%;
+      width:100%;
+    }
   }
 
   #chart2{
-   
+      
     grid-row:3/4;
-    grid-column:2/12;
+    grid-column:2/13;
     height:300px;
     width:100%;
     margin-top:40px;
+
+    .charts{
+      display:flex;
+      height:100%;
+      width:100%;
+    }
   }
 
   .totais{

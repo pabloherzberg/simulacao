@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-expressions */
 import React, { useState, useEffect } from "react";
 import firebase from "../../context/firebase";
+import PieChartComponent from '../../components/PieChart/index.js'
 import { Container } from "./style.js";
 import { colors } from "../../constants/colors.js";
 import {
@@ -13,8 +14,7 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
-  LabelList,
-  PieChart, Pie, Cell
+  LabelList
 } from "recharts";
 
 function Home() {
@@ -108,8 +108,19 @@ function Home() {
       var andar10 = {name:'Andar 10', atendimentos:0, pendencias:0}
       var andar12 = {name:'Andar 12', atendimentos:0, pendencias:0}
 
-      var pendenciasPie
-      var atendimentosPie
+      var dataPie = [
+        {
+          name: "Atendimentos",
+          value: 0,
+          fill: colors.verdeagua,
+        },
+        {
+          name: "Pendências",
+          value: 0,
+          fill: colors.pink,
+        },
+      ];
+
 
       listData.map(item=>{
         utiNeo.atendimentos += Number(item.filter(setor => setor.name ==='uti_neo')[0].atendidos)
@@ -124,8 +135,8 @@ function Home() {
         uti2.atendimentos += Number(item.filter(setor => setor.name ==='uti_2')[0].atendidos)
         uti2.pendencias += Number(item.filter(setor => setor.name ==='uti_2')[0].pendencias)
 
-        uti3.atendimentos += Number(item.filter(setor => setor.name ==='uti_4')[0].atendidos)
-        uti3.pendencias += Number(item.filter(setor => setor.name ==='uti_4')[0].pendencias)
+        uti3.atendimentos += Number(item.filter(setor => setor.name ==='uti_3')[0].atendidos)
+        uti3.pendencias += Number(item.filter(setor => setor.name ==='uti_3')[0].pendencias)
 
         uti4.atendimentos += Number(item.filter(setor => setor.name ==='uti_4')[0].atendidos)
         uti4.pendencias += Number(item.filter(setor => setor.name ==='uti_4')[0].pendencias)
@@ -157,20 +168,19 @@ function Home() {
         andar12.atendimentos += Number(item.filter(setor => setor.name ==='andar_12')[0].atendidos)
         andar12.pendencias += Number(item.filter(setor => setor.name ==='andar_12')[0].pendencias)
 
+
+        dataPie[0].value += item.reduce((sum, obj) =>{
+          return sum + Number(obj.atendidos)
+        },0)
         
-        pendenciasPie = item.reduce((sum, obj) =>{
+        dataPie[1].value += item.reduce((sum, obj) =>{
           return sum + Number(obj.pendencias)
         },0)
 
-        atendimentosPie = item.reduce((sum, obj) =>{
-          return sum + Number(obj.atendidos)
-        },0)
-
-        console.log(item)
   
       })
-      setChartDataPeriod([ utiNeo, utiPed, uti1, uti2, uti3, uti4, posto2, andar4, andar5, andar6, andar7, andar8, andar9, andar12]) 
-      setPieChartData({'atendimentos':atendimentosPie, 'pendencias':pendenciasPie})
+      setChartDataPeriod([ utiNeo, utiPed, uti1, uti2, uti3, uti4, posto2, andar4, andar5, andar6, andar7, andar8, andar9, andar10, andar12]) 
+      setPieChartData(dataPie)
     
   },[data, selectedPeriod])
 
@@ -211,8 +221,18 @@ function Home() {
       var andar10 = {name:'Andar 10', atendimentos:0, pendencias:0}
       var andar12 = {name:'Andar 12', atendimentos:0, pendencias:0}
 
-      var pendenciasPie
-      var atendimentosPie
+      var dataPie = [
+        {
+          name: "Atendimentos",
+          value: 0,
+          fill: colors.verdeagua,
+        },
+        {
+          name: "Pendências",
+          value: 0,
+          fill: colors.pink,
+        },
+      ];
 
       listData.map(item=>{
         utiNeo.atendimentos += Number(item.filter(setor => setor.name ==='uti_neo')[0].atendidos)
@@ -227,8 +247,8 @@ function Home() {
         uti2.atendimentos += Number(item.filter(setor => setor.name ==='uti_2')[0].atendidos)
         uti2.pendencias += Number(item.filter(setor => setor.name ==='uti_2')[0].pendencias)
 
-        uti3.atendimentos += Number(item.filter(setor => setor.name ==='uti_4')[0].atendidos)
-        uti3.pendencias += Number(item.filter(setor => setor.name ==='uti_4')[0].pendencias)
+        uti3.atendimentos += Number(item.filter(setor => setor.name ==='uti_3')[0].atendidos)
+        uti3.pendencias += Number(item.filter(setor => setor.name ==='uti_3')[0].pendencias)
 
         uti4.atendimentos += Number(item.filter(setor => setor.name ==='uti_4')[0].atendidos)
         uti4.pendencias += Number(item.filter(setor => setor.name ==='uti_4')[0].pendencias)
@@ -260,20 +280,21 @@ function Home() {
         andar12.atendimentos += Number(item.filter(setor => setor.name ==='andar_12')[0].atendidos)
         andar12.pendencias += Number(item.filter(setor => setor.name ==='andar_12')[0].pendencias)
 
-        pendenciasPie = item.reduce((sum, obj) =>{
-          return sum + Number(obj.pendencias)
-        },0)
 
-        atendimentosPie = item.reduce((sum, obj) =>{
+        dataPie[0].value += item.reduce((sum, obj) =>{
           return sum + Number(obj.atendidos)
+        },0)
+        
+        dataPie[1].value += item.reduce((sum, obj) =>{
+          return sum + Number(obj.pendencias)
         },0)
   
       })
-      setChartDataPeriod2([ utiNeo, utiPed, uti1, uti2, uti3, uti4, posto2, andar4, andar5, andar6, andar7, andar8, andar9, andar12]) 
-      setPieChartData2({'atendimentos':atendimentosPie, 'pendencias':pendenciasPie})
+      setChartDataPeriod2([utiNeo, utiPed, uti1, uti2, uti3, uti4, posto2, andar4, andar5, andar6, andar7, andar8, andar9, andar10, andar12]) 
+      setPieChartData2(dataPie)
     
   },[data, selectedPeriod2])
-  console.log(selectedPeriod)
+
   return (
     <Container>
       <h2>Demanda por período</h2>
@@ -289,66 +310,59 @@ function Home() {
         </ul>
       </div>
       <div id='chart'>
-       
-          
         <select name="period" id="periodSelect" onChange={(e)=>setSelectedPeriod(e.target.value)}>
           {
             periodOptions && periodOptions.map(item=><option value={item.value}>{item.label}</option>)
           }
         </select>
     
-          <div className='totais'>
-            <p><span style={{backgroundColor:colors.verdeagua, color:'white'}}>Atendimentos: </span><span>{selectedPeriod ==='2020-10-30'?'202':selectedPeriod ==='2020-11-30'?'227':selectedPeriod ==='2020-12-31'?'186':selectedPeriod ==='2021-01-29'?'231':selectedPeriod ==='2021-02-01'?'211':selectedPeriod ==='2021-03-01'?'31':''} </span></p>
-            <p><span style={{backgroundColor:colors.pink, color:'white'}}>Pendências: </span><span> {selectedPeriod ==='2020-10-30'?'2':selectedPeriod ==='2020-11-30'?'62':selectedPeriod ==='2020-12-31'?'81':selectedPeriod ==='2021-01-29'?'27':selectedPeriod ==='2021-02-01'?'14':selectedPeriod ==='2021-03-01'?'05':''}</span></p>
-          </div>   
-           
-     
-        <ResponsiveContainer width='100%' height='80%'>
-          <BarChart margin={{top:20, right:20}} width={600} height={300} data={chartDataPeriod}>
-            <CartesianGrid />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Bar barSize={40}  type="monotone" dataKey="atendimentos" stackId='a' fill={colors.verdeagua} >
-              <LabelList dataKey="atendimentos" position="right" style={{ fill: colors.verdeagua }}/>
-            </Bar>
-            <Bar barSize={40}  type="monotone" dataKey="pendencias" stackId='a' fill={colors.pink} >
-            <LabelList dataKey="pendencias" position="top" style={{ fill: colors.pink }}/>
-            </Bar>
-            <Legend />
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
+        <div className='charts'>
+          <PieChartComponent className='pie' data={pieChartData}/>
 
-      <div id='chart2'>
-      
-          
-            <select name="period" id="periodSelect" onChange={(e)=>setSelectedPeriod2(e.target.value)}>
-              {
-                periodOptions2 && periodOptions2.map(item=><option value={item.value}>{item.label}</option>)
-              }
-            </select>
-       
-            <div className='totais'>
-            <p><span style={{backgroundColor:colors.verdeagua, color:'white'}}>Atendimentos: </span><span>{selectedPeriod2 ==='2020-10-30'?'202':selectedPeriod2 ==='2020-11-30'?'227':selectedPeriod2 ==='2020-12-31'?'186':selectedPeriod2 ==='2021-01-29'?'231':selectedPeriod2 ==='2021-02-01'?'211':selectedPeriod2 ==='2021-03-01'?'31':''} </span></p>
-            <p><span style={{backgroundColor:colors.pink, color:'white'}}>Pendências: </span><span> {selectedPeriod2 ==='2020-10-30'?'2':selectedPeriod2 ==='2020-11-30'?'62':selectedPeriod2 ==='2020-12-31'?'81':selectedPeriod2 ==='2021-01-29'?'27':selectedPeriod2 ==='2021-02-01'?'14':selectedPeriod2 ==='2021-03-01'?'05':''}</span></p>
-          </div>  
-     
-          <ResponsiveContainer width='100%' height='80%'>
-            <BarChart margin={{top:20, right:20}} width={600} height={300} data={chartDataPeriod2}>
+          <ResponsiveContainer className='bar' width='100%' height='100%'>
+            <BarChart margin={{top:20, right:20}} width={600} height={300} data={chartDataPeriod}>
               <CartesianGrid />
-              <XAxis dataKey="name" />
+              <XAxis style={{fontSize:'12px'}} dataKey="name" />
               <YAxis />
               <Tooltip />
-              <Bar barSize={40}  type="monotone" dataKey="atendimentos" stackId='a' fill={colors.verdeagua} >
+              <Bar barSize={25}  type="monotone" dataKey="atendimentos" stackId='a' fill={colors.verdeagua} >
                 <LabelList dataKey="atendimentos" position="right" style={{ fill: colors.verdeagua }}/>
               </Bar>
-              <Bar barSize={40}  type="monotone" dataKey="pendencias" stackId='a' fill={colors.pink} >
+              <Bar barSize={25}  type="monotone" dataKey="pendencias" stackId='a' fill={colors.pink} >
               <LabelList dataKey="pendencias" position="top" style={{ fill: colors.pink }}/>
               </Bar>
               <Legend />
             </BarChart>
           </ResponsiveContainer>
+        </div>
+      </div>
+
+      <div id='chart2'>
+        <select name="period" id="periodSelect" onChange={(e)=>setSelectedPeriod2(e.target.value)}>
+          {
+            periodOptions2 && periodOptions2.map(item=><option value={item.value}>{item.label}</option>)
+          }
+        </select>
+       
+        <div className='charts'>
+          <PieChartComponent className='pie' data={pieChartData2}/> 
+      
+          <ResponsiveContainer className='bar' width='100%' height='100%'>
+            <BarChart margin={{top:20, right:20}} width={600} height={300} data={chartDataPeriod2}>
+              <CartesianGrid />
+              <XAxis style={{fontSize:'12px'}} dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Bar barSize={25}  type="monotone" dataKey="atendimentos" stackId='a' fill={colors.verdeagua} >
+                <LabelList dataKey="atendimentos" position="right" style={{ fill: colors.verdeagua }}/>
+              </Bar>
+              <Bar barSize={25}  type="monotone" dataKey="pendencias" stackId='a' fill={colors.pink} >
+              <LabelList dataKey="pendencias" position="top" style={{ fill: colors.pink }}/>
+              </Bar>
+              <Legend />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
         
       </div>
     </Container>
