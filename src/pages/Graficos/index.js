@@ -5,6 +5,7 @@ import firebase from "../../context/firebase";
 import PieChartComponent from '../../components/PieChart/index.js'
 import { Container } from "./style.js";
 import { colors } from "../../constants/colors.js";
+import pdf from '../../assets/pdf.svg'
 import {
   BarChart,
   Bar,
@@ -298,6 +299,7 @@ function Home() {
   return (
     <Container>
       <h2>Demanda por período</h2>
+      <button id='pdfexport' onClick={()=>window.print()}> <img src={pdf}/> Exportar PDF</button>
       <div id='legenda'>
         <h6>COVID-19</h6>
         <ul>

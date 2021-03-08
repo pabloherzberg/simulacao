@@ -7,7 +7,7 @@ export const Container = styled.div`
   width:100vw;
   padding-bottom: 40px;
   grid-template-columns: 85px repeat(12, 1fr) 85px;
-  grid-template-rows: repeat(3, auto);
+  grid-template-rows: 80px repeat(3, auto);
 
   h2{
     grid-row:1/2;
@@ -15,10 +15,30 @@ export const Container = styled.div`
     color:${colors.verdeagua}
   }
 
+  #pdfexport{
+    grid-row:2/3;
+    grid-column:11/13;
+
+    width:100%;
+    height:60px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background-color:red;
+    border:none;
+    border-radius:8px;
+    color:white;
+    img{
+      object-fit:contain;
+      width:50%;
+      height:80%;
+    }
+  }
+
   #legenda{
-    grid-row:1/2;
-    grid-column:6/13;
-    padding:20px;
+    grid-row:2/3;
+    grid-column:2/8;
+   
     h6{
       background-color:red;
       color:white;
@@ -34,11 +54,22 @@ export const Container = styled.div`
   }
   
   #chart{
+   
         
-    grid-row:2/3;
+    grid-row:3/4;
     grid-column:2/13;
     height:300px;
     width:100%;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    select{
+      width:300px;
+      margin-top:40px;
+    }
 
     .charts{
       display:flex;
@@ -49,11 +80,20 @@ export const Container = styled.div`
 
   #chart2{
       
-    grid-row:3/4;
+    grid-row:4/5;
     grid-column:2/13;
     height:300px;
     width:100%;
     margin-top:40px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    select{
+      width:300px;
+    }
 
     .charts{
       display:flex;
