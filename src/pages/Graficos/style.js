@@ -52,12 +52,20 @@ export const Container = styled.div`
       border-bottom:1px solid red;
     }
   }
-  
-  #chart{
-   
-        
+
+  #export-zone{
     grid-row:3/4;
     grid-column:2/13;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    
+  }
+  
+  #chart1{
+   
     height:300px;
     width:100%;
 
@@ -79,12 +87,9 @@ export const Container = styled.div`
   }
 
   #chart2{
-      
-    grid-row:4/5;
-    grid-column:2/13;
     height:300px;
     width:100%;
-    margin-top:40px;
+    
 
     display:flex;
     flex-direction:column;

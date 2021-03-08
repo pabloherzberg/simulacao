@@ -5,6 +5,7 @@ import firebase from "../../context/firebase";
 import PieChartComponent from '../../components/PieChart/index.js'
 import { Container } from "./style.js";
 import { colors } from "../../constants/colors.js";
+import {useHistory} from 'react-router-dom'
 import pdf from '../../assets/pdf.svg'
 import {
   BarChart,
@@ -19,16 +20,20 @@ import {
 } from "recharts";
 
 function Home() {
+  
+  const history = useHistory()
 
   const [data, setData] = useState(false)
   const [chartDataPeriod, setChartDataPeriod] = useState()
   const [periodOptions, setPeriodOptions] = useState()
   const [selectedPeriod, setSelectedPeriod] = useState('2020-10-30')
   const [pieChartData, setPieChartData] = useState()
+  const [periodLabel, setPeriodLabel] = useState('')
 
   const [chartDataPeriod2, setChartDataPeriod2] = useState()
   const [periodOptions2, setPeriodOptions2] = useState()
   const [selectedPeriod2, setSelectedPeriod2] = useState('2020-10-30')
+  const [periodLabel2, setPeriodLabel2] = useState('')
   const [pieChartData2, setPieChartData2] = useState()
 
   useEffect(()=>{
@@ -296,22 +301,38 @@ function Home() {
   },[data, selectedPeriod2])
 
 
-/*   function printDiv(divName, divName2) {
+  function printDiv(divName) {
+    var selects = document.querySelectorAll('select')
+    selects.forEach(element=>{
+      element.style.display='none'
+    })
+    var titles = document.querySelectorAll('.period_name')
+    titles.forEach(title=>{
+      title.style.display='block'
+    })
     var printContents = document.getElementById(divName).innerHTML;
-  
-    var originalContents = document.body.innerHTML;
 
     document.body.innerHTML = printContents;
   
     window.print();
 
-    document.body.innerHTML = originalContents;
-} */
+    window.location.reload()
+  }
+
+  function getPeriodName(selected){
+    const monthNames = ["Janeiro (2 fonos)", "Fevereiro (2 fonos)", "Março (2 fonos)", "Abril (2 fonos)", "Maio (2 fonos)", "Junho (2 fonos)",
+        "Julho (2 fonos)", "Agosto (2 fonos)", "Setembro (2 fonos)", "Outubro (4 fonos)", "Novembro (2 fonos)", "Dezembro (2 fonos)"]
+
+      const month = monthNames[(new Date(selected)).getMonth()]
+      const year = (new Date(selected)).getFullYear()
+
+      return `${month} - ${year}`
+  }
 
   return (
     <Container>
       <h2>Demanda por período</h2>
-      <button id='pdfexport' onClick={()=>window.print()}> <img src={pdf}/> Exportar PDF</button>
+      <button id='pdfexport' onClick={()=>printDiv('export-zone')}> <img src={pdf}/> Exportar PDF</button>
       <div id='legenda'>
         <h6>COVID-19</h6>
         <ul>
@@ -323,42 +344,46 @@ function Home() {
           <li>Posto 2 (emergência)</li>
         </ul>
       </div>
-      <div id='chart'>
-        <select name="period" id="periodSelect" onChange={(e)=>setSelectedPeriod(e.target.value)}>
-          {
-            periodOptions && periodOptions.map(item=><option value={item.value}>{item.label}</option>)
-          }
-        </select>
-    
-        <div className='charts'>
-          <PieChartComponent className='pie' data={pieChartData}/>
+      <div id='export-zone'>
+        <div id='chart1'>
+          <select name="period" id="periodSelect" onChange={(e)=>setSelectedPeriod(e.target.value)}>
+            {
+              periodOptions && periodOptions.map(item=><option value={item.value}>{item.label}</option>)
+            }
+          </select>
+          <h5 className='period_name' style={{display:'none'}}>{getPeriodName(selectedPeriod)}</h5>
+      
+          <div style={{display:'flex'}} className='charts'>
+            <PieChartComponent className='pie' data={pieChartData}/>
 
-          <ResponsiveContainer className='bar' width='100%' height='100%'>
-            <BarChart margin={{top:20, right:20}} width={600} height={300} data={chartDataPeriod}>
-              <CartesianGrid />
-              <XAxis style={{fontSize:'12px'}} dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Bar barSize={25}  type="monotone" dataKey="atendimentos" stackId='a' fill={colors.verdeagua} >
-                <LabelList dataKey="atendimentos" position="right" style={{ fill: colors.verdeagua }}/>
-              </Bar>
-              <Bar barSize={25}  type="monotone" dataKey="pendencias" stackId='a' fill={colors.pink} >
-              <LabelList dataKey="pendencias" position="top" style={{ fill: colors.pink }}/>
-              </Bar>
-              <Legend />
-            </BarChart>
-          </ResponsiveContainer>
+            <ResponsiveContainer className='bar' width='100%' height='100%'>
+              <BarChart margin={{top:20, right:20}} width={600} height={300} data={chartDataPeriod}>
+                <CartesianGrid />
+                <XAxis style={{fontSize:'12px'}} dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Bar barSize={25}  type="monotone" dataKey="atendimentos" stackId='a' fill={colors.verdeagua} >
+                  <LabelList dataKey="atendimentos" position="right" style={{ fill: colors.verdeagua }}/>
+                </Bar>
+                <Bar barSize={25}  type="monotone" dataKey="pendencias" stackId='a' fill={colors.pink} >
+                <LabelList dataKey="pendencias" position="top" style={{ fill: colors.pink }}/>
+                </Bar>
+                <Legend />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
         </div>
-      </div>
 
-      <div id='chart2'>
+        <div id='chart2'>
         <select name="period" id="periodSelect" onChange={(e)=>setSelectedPeriod2(e.target.value)}>
           {
-            periodOptions2 && periodOptions2.map(item=><option value={item.value}>{item.label}</option>)
+            periodOptions2 && periodOptions2.map(item=><option name={item.label} value={item.value} >{item.label}</option>)
           }
         </select>
+
+        <h5 className='period_name' style={{display:'none'}}>{getPeriodName(selectedPeriod2)}</h5>
        
-        <div className='charts'>
+        <div style={{display:'flex'}} className='charts'>
           <PieChartComponent className='pie' data={pieChartData2}/> 
       
           <ResponsiveContainer className='bar' width='100%' height='100%'>
@@ -378,6 +403,7 @@ function Home() {
           </ResponsiveContainer>
         </div>
         
+      </div>
       </div>
     </Container>
   );
