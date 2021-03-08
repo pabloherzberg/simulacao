@@ -71,7 +71,6 @@ function Home() {
     }
   },[data])
 
-
   useEffect(()=>{
     let listData = []
    
@@ -295,6 +294,19 @@ function Home() {
       setPieChartData2(dataPie)
     
   },[data, selectedPeriod2])
+
+
+/*   function printDiv(divName, divName2) {
+    var printContents = document.getElementById(divName).innerHTML;
+  
+    var originalContents = document.body.innerHTML;
+
+    document.body.innerHTML = printContents;
+  
+    window.print();
+
+    document.body.innerHTML = originalContents;
+} */
 
   return (
     <Container>
