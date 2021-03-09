@@ -360,13 +360,13 @@ function Home() {
             <ResponsiveContainer className='bar' width='100%' height='100%'>
               <BarChart margin={{top:20, right:20}} data={chartDataPeriod}>
                 <CartesianGrid />
-                <XAxis style={{fontSize:'8px', color:'black'}} dataKey="name" />
+                <XAxis interval={0} tick={{fill:'black'}} style={{fontSize:'12px'}} dataKey="name" />
                 <YAxis />
                 <Tooltip />
-                <Bar barSize={15}  type="monotone" dataKey="atendimentos" stackId='a' fill={colors.verdeagua} >
+                <Bar barSize={25}  type="monotone" dataKey="atendimentos" stackId='a' fill={colors.verdeagua} >
                   <LabelList dataKey="atendimentos" position="right" style={{ fill: colors.verdeagua }}/>
                 </Bar>
-                <Bar barSize={15}  type="monotone" dataKey="pendencias" stackId='a' fill={colors.pink} >
+                <Bar barSize={25}  type="monotone" dataKey="pendencias" stackId='a' fill={colors.pink} >
                 <LabelList dataKey="pendencias" position="top" style={{ fill: colors.pink }}/>
                 </Bar>
                 <Legend />
@@ -390,14 +390,14 @@ function Home() {
           <ResponsiveContainer className='bar' width='100%' height='100%'>
             <BarChart margin={{top:20, right:20}} width={600} height={300} data={chartDataPeriod2}>
               <CartesianGrid />
-              <XAxis style={{fontSize:'12px'}} dataKey="name" />
+              <XAxis interval={0} tick={{fill:'black'}} style={{fontSize:'12px'}} dataKey="name" />
               <YAxis />
               <Tooltip />
               <Bar barSize={25}  type="monotone" dataKey="atendimentos" stackId='a' fill={colors.verdeagua} >
                 <LabelList dataKey="atendimentos" position="right" style={{ fill: colors.verdeagua }}/>
               </Bar>
               <Bar barSize={25}  type="monotone" dataKey="pendencias" stackId='a' fill={colors.pink} >
-              <LabelList dataKey="pendencias" position="top" style={{ fill: colors.pink }}/>
+                <LabelList dataKey="pendencias" position="top" style={{ fill: colors.pink }}/>
               </Bar>
               <Legend />
             </BarChart>
