@@ -109,7 +109,7 @@ function PieComponent({data}) {
   return (
     <ResponsiveContainer width='20%' height='100%'>
         <PieChart>
-          <text x={60} y={20} fill="gray"  dominantBaseline="central">
+          <text x={60} y={20} fill="black"  dominantBaseline="central">
             Totais
           </text>
             <Pie

@@ -339,9 +339,10 @@ function Home() {
           <li>UTI 1</li>
           <li>UTI 2</li>
           <li>UTI 3</li>
+          <li>UTI 4</li>
           <li>Andar 10</li>
           <li>Andar 12</li>
-          <li>Posto 2 (emergência)</li>
+          <li>Posto 2 (UTI 5)</li>
         </ul>
       </div>
       <div id='export-zone'>
@@ -357,15 +358,15 @@ function Home() {
             <PieChartComponent className='pie' data={pieChartData}/>
 
             <ResponsiveContainer className='bar' width='100%' height='100%'>
-              <BarChart margin={{top:20, right:20}} width={600} height={300} data={chartDataPeriod}>
+              <BarChart margin={{top:20, right:20}} data={chartDataPeriod}>
                 <CartesianGrid />
-                <XAxis style={{fontSize:'12px'}} dataKey="name" />
+                <XAxis style={{fontSize:'8px', color:'black'}} dataKey="name" />
                 <YAxis />
                 <Tooltip />
-                <Bar barSize={25}  type="monotone" dataKey="atendimentos" stackId='a' fill={colors.verdeagua} >
+                <Bar barSize={15}  type="monotone" dataKey="atendimentos" stackId='a' fill={colors.verdeagua} >
                   <LabelList dataKey="atendimentos" position="right" style={{ fill: colors.verdeagua }}/>
                 </Bar>
-                <Bar barSize={25}  type="monotone" dataKey="pendencias" stackId='a' fill={colors.pink} >
+                <Bar barSize={15}  type="monotone" dataKey="pendencias" stackId='a' fill={colors.pink} >
                 <LabelList dataKey="pendencias" position="top" style={{ fill: colors.pink }}/>
                 </Bar>
                 <Legend />

@@ -153,13 +153,6 @@ function Details({selected, selectKey, newPerson, length}) {
               <div><span>Último Atendimento:</span> <input onChange={handleChange} type="date" name="ultimo_atendimento" value={inputs.ultimo_atendimento} /></div>
             </li>
             
-
-            <li>
-              <div><span>Entrada:</span> <input onChange={handleChange} type="date" name="entrada" value={inputs.entrada} /></div>
-              <div><span>Saída:</span> <input onChange={handleChange} type="date" name="saida" value={inputs.saida} /></div>
-              <div><span>Tempo de Internação:</span> <input onChange={handleChange} type="text" name="tempo_internacao" value={inputs.tempo_internacao} /></div>
-            </li>
-            
           </ul>
           <div>
             <p> <span>Diagnóstico:</span> <input onChange={handleChange} type="text" name="diagnostico" value={inputs.diagnostico} /></p>

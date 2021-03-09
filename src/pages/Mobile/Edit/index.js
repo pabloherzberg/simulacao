@@ -201,10 +201,7 @@ function Edit() {
                 
               </select> 
             </li>
-            <li>
-              <span>Nº do prontuário:</span>
-              <input onChange={handleChange} type="text" name="prontuario_num" value={inputs.prontuario_num}/> 
-            </li>
+         
             <li>
               <span>Médico solicitante:</span>
               <input onChange={handleChange} type="text" name="med_solicitante" value={inputs.med_solicitante} />
@@ -228,18 +225,6 @@ function Edit() {
             <li>
               <span>Último Atendimento:</span>
               <input onChange={handleChange} type="date" name="ultimo_atendimento" value={inputs.ultimo_atendimento} />
-            </li>
-            <li>
-              <span>Entrada:</span>
-              <input onChange={handleChange} type="date" name="entrada" value={inputs.entrada} />
-            </li>
-            <li>
-              <span>Saída:</span>
-              <input onChange={handleChange} type="date" name="saida" value={inputs.saida} />
-            </li>              
-            <li>
-              <span>Tempo de Internação:</span>
-              <input onChange={handleChange} type="text" name="tempo_internacao" value={inputs.tempo_internacao} />
             </li>
             <li>
               <span>Diagnóstico:</span>
@@ -291,7 +276,7 @@ function Edit() {
                 <option value="TQT plástica com cuff insuflado">TQT plástica com cuff insuflado</option>
                 <option value="TQT plástica aberta com cuff desinsuflado">TQT plástica aberta com cuff desinsuflado</option>
                 <option value="TQT plástica tamponada">TQT plástica tamponada</option>
-                <option value="TQT metática aberta">TQT metática aberta</option>
+                <option value="TQT metálica aberta">TQT metálica aberta</option>
                 <option value="TQT metálica tamponada">TQT metálica tamponada</option> 
                 <optgroup label='Selecionado'>
                   <option id='edit' value={inputs.respiracao}>{inputs.respiracao}</option>    
