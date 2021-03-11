@@ -127,6 +127,7 @@ function PieComponent({data}) {
                 <Cell entry={entry} key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
               ))}
             </Pie>
+            <Legend/>
         </PieChart>
     </ResponsiveContainer>
   )
