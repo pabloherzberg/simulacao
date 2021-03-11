@@ -22,14 +22,14 @@ function Details() {
         if (fileObj) {
           const image = URL.createObjectURL(fileObj);
           setImage(image);
-          //setImageFullData(fileObj);
-          uploadImg(fileObj)
+          setImageFullData(fileObj);
+          //uploadImg(fileObj)
         } else {
           console.log("Imagem não carregada");
         }
     }
-    async function uploadImg(fileObj) {
-        //e.preventDefault();
+    async function uploadImg(e) {
+        e.preventDefault();
         setLoading(true)
         
         const current = new Date().getTime()
@@ -42,7 +42,7 @@ function Details() {
         firebase
           .storage()
           .ref(`pacientes/${index}/${current}`)
-          .put(fileObj)
+          .put(imageFullData)
           .then(() => {
             setLoading(false)
             alert("Novo prontuário salvo com sucesso!")
@@ -101,7 +101,7 @@ function Details() {
               <span>Abrir Câmera</span>
             </label>
             <input id='upload-photo' onChange={fileHandler} name='captureImg' type="file" accept='image/*' capture='camera'/>
-            {/* <input id='submit' style={{opacity:image?'1':'0.5'}} disabled={image?false:true} type="submit" value="Fazer upload da foto"/> */}
+            <input id='submit' style={{opacity:image?'1':'0.5'}} disabled={image?false:true} type="submit" value="Fazer upload da foto"/>
         </form>
       </section>
       </Container>
