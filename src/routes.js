@@ -21,7 +21,7 @@ import Atendimentos from './pages/Mobile/Atendimentos'
 
 function Routes() {
   const user = JSON.parse(localStorage.getItem("userFono"));
-
+  
   return (
     <BrowserRouter>
       <Switch>
