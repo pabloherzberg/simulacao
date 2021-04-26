@@ -37,13 +37,6 @@ function Home() {
   const [pieChartData2, setPieChartData2] = useState()
 
   useEffect(()=>{
-    const user = JSON.parse(localStorage.getItem("userFono"))||'nada';
-    if(user.email !== ' m.agalhaes@hotmail.com ' || user.email !== ' bobalhao@bobalhao.com '){
-      history.push('/')
-    }
-  },[history])
-
-  useEffect(()=>{
     firebase
       .database()
       .ref(`atendimentos/`)
